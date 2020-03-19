@@ -36,3 +36,7 @@
     transform: rotate(360deg);
   }
 }
+
+.RotatedBrick {
+  transform: rotate(90deg);
+}
