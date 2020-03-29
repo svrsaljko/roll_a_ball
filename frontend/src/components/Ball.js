@@ -1,5 +1,5 @@
 import React from 'react';
-import ball from './images/ball.png';
+import ball from '../images/ball.png';
 const BALL_SIZE = 20;
 
 export default function Ball(props) {

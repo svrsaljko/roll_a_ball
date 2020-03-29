@@ -1,25 +1,33 @@
 import React, { Component } from 'react';
 import Square from './Square';
+import Walls from './Walls';
+import Hole from './Hole';
 import { isMobile } from 'react-device-detect';
 import Ball from './Ball';
-import Background from './images/background.png';
-import BrickDark from './images/brickdark.png';
+import Background from '../images/background.png';
+import BrickDark from '../images/brickdark.png';
+import { connect } from 'react-redux';
+import {
+  MAX_ROW_BRICKS,
+  MAX_COLUMN_BRICKS,
+  BRICK_WIDTH,
+  BRICK_HEIGHT,
+  BOARD_WIDTH,
+  BOARD_HEIGHT,
+  SQUARE_SIZE,
+  BALL_SIZE,
+  SENSITIVITY,
+  SPEED_SENSITIVITY_FACTOR1,
+  SPEED_SENSITIVITY_FACTOR2,
+  SPEED_SENSITIVITY_FACTOR_BORDER,
+  NUMBER_OF_SQUARES,
+  NUMBER_OF_ROWS,
+  NUMBER_OF_COLUMNS,
+  FIELD_WIDTH,
+  FIELD_HEIGHT
+} from './Constants';
 
-const MAX_ROW_BRICKS = 9;
-const MAX_COLUMN_BRICKS = 14;
-const BRICK_WIDTH = 40;
-const BRICK_HEIGHT = 20;
-const BOARD_WIDTH = 360;
-const BOARD_HEIGHT = 600;
-const SQUARE_SIZE = 30;
-const BALL_SIZE = 20;
-const SENSITIVITY = 0.0;
-const SPEED_SENSITIVITY_FACTOR1 = 1 / 3;
-const SPEED_SENSITIVITY_FACTOR2 = 3 / 4;
-const SPEED_SENSITIVITY_FACTOR_BORDER = 1 / 5;
-const NUMBER_OF_SQUARES = 3;
-
-export class Game extends Component {
+class Game extends Component {
   state = {
     // gameWidth: GAME_WIDTH,
     // gameHeight: GAME_HEIGHT,
@@ -37,19 +45,35 @@ export class Game extends Component {
 
   moveLeft() {
     let { x, positionX } = this.state;
-    if (x > SENSITIVITY && positionX > BRICK_HEIGHT) {
+    if (
+      x > SENSITIVITY &&
+      positionX > BRICK_HEIGHT
+      // &&
+      // this.wallsDetection('left')
+    ) {
       this.setState({ positionX: positionX - x / 3 });
     }
   }
   moveRight() {
     let { x, positionX } = this.state;
-    if (x < SENSITIVITY && positionX < BOARD_WIDTH - BALL_SIZE - BRICK_HEIGHT) {
+    if (
+      x < SENSITIVITY &&
+      positionX < BOARD_WIDTH - BALL_SIZE - BRICK_HEIGHT
+      //  &&
+      // this.wallsDetection('right')
+    ) {
       this.setState({ positionX: positionX - x / 3 });
     }
   }
   moveUp() {
     let { y, positionY } = this.state;
-    if (y < SENSITIVITY && positionY > BRICK_HEIGHT) {
+
+    if (
+      y < SENSITIVITY &&
+      positionY > BRICK_HEIGHT
+      // &&
+      // this.wallsDetection('up')
+    ) {
       this.setState({ positionY: positionY + y / 3 });
     }
   }
@@ -58,6 +82,7 @@ export class Game extends Component {
     if (
       y > SENSITIVITY &&
       positionY < BOARD_HEIGHT - BALL_SIZE - BRICK_HEIGHT
+      //  && this.wallsDetection('down')
     ) {
       this.setState({ positionY: positionY + y / 3 });
     }
@@ -75,90 +100,8 @@ export class Game extends Component {
   // };
 
   componentDidMount() {
-    let bricks = [];
-    let wallCoordinates = [];
+    // this.initializeBricks();
 
-    for (let j = 0; j < 2; j++) {
-      for (let i = 0; i < MAX_ROW_BRICKS; i++) {
-        let initialTop;
-        if (j === 0) {
-          initialTop = 0;
-        } else if (j === 1) {
-          initialTop = BOARD_HEIGHT - BRICK_HEIGHT;
-          console.log(initialTop);
-        }
-        let initialLeft = i * BRICK_WIDTH;
-
-        bricks.push(
-          <img
-            style={{
-              width: `${BRICK_WIDTH}px`,
-              height: `${BRICK_HEIGHT}px`,
-
-              position: 'absolute',
-              left: `${initialLeft}px`,
-              top: `${initialTop}px`
-            }}
-            src={BrickDark}
-            alt="brickDarkImg"
-          />
-        );
-
-        // if (i === 0) {
-        //   let right = initialLeft + MAX_ROW_BRICKS * BRICK_WIDTH;
-        //   let bottom = initialTop + BRICK_HEIGHT;
-        //   wallCoordinates.push({
-        //     top: initialTop,
-        //     left: initialLeft,
-        //     right,
-        //     bottom
-        //   });
-        // }
-      }
-    }
-
-    for (let j = 0; j < 2; j++) {
-      for (let i = 0; i < MAX_COLUMN_BRICKS; i++) {
-        let initialTop = BRICK_WIDTH / 2 + BRICK_HEIGHT / 2 + i * BRICK_WIDTH;
-        let initialLeft;
-        if (j === 0) {
-          initialLeft = -BRICK_HEIGHT / 2;
-        } else if (j === 1) {
-          initialLeft = BOARD_WIDTH - BRICK_HEIGHT - BRICK_HEIGHT / 2;
-          console.log(initialTop);
-        }
-
-        bricks.push(
-          <img
-            className="RotatedBrick"
-            style={{
-              width: `${BRICK_WIDTH}px`,
-              height: `${BRICK_HEIGHT}px`,
-
-              position: 'absolute',
-              left: `${initialLeft}px`,
-              top: `${initialTop}px`
-            }}
-            src={BrickDark}
-            alt="brickDarkImg"
-          />
-        );
-
-        // if (i === 0) {
-        //   let right = initialLeft + MAX_ROW_BRICKS * BRICK_WIDTH;
-        //   let bottom = initialTop + BRICK_HEIGHT;
-        //   wallCoordinates.push({
-        //     top: initialTop,
-        //     left: initialLeft,
-        //     right,
-        //     bottom
-        //   });
-        // }
-      }
-    }
-
-    console.log('wall coords: ', wallCoordinates);
-    this.setState({ bricks });
     let squares = [];
 
     for (let i = 0; i < NUMBER_OF_SQUARES; i++) {
@@ -176,12 +119,11 @@ export class Game extends Component {
         collected: false
       });
     }
-    // console.log('squares: ', squares);
 
     this.setState({
       squaresInit: squares,
-      positionY: BOARD_HEIGHT / 2 - BALL_SIZE / 2,
-      positionX: BOARD_WIDTH / 2 - BALL_SIZE / 2
+      positionY: 2 * BRICK_HEIGHT,
+      positionX: 2 * BRICK_HEIGHT
     });
     let accelerometer;
     // this.setSquareCoordinates();
@@ -201,27 +143,57 @@ export class Game extends Component {
         this.moveDown();
         this.moveUp();
         this.collisionDetection();
+        // this.wallsDetection();
       }, 1000 / 60);
     }
   }
 
-  // bricksDetection() {
+  // wallsDetection(movingDirection) {
   //   let { wallCoordinates, positionY, positionX } = this.state;
   //   let topOfBall = positionY.toFixed(1);
+
   //   let bottomOfBall = (positionY + BALL_SIZE).toFixed(1);
   //   let leftSideOfBall = (positionX - BALL_SIZE / 2).toFixed(1);
   //   let rightSideOfBall = (positionX + BALL_SIZE / 2).toFixed(1);
+  //   // let ball = [topOfBall, bottomOfBall, leftSideOfBall, rightSideOfBall];
+  //   // for (let i = 0; i < wallCoordinates.length; i++) {
+  //   let {
+  //     leftSideOfWall,
+  //     rightSideOfWall,
+  //     topSideOfWall,
+  //     bottomSideOfWall
+  //   } = wallCoordinates[0];
 
-  //   for (let i = 0; i < wallCoordinates.length; i++) {
-  //     // console.log('brick: ' + wallCoordinates[i].bottom);
-  //     if (
-  //       topOfBall <= wallCoordinates[i].bottom &&
-  //       bottomOfBall >= wallCoordinates[i].top
-  //       // leftSideOfBall >= bricksCoordinates[i].left ||
-  //       // rightSideOfBall <= bricksCoordinates[i].right |
-  //     ) {
+  //   switch (movingDirection) {
+  //     case 'up':
+  //       if (topOfBall <= bottomSideOfWall || bottomOfBall >= topSideOfWall) {
+  //         return true;
+  //       } else {
+  //         return false;
+  //       }
+  //     case 'down':
+  //       if (bottomOfBall >= topSideOfWall) {
+  //         return true;
+  //       } else {
+  //         return false;
+  //       }
+
+  //     case 'left':
+  //       if (leftSideOfBall <= rightSideOfWall) {
+  //         return true;
+  //       } else {
+  //         return false;
+  //       }
+
+  //     case 'right':
+  //       if (rightSideOfBall >= leftSideOfWall) {
+  //         return true;
+  //       } else {
+  //         return false;
+  //       }
+
+  //     default:
   //       return true;
-  //     } else return false;
   //   }
   // }
   collisionDetection() {
@@ -230,10 +202,6 @@ export class Game extends Component {
     let bottomOfBall = (positionY + BALL_SIZE).toFixed(1);
     let leftSideOfBall = (positionX - BALL_SIZE / 2).toFixed(1);
     let rightSideOfBall = (positionX + BALL_SIZE / 2).toFixed(1);
-    // console.log('topOfBall: ', topOfBall);
-    // console.log('bottomOfBall: ', bottomOfBall);
-    // console.log('leftSideOfBall: ', leftSideOfBall);
-    // console.log('rightSideOfBall: ', rightSideOfBall);
 
     for (let i = 0; i < squaresInit.length; i++) {
       if (squaresInit[i].collected !== true) {
@@ -262,8 +230,13 @@ export class Game extends Component {
     }
   }
   render() {
-    const { bricks, squaresInit, positionX, wallCoordinates } = this.state;
-
+    const {
+      bricks,
+      squaresInit,
+      positionX,
+      wallCoordinates,
+      fields
+    } = this.state;
     return (
       <div>
         <div
@@ -277,19 +250,19 @@ export class Game extends Component {
           }}
           className="board"
         >
-          {' '}
-          {squaresInit.map(square => {
+          {/* {squaresInit.map(square => {
             const { top, left, collected } = square;
 
             if (!collected) {
               return <Square key={top} top={top} left={left} />;
             } else return <div></div>;
-          })}
+          })} */}
           <Ball
             positionX={this.state.positionX}
             positionY={this.state.positionY}
           />
-          {bricks}
+          <Hole />
+          <Walls />
         </div>
         <div style={{ marginBottom: '1rem' }} className="score">
           Score : {this.state.score}
@@ -303,4 +276,10 @@ export class Game extends Component {
   }
 }
 
-export default Game;
+const mapStateToProps = state => {
+  return {
+    state
+  };
+};
+
+export default connect(mapStateToProps)(Game);
