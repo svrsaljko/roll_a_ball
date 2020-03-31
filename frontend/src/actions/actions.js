@@ -1,5 +1,5 @@
-import { SET_ALL_WALLS_COORDINATES } from './types';
+import { SET_ALL_FIELDS } from './types';
 
-export const setAllWallsCoordinates = wallsCoordinates => {
-  return { type: SET_ALL_WALLS_COORDINATES, wallsCoordinates };
+export const setAllFields = fields => {
+  return { type: SET_ALL_FIELDS, fields };
 };

@@ -6,6 +6,9 @@ import {
   FIELD_WIDTH,
   FIELD_HEIGHT
 } from './Constants';
+import Walls from './Walls';
+import { connect } from 'react-redux';
+import { setAllFields } from '../actions/actions';
 import BrickDark from '../images/brickdark.png';
 
 class Fields extends Component {
@@ -14,18 +17,53 @@ class Fields extends Component {
   componentDidMount() {
     let fields = [];
     let fieldId = 0;
+    let topWall = false;
+    let bottomWall = false;
+    let rightWall = false;
+    let leftWall = false;
     for (let i = 0; i < NUMBER_OF_ROWS; i++) {
       for (let j = 0; j < NUMBER_OF_COLUMNS; j++) {
+        if (i === 0) {
+          topWall = true;
+        }
+        if (i === NUMBER_OF_ROWS - 1) {
+          bottomWall = true;
+        }
+        if (j === 0) {
+          leftWall = true;
+        }
+        if (j === NUMBER_OF_COLUMNS - 1) {
+          rightWall = true;
+        }
+        //TEST
+        if (j === 4 && i === 4) {
+          bottomWall = true;
+        }
+
+        //
         fields.push({
-          top: `${BRICK_HEIGHT + FIELD_HEIGHT * i}`,
-          left: `${BRICK_HEIGHT + FIELD_WIDTH * j}`,
-          fieldId
+          top: FIELD_HEIGHT * i,
+          left: FIELD_WIDTH * j,
+          topWall,
+          bottomWall,
+          rightWall,
+          leftWall,
+          fieldId,
+          leftFieldId: j === 0 ? null : fieldId - 1,
+          rightFieldId: j === NUMBER_OF_COLUMNS - 1 ? null : fieldId + 1,
+          topFieldId: i === 0 ? null : fieldId - NUMBER_OF_COLUMNS,
+          bottomFieldId:
+            i === NUMBER_OF_ROWS - 1 ? null : fieldId + NUMBER_OF_COLUMNS
         });
         fieldId++;
+        topWall = false;
+        bottomWall = false;
+        rightWall = false;
+        leftWall = false;
       }
     }
 
-    console.log('fields: ', fields);
+    this.props.setAllFields(fields);
     this.setState({ fields });
   }
 
@@ -34,18 +72,25 @@ class Fields extends Component {
     return (
       <div>
         {fields.map(field => {
-          let { top, left } = field;
+          let { top, left, topWall, bottomWall, rightWall, leftWall } = field;
           return (
             <div
               style={{
+                border: '0.3px solid red',
                 width: `${FIELD_WIDTH}px`,
                 height: `${FIELD_HEIGHT}px`,
-                left: `${left}px`,
                 top: `${top}px`,
-                position: 'absolute',
-                border: '0.5px solid red'
+                left: `${left}px`,
+                position: 'absolute'
               }}
-            ></div>
+            >
+              <Walls
+                topWall={topWall}
+                bottomWall={bottomWall}
+                rightWall={rightWall}
+                leftWall={leftWall}
+              />
+            </div>
           );
         })}
       </div>

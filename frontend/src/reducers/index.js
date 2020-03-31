@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import wallsReducer from './wallsReducer';
+import fieldsReducer from './fieldsReducer';
 
 export default combineReducers({
-  wallsReducer
+  fieldsReducer
 });
