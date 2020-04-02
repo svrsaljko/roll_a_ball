@@ -54,6 +54,11 @@ class Board extends Component {
       !FIELDS[currentFieldId].bottomWall
     ) {
       this.moveLeftToLeftFieldBottomWall(x, positionX, currentFieldId, FIELDS);
+    } else if (
+      FIELDS[FIELDS[currentFieldId].leftFieldId].topWall &&
+      !FIELDS[currentFieldId].topWall
+    ) {
+      this.moveLeftToLeftFieldTopWall(x, positionX, currentFieldId, FIELDS);
     } else {
       this.moveLeftToNextField(x, positionX, currentFieldId, FIELDS);
     }
@@ -78,6 +83,11 @@ class Board extends Component {
         currentFieldId,
         FIELDS
       );
+    } else if (
+      FIELDS[FIELDS[currentFieldId].rightFieldId].topWall &&
+      !FIELDS[currentFieldId].topWall
+    ) {
+      this.moveRightToRightFieldTopWall(x, positionX, currentFieldId, FIELDS);
     } else {
       this.moveRightToNextField(x, positionX, currentFieldId, FIELDS);
     }
@@ -103,11 +113,51 @@ class Board extends Component {
         currentFieldId,
         FIELDS
       );
+    } else if (FIELDS[FIELDS[currentFieldId].bottomFieldId].topWall) {
+      this.moveDownToBottomFieldTopWall(y, positionY, currentFieldId, FIELDS);
     } else {
       this.moveDownToNextField(y, positionY, currentFieldId, FIELDS);
     }
   }
 
+  //TOP WALL
+
+  moveLeftToLeftFieldTopWall = (x, positionX, currentFieldId, FIELDS) => {
+    const { positionY } = this.state;
+
+    if (positionY < FIELDS[currentFieldId].top + BRICK_HEIGHT + BALL_SIZE) {
+      console.log('tu uuuu');
+      if (
+        x > SENSITIVITY &&
+        positionX > FIELDS[currentFieldId].left + BALL_SIZE
+      ) {
+        this.changePositionX(positionX, x);
+      }
+    } else this.moveLeftToNextField(x, positionX, currentFieldId, FIELDS);
+  };
+
+  moveRightToRightFieldTopWall = (x, positionX, currentFieldId, FIELDS) => {
+    const { positionY } = this.state;
+    if (positionY < FIELDS[currentFieldId].top + BRICK_HEIGHT + BALL_SIZE) {
+      if (
+        x < SENSITIVITY &&
+        positionX < FIELDS[FIELDS[currentFieldId].rightFieldId].left - BALL_SIZE
+      ) {
+        this.changePositionX(positionX, x);
+      }
+    } else this.moveRightToNextField(x, positionX, currentFieldId, FIELDS);
+  };
+
+  moveDownToBottomFieldTopWall = (y, positionY, currentFieldId, FIELDS) => {
+    if (
+      y > SENSITIVITY &&
+      positionY < FIELDS[currentFieldId].top + FIELD_HEIGHT - BALL_SIZE
+    ) {
+      this.changePositionY(positionY, y);
+    }
+  };
+
+  // BOTTOM WALL
   moveLeftToLeftFieldBottomWall = (x, positionX, currentFieldId, FIELDS) => {
     const { positionY } = this.state;
 
@@ -145,7 +195,7 @@ class Board extends Component {
     }
   };
 
-  //
+  // MOVE
   moveLeftToCurrentFieldLeftWall = (x, positionX, currentFieldId, FIELDS) => {
     if (
       x > SENSITIVITY &&
