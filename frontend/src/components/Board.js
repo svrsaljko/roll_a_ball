@@ -3,7 +3,6 @@ import Background from '../images/background.png';
 import Fields from './Fields';
 import Ball from './Ball';
 import { isMobile } from 'react-device-detect';
-import { connect } from 'react-redux';
 
 import {
   MAX_ROW_BRICKS,
@@ -34,10 +33,7 @@ class Board extends Component {
     z: 0,
     positionX: 0,
     positionY: 0,
-    topOfBall: 0,
-    bottomOfBall: 0,
-    rightOfBall: 0,
-    leftOfBall: 0,
+
     squaresInit: [],
     // squaresCoords: [],
     score: 0,
@@ -52,153 +48,210 @@ class Board extends Component {
     let { x, positionX, currentFieldId } = this.state;
     const { FIELDS } = this;
     if (FIELDS[currentFieldId].leftWall) {
-      if (
-        x > SENSITIVITY &&
-        positionX > FIELDS[currentFieldId].left + BRICK_HEIGHT + BALL_SIZE
-      ) {
-        this.setState({ positionX: positionX - x, leftOfBall: positionX - x });
-      }
+      this.moveLeftToCurrentFieldLeftWall(x, positionX, currentFieldId, FIELDS);
+    } else if (
+      FIELDS[FIELDS[currentFieldId].leftFieldId].bottomWall &&
+      !FIELDS[currentFieldId].bottomWall
+    ) {
+      this.moveLeftToLeftFieldBottomWall(x, positionX, currentFieldId, FIELDS);
     } else {
-      if (
-        x > SENSITIVITY &&
-        positionX > FIELDS[currentFieldId].left
-        // &&
-        // this.wallsDetection('left')
-      ) {
-        this.setState({ positionX: positionX - x, leftOfBall: positionX - x });
-      }
+      this.moveLeftToNextField(x, positionX, currentFieldId, FIELDS);
     }
   }
   moveRight() {
     let { x, positionX, currentFieldId } = this.state;
     const { FIELDS } = this;
     if (FIELDS[currentFieldId].rightWall) {
-      if (
-        x < SENSITIVITY &&
-        positionX <
-          FIELDS[currentFieldId].left + FIELD_WIDTH - BRICK_HEIGHT - BALL_SIZE
-        //  &&
-        // this.wallsDetection('right')
-      ) {
-        this.setState({
-          positionX: positionX - x,
-          rightOfBall: positionX - x + BALL_SIZE
-        });
-      }
+      this.moveRightToCurrentFieldRightWall(
+        x,
+        positionX,
+        currentFieldId,
+        FIELDS
+      );
+    } else if (
+      FIELDS[FIELDS[currentFieldId].rightFieldId].bottomWall &&
+      !FIELDS[currentFieldId].bottomWall
+    ) {
+      this.moveRightToRightFieldBottomWall(
+        x,
+        positionX,
+        currentFieldId,
+        FIELDS
+      );
     } else {
-      if (
-        x < SENSITIVITY &&
-        positionX < FIELDS[currentFieldId].left + FIELD_WIDTH
-        //  &&
-        // this.wallsDetection('right')
-      ) {
-        this.setState({
-          positionX: positionX - x,
-          rightOfBall: positionX - x + BALL_SIZE
-        });
-      }
+      this.moveRightToNextField(x, positionX, currentFieldId, FIELDS);
     }
   }
   moveUp() {
-    const { y, positionY, positionX, currentFieldId, topOfBall } = this.state;
+    const { y, positionY, currentFieldId } = this.state;
     const { FIELDS } = this;
     if (FIELDS[currentFieldId].topWall) {
-      if (
-        y < SENSITIVITY &&
-        positionY > FIELDS[currentFieldId].top + BRICK_HEIGHT + BALL_SIZE
-        // &&
-        // this.wallsDetection('up')
-      ) {
-        this.setState({
-          topOfBall: positionY + y,
-          positionY: positionY + y
-        });
-      }
+      this.moveUpToCurrentFieldTopWall(y, positionY, currentFieldId, FIELDS);
     } else if (FIELDS[FIELDS[currentFieldId].topFieldId].bottomWall) {
-      // console.log('ima bottom wall');
-      if (
-        y < SENSITIVITY &&
-        positionY > FIELDS[currentFieldId].top + BALL_SIZE / 2
-      ) {
-        this.setState({
-          positionY: positionY + y * 0.65,
-          topOfBall: positionY + y
-        });
-      }
+      this.moveUpToTopFieldBottomWall(y, positionY, currentFieldId, FIELDS);
     } else {
-      if (
-        y < SENSITIVITY &&
-        positionY > FIELDS[currentFieldId].top
-        // &&
-        // this.wallsDetection('up')
-      ) {
-        this.setState({
-          positionY: positionY + y,
-          topOfBall: positionY + y
-        });
-      }
+      this.moveUpToNextField(y, positionY, currentFieldId, FIELDS);
     }
   }
   moveDown() {
     let { y, positionY, currentFieldId } = this.state;
     const { FIELDS } = this;
     if (FIELDS[currentFieldId].bottomWall) {
-      if (
-        y > SENSITIVITY &&
-        positionY <
-          FIELDS[currentFieldId].top + FIELD_HEIGHT - BRICK_HEIGHT - BALL_SIZE
-      ) {
-        this.setState({
-          positionY: positionY + y,
-          bottomOfBall: positionY + y + BALL_SIZE
-        });
-      }
+      this.moveDownToCurrentFieldBottomWall(
+        y,
+        positionY,
+        currentFieldId,
+        FIELDS
+      );
     } else {
-      if (
-        y > SENSITIVITY &&
-        positionY < FIELDS[currentFieldId].top + FIELD_HEIGHT
-      ) {
-        this.setState({
-          positionY: positionY + y,
-          bottomOfBall: positionY + y + BALL_SIZE
-        });
-      }
+      this.moveDownToNextField(y, positionY, currentFieldId, FIELDS);
     }
   }
+
+  moveLeftToLeftFieldBottomWall = (x, positionX, currentFieldId, FIELDS) => {
+    const { positionY } = this.state;
+
+    if (
+      positionY >
+      FIELDS[currentFieldId].top + FIELD_HEIGHT - BRICK_HEIGHT - BALL_SIZE
+    ) {
+      if (
+        x > SENSITIVITY &&
+        positionX > FIELDS[currentFieldId].left + BALL_SIZE
+      ) {
+        this.changePositionX(positionX, x);
+      }
+    } else this.moveLeftToNextField(x, positionX, currentFieldId, FIELDS);
+  };
+
+  moveRightToRightFieldBottomWall = (x, positionX, currentFieldId, FIELDS) => {
+    const { positionY } = this.state;
+    if (
+      positionY >
+      FIELDS[currentFieldId].top + FIELD_HEIGHT - BRICK_HEIGHT - BALL_SIZE
+    ) {
+      if (
+        x < SENSITIVITY &&
+        positionX < FIELDS[FIELDS[currentFieldId].rightFieldId].left - BALL_SIZE
+      ) {
+        this.changePositionX(positionX, x);
+      }
+    } else this.moveRightToNextField(x, positionX, currentFieldId, FIELDS);
+  };
+
+  moveUpToTopFieldBottomWall = (y, positionY, currentFieldId, FIELDS) => {
+    if (y < SENSITIVITY && positionY > FIELDS[currentFieldId].top + BALL_SIZE) {
+      this.changePositionY(positionY, y);
+    }
+  };
+
+  //
+  moveLeftToCurrentFieldLeftWall = (x, positionX, currentFieldId, FIELDS) => {
+    if (
+      x > SENSITIVITY &&
+      positionX > FIELDS[currentFieldId].left + BRICK_HEIGHT + BALL_SIZE
+    ) {
+      this.changePositionX(positionX, x);
+    }
+  };
+
+  moveLeftToNextField = (x, positionX, currentFieldId, FIELDS) => {
+    if (x > SENSITIVITY && positionX > FIELDS[currentFieldId].left) {
+      this.changePositionX(positionX, x);
+    }
+  };
+
+  moveRightToNextField = (x, positionX, currentFieldId, FIELDS) => {
+    if (
+      x < SENSITIVITY &&
+      positionX < FIELDS[currentFieldId].left + FIELD_WIDTH
+    ) {
+      this.changePositionX(positionX, x);
+    }
+  };
+
+  moveRightToCurrentFieldRightWall = (x, positionX, currentFieldId, FIELDS) => {
+    if (
+      x < SENSITIVITY &&
+      positionX <
+        FIELDS[currentFieldId].left + FIELD_WIDTH - BRICK_HEIGHT - BALL_SIZE
+    ) {
+      this.changePositionX(positionX, x);
+    }
+  };
+
+  moveUpToNextField = (y, positionY, currentFieldId, FIELDS) => {
+    if (y < SENSITIVITY && positionY > FIELDS[currentFieldId].top) {
+      this.changePositionY(positionY, y);
+    }
+  };
+
+  moveUpToCurrentFieldTopWall = (y, positionY, currentFieldId, FIELDS) => {
+    if (
+      y < SENSITIVITY &&
+      positionY > FIELDS[currentFieldId].top + BRICK_HEIGHT + BALL_SIZE
+    ) {
+      this.changePositionY(positionY, y);
+    }
+  };
+
+  moveDownToNextField = (y, positionY, currentFieldId, FIELDS) => {
+    if (
+      y > SENSITIVITY &&
+      positionY < FIELDS[currentFieldId].top + FIELD_HEIGHT
+    ) {
+      this.changePositionY(positionY, y);
+    }
+  };
+
+  moveDownToCurrentFieldBottomWall = (y, positionY, currentFieldId, FIELDS) => {
+    if (
+      y > SENSITIVITY &&
+      positionY <
+        FIELDS[currentFieldId].top + FIELD_HEIGHT - BRICK_HEIGHT - BALL_SIZE
+    ) {
+      this.changePositionY(positionY, y);
+    }
+  };
+
+  changePositionX = (positionX, x) => {
+    this.setState({
+      positionX: positionX - x
+    });
+  };
+
+  changePositionY = (positionY, y) => {
+    this.setState({
+      positionY: positionY + y
+    });
+  };
 
   componentDidMount() {
     console.log('cdm', this.FIELDS);
     let squares = [];
 
-    for (let i = 0; i < NUMBER_OF_SQUARES; i++) {
-      let initialTop = Math.random() * (BOARD_HEIGHT - SQUARE_SIZE);
-      let initialLeft = Math.random() * (BOARD_WIDTH - SQUARE_SIZE);
-      let top = parseFloat(initialTop.toFixed(1));
-      let left = parseFloat(initialLeft.toFixed(1));
-      let bottom = parseFloat((initialTop + SQUARE_SIZE).toFixed(1));
-      let right = parseFloat((initialLeft + SQUARE_SIZE).toFixed(1));
-      squares.push({
-        top,
-        left,
-        bottom,
-        right,
-        collected: false
-      });
-    }
+    // for (let i = 0; i < NUMBER_OF_SQUARES; i++) {
+    //   let initialTop = Math.random() * (BOARD_HEIGHT - SQUARE_SIZE);
+    //   let initialLeft = Math.random() * (BOARD_WIDTH - SQUARE_SIZE);
+    //   let top = parseFloat(initialTop.toFixed(1));
+    //   let left = parseFloat(initialLeft.toFixed(1));
+    //   let bottom = parseFloat((initialTop + SQUARE_SIZE).toFixed(1));
+    //   let right = parseFloat((initialLeft + SQUARE_SIZE).toFixed(1));
+    //   squares.push({
+    //     top,
+    //     left,
+    //     bottom,
+    //     right,
+    //     collected: false
+    //   });
+    // }
     const positionY = 2 * BRICK_HEIGHT;
     const positionX = 2 * BRICK_HEIGHT;
-    const topOfBall = positionY;
-    const bottomOfBall = positionY + BALL_SIZE;
-    const rightOfBall = positionX + BALL_SIZE;
-    const leftOfBall = positionX;
+
     this.setState({
       squaresInit: squares,
       positionY,
-      positionX,
-      topOfBall,
-      bottomOfBall,
-      rightOfBall,
-      leftOfBall
+      positionX
     });
     let accelerometer;
     // this.setSquareCoordinates();
@@ -218,23 +271,12 @@ class Board extends Component {
         this.moveDown();
         this.moveUp();
         this.fieldDetector();
-        // this.collisionDetection();
-        // this.wallsDetection();
       }, 1000 / 60);
     }
   }
 
   fieldDetector() {
-    const {
-      positionX,
-      positionY,
-      topOfBall,
-      bottomOfBall,
-      leftOfBall,
-      rightOfBall,
-      x,
-      y
-    } = this.state;
+    const { positionX, positionY } = this.state;
     const { FIELDS } = this;
 
     for (let i = 0; i < FIELDS.length; i++) {
@@ -254,16 +296,8 @@ class Board extends Component {
   };
 
   render() {
-    const {
-      positionX,
-      positionY,
-      currentFieldId,
-      topOfBall,
-      bottomOfBall,
-      rightOfBall,
-      leftOfBall
-    } = this.state;
-    console.log('current field id: ', currentFieldId);
+    const { positionX, positionY } = this.state;
+    // console.log('current field id: ', currentFieldId);
     return (
       <div
         style={{
