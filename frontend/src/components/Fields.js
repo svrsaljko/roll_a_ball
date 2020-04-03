@@ -46,7 +46,7 @@ class Fields extends Component {
 
         if ((j === 4 || j === 5) && (i === 5 || i === 4 || i === 3)) {
           // topWall = true;
-          leftWall = true;
+          rightWall = true;
           // bottomWall = true;
         }
         if ((j === 3 || j === 4) && i === 5) {
