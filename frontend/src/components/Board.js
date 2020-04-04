@@ -49,6 +49,8 @@ class Board extends Component {
     const { FIELDS } = this;
     if (FIELDS[currentFieldId].leftWall) {
       this.moveLeftToCurrentFieldLeftWall(x, positionX, currentFieldId, FIELDS);
+    } else if (FIELDS[FIELDS[currentFieldId].leftFieldId].rightWall) {
+      this.moveLeftToLeftFieldRightWall(x, positionX, currentFieldId, FIELDS);
     } else if (
       FIELDS[FIELDS[currentFieldId].leftFieldId].bottomWall &&
       !FIELDS[currentFieldId].bottomWall &&
@@ -66,13 +68,16 @@ class Board extends Component {
       !FIELDS[currentFieldId].bottomWall
     ) {
       this.moveLeftToLeftFieldBottomWall(x, positionX, currentFieldId, FIELDS);
-    } else if (FIELDS[FIELDS[currentFieldId].leftFieldId].rightWall) {
-      this.moveLeftToLeftFieldRightWall(x, positionX, currentFieldId, FIELDS);
     } else if (
       FIELDS[FIELDS[currentFieldId].leftFieldId].topWall &&
       !FIELDS[currentFieldId].topWall
     ) {
       this.moveLeftToLeftFieldTopWall(x, positionX, currentFieldId, FIELDS);
+    } else if (
+      FIELDS[FIELDS[currentFieldId].leftFieldId].middleWall &&
+      !FIELDS[currentFieldId].middleWall
+    ) {
+      this.moveLeftToLeftFieldMiddleWall(x, positionX, currentFieldId, FIELDS);
     } else {
       this.moveLeftToNextField(x, positionX, currentFieldId, FIELDS);
     }
@@ -127,6 +132,8 @@ class Board extends Component {
       this.moveUpToCurrentFieldTopWall(y, positionY, currentFieldId, FIELDS);
     } else if (FIELDS[FIELDS[currentFieldId].topFieldId].bottomWall) {
       this.moveUpToTopFieldBottomWall(y, positionY, currentFieldId, FIELDS);
+    } else if (FIELDS[currentFieldId].middleWall) {
+      this.moveUpToCurrentFieldMiddleWall(y, positionY, currentFieldId, FIELDS);
     } else if (
       FIELDS[FIELDS[currentFieldId].topFieldId].leftWall &&
       !FIELDS[currentFieldId].leftWall
@@ -144,7 +151,14 @@ class Board extends Component {
   moveDown() {
     let { y, positionY, currentFieldId } = this.state;
     const { FIELDS } = this;
-    if (FIELDS[currentFieldId].bottomWall) {
+    if (FIELDS[currentFieldId].middleWall) {
+      this.moveDownToCurrentFieldMiddleWall(
+        y,
+        positionY,
+        currentFieldId,
+        FIELDS
+      );
+    } else if (FIELDS[currentFieldId].bottomWall) {
       this.moveDownToCurrentFieldBottomWall(
         y,
         positionY,
@@ -167,6 +181,63 @@ class Board extends Component {
       this.moveDownToNextField(y, positionY, currentFieldId, FIELDS);
     }
   }
+
+  //MIDDLE WALL
+
+  moveLeftToLeftFieldMiddleWall = (x, positionX, currentFieldId, FIELDS) => {
+    const { positionY } = this.state;
+
+    if (positionY > FIELDS[currentFieldId].top + BRICK_HEIGHT + BALL_SIZE) {
+      if (x > SENSITIVITY) {
+        this.moveLeftToNextField(x, positionX, currentFieldId, FIELDS);
+      }
+      if (
+        positionY <
+        FIELDS[currentFieldId].top + 2 * BRICK_HEIGHT + BALL_SIZE
+      ) {
+        if (x > SENSITIVITY) {
+          this.moveLeftToNextField(x, positionX, currentFieldId, FIELDS);
+        }
+      }
+    } else {
+      if (
+        x > SENSITIVITY &&
+        positionX > FIELDS[currentFieldId].left + BALL_SIZE
+      ) {
+        this.changePositionX(positionX, x);
+      }
+    }
+  };
+
+  moveDownToCurrentFieldMiddleWall = (y, positionY, currentFieldId, FIELDS) => {
+    if (
+      y > SENSITIVITY &&
+      positionY <
+        FIELDS[currentFieldId].top + FIELD_HEIGHT - 2 * BRICK_HEIGHT - BALL_SIZE
+    ) {
+      this.changePositionY(positionY, y);
+    } else if (
+      y > SENSITIVITY &&
+      positionY >
+        FIELDS[currentFieldId].top + FIELD_HEIGHT - BRICK_HEIGHT - BALL_SIZE
+    ) {
+      this.changePositionY(positionY, y);
+    }
+  };
+
+  moveUpToCurrentFieldMiddleWall = (y, positionY, currentFieldId, FIELDS) => {
+    if (
+      y < SENSITIVITY &&
+      positionY > FIELDS[currentFieldId].top + 2 * BRICK_HEIGHT + BALL_SIZE
+    ) {
+      this.changePositionY(positionY, y);
+    } else if (
+      y < SENSITIVITY &&
+      positionY < FIELDS[currentFieldId].top + BRICK_HEIGHT + BALL_SIZE
+    ) {
+      this.changePositionY(positionY, y);
+    }
+  };
 
   //RIGHT WALL
 
@@ -482,6 +553,7 @@ class Board extends Component {
         this.moveRight();
         this.moveDown();
         this.moveUp();
+
         this.fieldDetector();
       }, 1000 / 60);
     }

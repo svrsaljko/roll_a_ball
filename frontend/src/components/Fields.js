@@ -21,6 +21,7 @@ class Fields extends Component {
     let bottomWall = false;
     let rightWall = false;
     let leftWall = false;
+    let middleWall = false;
     for (let i = 0; i < NUMBER_OF_ROWS; i++) {
       for (let j = 0; j < NUMBER_OF_COLUMNS; j++) {
         if (i === 0) {
@@ -35,31 +36,57 @@ class Fields extends Component {
         if (j === NUMBER_OF_COLUMNS - 1) {
           rightWall = true;
         }
-        //TEST
-        if ((j === 4 || j === 5 || j === 6) && i === 4) {
-          // topWall = true;
-        }
-        if ((j === 4 || j === 5 || j === 6) && i === 4) {
-          // bottomWall = true;
-        }
-        //3
 
-        if ((j === 4 || j === 5) && (i === 5 || i === 4 || i === 3)) {
-          // topWall = true;
-          rightWall = true;
-          // bottomWall = true;
+        //TEST
+
+        if (j === 4 && i === 1) {
+          middleWall = true;
         }
-        if ((j === 3 || j === 4) && i === 5) {
-          // leftWall = true;
-        }
-        if ((i === 5) & (j === 6 || j === 7)) {
-          // // rightWall = true;
-        }
-        if (i === 4 && j === 7) {
-          // topWall = true;
-          // rightWall = true;
-          // bottomWall = true;
-        }
+
+        // if (i === 5 && j === 2) {
+        //   middleWall = true;
+        // }
+        // if ((i === 5 || i === 4 || i === 6) && j === 3) {
+        //   leftWall = true;
+        // }
+
+        // if (j === 2) {
+        //   if (i === 7) {
+        //     bottomWall = true;
+        //     leftWall = true;
+        //   }
+        //   if (i > 3 && i < 7 && i !== 5) {
+        //     leftWall = true;
+        //   }
+        //   if (i === 3) {
+        //     topWall = true;
+        //     leftWall = true;
+        //   }
+        // }
+        // if (j === 6) {
+        //   if (i === 7) {
+        //     bottomWall = true;
+        //     rightWall = true;
+        //   }
+        //   if (i > 3 && i < 7 && i !== 5) {
+        //     rightWall = true;
+        //   }
+        //   if (i === 3) {
+        //     topWall = true;
+        //     rightWall = true;
+        //   }
+        // }
+
+        // if (j === 3 || j === 5) {
+        //   if (i === 3) {
+        //     topWall = true;
+        //   }
+        //   if (i === 7) {
+        //     bottomWall = true;
+        //   }
+        // }
+
+        //
 
         //
         fields.push({
@@ -70,6 +97,7 @@ class Fields extends Component {
           rightWall,
           leftWall,
           fieldId,
+          middleWall,
           leftFieldId: j === 0 ? null : fieldId - 1,
           rightFieldId: j === NUMBER_OF_COLUMNS - 1 ? null : fieldId + 1,
           topFieldId: i === 0 ? null : fieldId - NUMBER_OF_COLUMNS,
@@ -81,6 +109,7 @@ class Fields extends Component {
         bottomWall = false;
         rightWall = false;
         leftWall = false;
+        middleWall = false;
       }
     }
 
@@ -93,7 +122,15 @@ class Fields extends Component {
     return (
       <div>
         {fields.map(field => {
-          let { top, left, topWall, bottomWall, rightWall, leftWall } = field;
+          let {
+            top,
+            left,
+            topWall,
+            bottomWall,
+            rightWall,
+            leftWall,
+            middleWall
+          } = field;
           return (
             <div
               style={{
@@ -106,6 +143,7 @@ class Fields extends Component {
               }}
             >
               <Walls
+                middleWall={middleWall}
                 topWall={topWall}
                 bottomWall={bottomWall}
                 rightWall={rightWall}
