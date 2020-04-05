@@ -125,7 +125,11 @@ class Board extends Component {
     const { FIELDS } = this;
     if (FIELDS[currentFieldId].topWall) {
       this.moveUpToCurrentFieldTopWall(y, positionY, currentFieldId, FIELDS);
-    } else if (FIELDS[FIELDS[currentFieldId].topFieldId].bottomWall) {
+    } else if (
+      FIELDS[FIELDS[currentFieldId].topFieldId].bottomWall ||
+      (FIELDS[FIELDS[currentFieldId].topFieldId].leftWall &&
+        FIELDS[FIELDS[currentFieldId].topFieldId].rightWall)
+    ) {
       this.moveUpToTopFieldBottomWall(y, positionY, currentFieldId, FIELDS);
     } else if (
       FIELDS[FIELDS[currentFieldId].topFieldId].leftWall &&
@@ -151,7 +155,11 @@ class Board extends Component {
         currentFieldId,
         FIELDS
       );
-    } else if (FIELDS[FIELDS[currentFieldId].bottomFieldId].topWall) {
+    } else if (
+      FIELDS[FIELDS[currentFieldId].bottomFieldId].topWall ||
+      (FIELDS[FIELDS[currentFieldId].bottomFieldId].leftWall &&
+        FIELDS[FIELDS[currentFieldId].bottomFieldId].rightWall)
+    ) {
       this.moveDownToBottomFieldTopWall(y, positionY, currentFieldId, FIELDS);
     } else if (
       FIELDS[FIELDS[currentFieldId].bottomFieldId].leftWall &&

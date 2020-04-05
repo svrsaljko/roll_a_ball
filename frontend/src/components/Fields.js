@@ -38,29 +38,29 @@ class Fields extends Component {
 
         //TEST
 
-        if (j === 4 || j === 3 || j === 5) {
-          if (i === 0) {
-            bottomWall = true;
-          }
-          if (i === 1 || i === 6) {
-            // topWall = true;
-          }
-          if (i === 2) {
-            topWall = true;
-            leftWall = true;
-          }
+        // if (j === 4 || j === 3 || j === 5) {
+        //   if (i === 0) {
+        //     bottomWall = true;
+        //   }
+        //   if (i === 1 || i === 6) {
+        //     // topWall = true;
+        //   }
+        //   if (i === 2) {
+        //     topWall = true;
+        //     leftWall = true;
+        //   }
 
-          if (i === 6) {
-            topWall = true;
-            bottomWall = true;
-          }
-          if (i === 4) {
-            rightWall = true;
-          }
-          if (i === 7) {
-            leftWall = true;
-          }
-        }
+        //   if (i === 6) {
+        //     topWall = true;
+        //     bottomWall = true;
+        //   }
+        //   if (i === 4) {
+        //     rightWall = true;
+        //   }
+        //   if (i === 7) {
+        //     leftWall = true;
+        //   }
+        // }
 
         // if (j === 3 && i === 1) {
         //   topWall = true;
@@ -72,41 +72,49 @@ class Fields extends Component {
         //   leftWall = true;
         // }
 
-        // if (j === 2) {
-        //   if (i === 7) {
-        //     bottomWall = true;
-        //     leftWall = true;
-        //   }
-        //   if (i > 3 && i < 7 && i !== 5) {
-        //     leftWall = true;
-        //   }
-        //   if (i === 3) {
-        //     topWall = true;
-        //     leftWall = true;
-        //   }
-        // }
-        // if (j === 6) {
-        //   if (i === 7) {
-        //     bottomWall = true;
-        //     rightWall = true;
-        //   }
-        //   if (i > 3 && i < 7 && i !== 5) {
-        //     rightWall = true;
-        //   }
-        //   if (i === 3) {
-        //     topWall = true;
-        //     rightWall = true;
-        //   }
-        // }
+        if (j === 2) {
+          if (i === 7) {
+            bottomWall = true;
+            leftWall = true;
+          }
+          if (i > 3 && i < 7 && i !== 5) {
+            leftWall = true;
+          }
+          if (i === 3) {
+            topWall = true;
+            leftWall = true;
+          }
+        }
+        if (j === 6) {
+          if (i === 7) {
+            bottomWall = true;
+            rightWall = true;
+          }
+          if (i > 3 && i < 7 && i !== 5) {
+            rightWall = true;
+          }
+          if (i === 3) {
+            topWall = true;
+            rightWall = true;
+          }
+        }
 
-        // if (j === 3 || j === 5) {
-        //   if (i === 3) {
-        //     topWall = true;
-        //   }
-        //   if (i === 7) {
-        //     bottomWall = true;
-        //   }
-        // }
+        if (j === 3 || j === 5) {
+          if (i === 3) {
+            topWall = true;
+          }
+          if (i === 7) {
+            bottomWall = true;
+          }
+        }
+        if ((i === 5 || i === 4 || i === 6) && j === 4) {
+          leftWall = true;
+          rightWall = true;
+        }
+        if (i === 5 && (j === 3 || j === 5)) {
+          leftWall = true;
+          rightWall = true;
+        }
 
         //
 

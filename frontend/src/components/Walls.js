@@ -16,6 +16,55 @@ class Walls extends Component {
     // console.log('this.props.', this.props.topWall);
   }
 
+  drawLeftAndRightWall = () => {
+    return (
+      <div style={{ position: 'relative' }}>
+        <img
+          style={{
+            position: 'absolute',
+            left: 0,
+            width: `${BRICK_HEIGHT}px`,
+            height: `${BRICK_WIDTH - 10}px`,
+          }}
+          src={RotatedBrickDark}
+          alt="brickDarkImg"
+        />
+        <img
+          style={{
+            position: 'absolute',
+            top: `${BRICK_WIDTH - 10}px`,
+            width: `${BRICK_HEIGHT}px`,
+            height: `${BRICK_WIDTH - 10}px`,
+          }}
+          src={RotatedBrickDark}
+          alt="brickDarkImg"
+        />
+
+        <img
+          style={{
+            position: 'absolute',
+            left: '20px',
+            width: `${BRICK_HEIGHT}px`,
+            height: `${BRICK_WIDTH - 10}px`,
+          }}
+          src={RotatedBrickDark}
+          alt="brickDarkImg"
+        />
+        <img
+          style={{
+            position: 'absolute',
+            left: '20px',
+            top: `${BRICK_WIDTH - 10}px`,
+            width: `${BRICK_HEIGHT}px`,
+            height: `${BRICK_WIDTH - 10}px`,
+          }}
+          src={RotatedBrickDark}
+          alt="brickDarkImg"
+        />
+      </div>
+    );
+  };
+
   drawTopAndBottomWall = () => {
     return (
       <div style={{ position: 'relative' }}>
@@ -254,6 +303,8 @@ class Walls extends Component {
       return <div>{this.drawTopAndRightWall()}</div>;
     } else if (topWall && bottomWall) {
       return <div> {this.drawTopAndBottomWall()} </div>;
+    } else if (leftWall && rightWall) {
+      return <div> {this.drawLeftAndRightWall()} </div>;
     } else if (topWall) {
       return <div> {this.drawTopWall()} </div>;
     } else if (bottomWall) {
