@@ -21,7 +21,6 @@ class Fields extends Component {
     let bottomWall = false;
     let rightWall = false;
     let leftWall = false;
-    let middleWall = false;
     for (let i = 0; i < NUMBER_OF_ROWS; i++) {
       for (let j = 0; j < NUMBER_OF_COLUMNS; j++) {
         if (i === 0) {
@@ -39,16 +38,35 @@ class Fields extends Component {
 
         //TEST
 
-        // if ((j === 4 || j === 3 || j == 5) && i === 1) {
-        // middleWall = true;
-        // }
-        if (j === 3 && i === 1) {
-          topWall = true;
-          middleWall = true;
+        if (j === 4 || j === 3 || j === 5) {
+          if (i === 0) {
+            bottomWall = true;
+          }
+          if (i === 1 || i === 6) {
+            // topWall = true;
+          }
+          if (i === 2) {
+            topWall = true;
+            leftWall = true;
+          }
+
+          if (i === 6) {
+            topWall = true;
+            bottomWall = true;
+          }
+          if (i === 4) {
+            rightWall = true;
+          }
+          if (i === 7) {
+            leftWall = true;
+          }
         }
 
+        // if (j === 3 && i === 1) {
+        //   topWall = true;
+        // }
+
         // if (i === 5 && j === 2) {
-        //   middleWall = true;
         // }
         // if ((i === 5 || i === 4 || i === 6) && j === 3) {
         //   leftWall = true;
@@ -101,7 +119,6 @@ class Fields extends Component {
           rightWall,
           leftWall,
           fieldId,
-          middleWall,
           leftFieldId: j === 0 ? null : fieldId - 1,
           rightFieldId: j === NUMBER_OF_COLUMNS - 1 ? null : fieldId + 1,
           topFieldId: i === 0 ? null : fieldId - NUMBER_OF_COLUMNS,
@@ -113,7 +130,6 @@ class Fields extends Component {
         bottomWall = false;
         rightWall = false;
         leftWall = false;
-        middleWall = false;
       }
     }
 
@@ -126,15 +142,7 @@ class Fields extends Component {
     return (
       <div>
         {fields.map((field) => {
-          let {
-            top,
-            left,
-            topWall,
-            bottomWall,
-            rightWall,
-            leftWall,
-            middleWall,
-          } = field;
+          let { top, left, topWall, bottomWall, rightWall, leftWall } = field;
           return (
             <div
               style={{
@@ -147,7 +155,6 @@ class Fields extends Component {
               }}
             >
               <Walls
-                middleWall={middleWall}
                 topWall={topWall}
                 bottomWall={bottomWall}
                 rightWall={rightWall}

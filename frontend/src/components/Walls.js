@@ -6,7 +6,7 @@ import {
   BRICK_HEIGHT,
   BOARD_WIDTH,
   BOARD_HEIGHT,
-  FIELD_HEIGHT
+  FIELD_HEIGHT,
 } from './Constants';
 import BrickDark from '../images/brickdark.png';
 import RotatedBrickDark from '../images/rotatedBrickdark.png';
@@ -16,27 +16,6 @@ class Walls extends Component {
     // console.log('this.props.', this.props.topWall);
   }
 
-  drawMiddleWall = () => {
-    return (
-      <div
-        style={{
-          position: 'relative'
-        }}
-      >
-        <img
-          style={{
-            width: `${BRICK_WIDTH}px`,
-            height: `${BRICK_HEIGHT}px`,
-            position: 'absolute',
-            top: `${BRICK_WIDTH / 2}px`
-          }}
-          src={BrickDark}
-          alt="brickDarkImg"
-        />
-      </div>
-    );
-  };
-
   drawTopAndBottomWall = () => {
     return (
       <div style={{ position: 'relative' }}>
@@ -44,7 +23,7 @@ class Walls extends Component {
           style={{
             width: `${BRICK_WIDTH}px`,
             height: `${BRICK_HEIGHT}px`,
-            left: '0px'
+            left: '0px',
           }}
           src={BrickDark}
           alt="brickDarkImg"
@@ -55,7 +34,7 @@ class Walls extends Component {
             left: '0px',
             top: `${BRICK_WIDTH}px`,
             width: `${BRICK_WIDTH}px`,
-            height: `${BRICK_HEIGHT}px`
+            height: `${BRICK_HEIGHT}px`,
           }}
           src={BrickDark}
           alt="brickDarkImg"
@@ -72,7 +51,7 @@ class Walls extends Component {
             position: 'absolute',
             width: `${BRICK_HEIGHT}px`,
             height: `${BRICK_WIDTH}px`,
-            left: '20px'
+            left: '20px',
           }}
           src={RotatedBrickDark}
           alt="brickDarkImg"
@@ -83,7 +62,7 @@ class Walls extends Component {
             left: '0px',
             top: `${BRICK_WIDTH}px`,
             width: `${BRICK_WIDTH}px`,
-            height: `${BRICK_HEIGHT}px`
+            height: `${BRICK_HEIGHT}px`,
           }}
           src={BrickDark}
           alt="brickDarkImg"
@@ -99,7 +78,7 @@ class Walls extends Component {
           style={{
             width: `${BRICK_WIDTH}px`,
             height: `${BRICK_HEIGHT}px`,
-            left: '0px'
+            left: '0px',
           }}
           src={BrickDark}
           alt="brickDarkImg"
@@ -110,7 +89,7 @@ class Walls extends Component {
             left: '20px',
             top: '20px',
             width: `${BRICK_HEIGHT}px`,
-            height: `${BRICK_WIDTH}px`
+            height: `${BRICK_WIDTH}px`,
           }}
           src={RotatedBrickDark}
           alt="brickDarkImg"
@@ -127,7 +106,7 @@ class Walls extends Component {
             position: 'absolute',
             width: `${BRICK_HEIGHT}px`,
             height: `${BRICK_WIDTH}px`,
-            left: '0px'
+            left: '0px',
           }}
           src={RotatedBrickDark}
           alt="brickDarkImg"
@@ -138,7 +117,7 @@ class Walls extends Component {
             left: '0px',
             top: `${BRICK_WIDTH}px`,
             width: `${BRICK_WIDTH}px`,
-            height: `${BRICK_HEIGHT}px`
+            height: `${BRICK_HEIGHT}px`,
           }}
           src={BrickDark}
           alt="brickDarkImg"
@@ -154,7 +133,7 @@ class Walls extends Component {
           style={{
             width: `${BRICK_WIDTH}px`,
             height: `${BRICK_HEIGHT}px`,
-            left: '0px'
+            left: '0px',
           }}
           src={BrickDark}
           alt="brickDarkImg"
@@ -165,7 +144,7 @@ class Walls extends Component {
             left: '0px',
             top: '20px',
             width: `${BRICK_HEIGHT}px`,
-            height: `${BRICK_WIDTH}px`
+            height: `${BRICK_WIDTH}px`,
           }}
           src={RotatedBrickDark}
           alt="brickDarkImg"
@@ -179,7 +158,7 @@ class Walls extends Component {
       <img
         style={{
           width: `${BRICK_WIDTH}px`,
-          height: `${BRICK_HEIGHT}px`
+          height: `${BRICK_HEIGHT}px`,
         }}
         src={BrickDark}
         alt="brickDarkImg"
@@ -191,7 +170,7 @@ class Walls extends Component {
     return (
       <div
         style={{
-          position: 'relative'
+          position: 'relative',
         }}
       >
         <img
@@ -199,7 +178,7 @@ class Walls extends Component {
             width: `${BRICK_WIDTH}px`,
             height: `${BRICK_HEIGHT}px`,
             position: 'absolute',
-            top: `${BRICK_WIDTH}px`
+            top: `${BRICK_WIDTH}px`,
           }}
           src={BrickDark}
           alt="brickDarkImg"
@@ -216,7 +195,7 @@ class Walls extends Component {
             position: 'absolute',
             left: '20px',
             width: `${BRICK_HEIGHT}px`,
-            height: `${BRICK_WIDTH - 10}px`
+            height: `${BRICK_WIDTH - 10}px`,
           }}
           src={RotatedBrickDark}
           alt="brickDarkImg"
@@ -227,7 +206,7 @@ class Walls extends Component {
             left: '20px',
             top: `${BRICK_WIDTH - 10}px`,
             width: `${BRICK_HEIGHT}px`,
-            height: `${BRICK_WIDTH - 10}px`
+            height: `${BRICK_WIDTH - 10}px`,
           }}
           src={RotatedBrickDark}
           alt="brickDarkImg"
@@ -244,7 +223,7 @@ class Walls extends Component {
             position: 'absolute',
             left: 0,
             width: `${BRICK_HEIGHT}px`,
-            height: `${BRICK_WIDTH - 10}px`
+            height: `${BRICK_WIDTH - 10}px`,
           }}
           src={RotatedBrickDark}
           alt="brickDarkImg"
@@ -254,7 +233,7 @@ class Walls extends Component {
             position: 'absolute',
             top: `${BRICK_WIDTH - 10}px`,
             width: `${BRICK_HEIGHT}px`,
-            height: `${BRICK_WIDTH - 10}px`
+            height: `${BRICK_WIDTH - 10}px`,
           }}
           src={RotatedBrickDark}
           alt="brickDarkImg"
@@ -264,7 +243,7 @@ class Walls extends Component {
   };
 
   drawWalls = () => {
-    const { topWall, leftWall, bottomWall, rightWall, middleWall } = this.props;
+    const { topWall, leftWall, bottomWall, rightWall } = this.props;
     if (topWall && leftWall) {
       return <div>{this.drawTopAndLeftWall()}</div>;
     } else if (bottomWall && rightWall) {
@@ -275,8 +254,6 @@ class Walls extends Component {
       return <div>{this.drawTopAndRightWall()}</div>;
     } else if (topWall && bottomWall) {
       return <div> {this.drawTopAndBottomWall()} </div>;
-    } else if (middleWall) {
-      return <div>{this.drawMiddleWall()}</div>;
     } else if (topWall) {
       return <div> {this.drawTopWall()} </div>;
     } else if (bottomWall) {
