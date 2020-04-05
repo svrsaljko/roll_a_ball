@@ -21,7 +21,7 @@ import {
   NUMBER_OF_ROWS,
   NUMBER_OF_COLUMNS,
   FIELD_WIDTH,
-  FIELD_HEIGHT
+  FIELD_HEIGHT,
 } from './Constants';
 
 class Board extends Component {
@@ -39,7 +39,7 @@ class Board extends Component {
     score: 0,
     bricks: [],
     wallCoordinates: [],
-    currentFieldId: 1
+    currentFieldId: 1,
   };
 
   FIELDS = [];
@@ -121,6 +121,16 @@ class Board extends Component {
       !FIELDS[currentFieldId].topWall
     ) {
       this.moveRightToRightFieldTopWall(x, positionX, currentFieldId, FIELDS);
+    } else if (
+      FIELDS[FIELDS[currentFieldId].rightFieldId].middleWall &&
+      !FIELDS[currentFieldId].middleWall
+    ) {
+      this.moveRightToRightFieldMiddleWall(
+        x,
+        positionX,
+        currentFieldId,
+        FIELDS
+      );
     } else {
       this.moveRightToNextField(x, positionX, currentFieldId, FIELDS);
     }
@@ -184,29 +194,36 @@ class Board extends Component {
 
   //MIDDLE WALL
 
+  moveRightToRightFieldMiddleWall = (x, positionX, currentFieldId, FIELDS) => {
+    const { positionY } = this.state;
+
+    if (
+      positionY > FIELDS[currentFieldId].top + BRICK_HEIGHT - BALL_SIZE &&
+      positionY < FIELDS[currentFieldId].top + 2 * BRICK_HEIGHT + BALL_SIZE
+    ) {
+      if (
+        x < SENSITIVITY &&
+        positionX < FIELDS[currentFieldId].left + FIELD_WIDTH - BALL_SIZE
+      ) {
+        this.changePositionX(positionX, x);
+      }
+    } else this.moveRightToNextField(x, positionX, currentFieldId, FIELDS);
+  };
+
   moveLeftToLeftFieldMiddleWall = (x, positionX, currentFieldId, FIELDS) => {
     const { positionY } = this.state;
 
-    if (positionY > FIELDS[currentFieldId].top + BRICK_HEIGHT + BALL_SIZE) {
-      if (x > SENSITIVITY) {
-        this.moveLeftToNextField(x, positionX, currentFieldId, FIELDS);
-      }
-      if (
-        positionY <
-        FIELDS[currentFieldId].top + 2 * BRICK_HEIGHT + BALL_SIZE
-      ) {
-        if (x > SENSITIVITY) {
-          this.moveLeftToNextField(x, positionX, currentFieldId, FIELDS);
-        }
-      }
-    } else {
+    if (
+      positionY > FIELDS[currentFieldId].top + BRICK_HEIGHT - BALL_SIZE &&
+      positionY < FIELDS[currentFieldId].top + 2 * BRICK_HEIGHT + BALL_SIZE
+    ) {
       if (
         x > SENSITIVITY &&
         positionX > FIELDS[currentFieldId].left + BALL_SIZE
       ) {
         this.changePositionX(positionX, x);
       }
-    }
+    } else this.moveLeftToNextField(x, positionX, currentFieldId, FIELDS);
   };
 
   moveDownToCurrentFieldMiddleWall = (y, positionY, currentFieldId, FIELDS) => {
@@ -499,13 +516,13 @@ class Board extends Component {
 
   changePositionX = (positionX, x) => {
     this.setState({
-      positionX: positionX - x
+      positionX: positionX - x,
     });
   };
 
   changePositionY = (positionY, y) => {
     this.setState({
-      positionY: positionY + y
+      positionY: positionY + y,
     });
   };
 
@@ -534,17 +551,17 @@ class Board extends Component {
     this.setState({
       squaresInit: squares,
       positionY,
-      positionX
+      positionX,
     });
     let accelerometer;
     // this.setSquareCoordinates();
     if (isMobile) {
       accelerometer = new window.Accelerometer({ frequency: 60 });
-      accelerometer.addEventListener('reading', e => {
+      accelerometer.addEventListener('reading', (e) => {
         this.setState({
           x: accelerometer.x,
           y: accelerometer.y,
-          z: accelerometer.z
+          z: accelerometer.z,
         });
       });
       accelerometer.start();
@@ -575,7 +592,7 @@ class Board extends Component {
     }
   }
 
-  setAllFields = fields => {
+  setAllFields = (fields) => {
     this.FIELDS = fields;
   };
 
@@ -590,7 +607,7 @@ class Board extends Component {
 
           width: `${BOARD_WIDTH}px`,
           height: `${BOARD_HEIGHT}px`,
-          position: 'relative'
+          position: 'relative',
         }}
         className="board"
       >

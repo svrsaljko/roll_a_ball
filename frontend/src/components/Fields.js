@@ -4,7 +4,7 @@ import {
   NUMBER_OF_ROWS,
   NUMBER_OF_COLUMNS,
   FIELD_WIDTH,
-  FIELD_HEIGHT
+  FIELD_HEIGHT,
 } from './Constants';
 import Walls from './Walls';
 import { connect } from 'react-redux';
@@ -39,7 +39,11 @@ class Fields extends Component {
 
         //TEST
 
-        if (j === 4 && i === 1) {
+        // if ((j === 4 || j === 3 || j == 5) && i === 1) {
+        // middleWall = true;
+        // }
+        if (j === 3 && i === 1) {
+          topWall = true;
           middleWall = true;
         }
 
@@ -102,7 +106,7 @@ class Fields extends Component {
           rightFieldId: j === NUMBER_OF_COLUMNS - 1 ? null : fieldId + 1,
           topFieldId: i === 0 ? null : fieldId - NUMBER_OF_COLUMNS,
           bottomFieldId:
-            i === NUMBER_OF_ROWS - 1 ? null : fieldId + NUMBER_OF_COLUMNS
+            i === NUMBER_OF_ROWS - 1 ? null : fieldId + NUMBER_OF_COLUMNS,
         });
         fieldId++;
         topWall = false;
@@ -121,7 +125,7 @@ class Fields extends Component {
     let { fields } = this.state;
     return (
       <div>
-        {fields.map(field => {
+        {fields.map((field) => {
           let {
             top,
             left,
@@ -129,7 +133,7 @@ class Fields extends Component {
             bottomWall,
             rightWall,
             leftWall,
-            middleWall
+            middleWall,
           } = field;
           return (
             <div
@@ -139,7 +143,7 @@ class Fields extends Component {
                 height: `${FIELD_HEIGHT}px`,
                 top: `${top}px`,
                 left: `${left}px`,
-                position: 'absolute'
+                position: 'absolute',
               }}
             >
               <Walls
