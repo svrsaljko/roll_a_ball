@@ -5,40 +5,21 @@ import Ball from './Ball';
 import { isMobile } from 'react-device-detect';
 
 import {
-  MAX_ROW_BRICKS,
-  MAX_COLUMN_BRICKS,
-  BRICK_WIDTH,
   BRICK_HEIGHT,
   BOARD_WIDTH,
   BOARD_HEIGHT,
-  SQUARE_SIZE,
   BALL_SIZE,
   SENSITIVITY,
-  SPEED_SENSITIVITY_FACTOR1,
-  SPEED_SENSITIVITY_FACTOR2,
-  SPEED_SENSITIVITY_FACTOR_BORDER,
-  NUMBER_OF_SQUARES,
-  NUMBER_OF_ROWS,
-  NUMBER_OF_COLUMNS,
   FIELD_WIDTH,
   FIELD_HEIGHT,
 } from './Constants';
 
 class Board extends Component {
   state = {
-    // gameWidth: GAME_WIDTH,
-    // gameHeight: GAME_HEIGHT,
     x: 0,
     y: 0,
-    z: 0,
     positionX: 0,
     positionY: 0,
-
-    squaresInit: [],
-    // squaresCoords: [],
-    score: 0,
-    bricks: [],
-    wallCoordinates: [],
     currentFieldId: 1,
   };
 
@@ -447,41 +428,24 @@ class Board extends Component {
   };
 
   componentDidMount() {
-    console.log('cdm', this.FIELDS);
-    let squares = [];
-
-    // for (let i = 0; i < NUMBER_OF_SQUARES; i++) {
-    //   let initialTop = Math.random() * (BOARD_HEIGHT - SQUARE_SIZE);
-    //   let initialLeft = Math.random() * (BOARD_WIDTH - SQUARE_SIZE);
-    //   let top = parseFloat(initialTop.toFixed(1));
-    //   let left = parseFloat(initialLeft.toFixed(1));
-    //   let bottom = parseFloat((initialTop + SQUARE_SIZE).toFixed(1));
-    //   let right = parseFloat((initialLeft + SQUARE_SIZE).toFixed(1));
-    //   squares.push({
-    //     top,
-    //     left,
-    //     bottom,
-    //     right,
-    //     collected: false
-    //   });
-    // }
-    const positionY = 2 * BRICK_HEIGHT;
-    const positionX = 2 * BRICK_HEIGHT;
+    const { currentFieldId } = this.state;
+    const positionY =
+      this.FIELDS[currentFieldId].top + BRICK_HEIGHT + 2 * BALL_SIZE;
+    const positionX =
+      this.FIELDS[currentFieldId].left + BRICK_HEIGHT + BALL_SIZE;
 
     this.setState({
-      squaresInit: squares,
       positionY,
       positionX,
     });
     let accelerometer;
-    // this.setSquareCoordinates();
+
     if (isMobile) {
       accelerometer = new window.Accelerometer({ frequency: 60 });
       accelerometer.addEventListener('reading', (e) => {
         this.setState({
           x: accelerometer.x,
           y: accelerometer.y,
-          z: accelerometer.z,
         });
       });
       accelerometer.start();
@@ -518,7 +482,7 @@ class Board extends Component {
 
   render() {
     const { positionX, positionY } = this.state;
-    // console.log('current field id: ', currentFieldId);
+
     return (
       <div
         style={{
