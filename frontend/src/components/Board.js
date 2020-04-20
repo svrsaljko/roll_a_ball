@@ -3,7 +3,7 @@ import Background from '../images/background.png';
 import Fields from './Fields';
 import Ball from './Ball';
 import { isMobile } from 'react-device-detect';
-
+import { connect } from 'react-redux';
 import {
   BRICK_HEIGHT,
   BOARD_WIDTH,
@@ -21,6 +21,7 @@ class Board extends Component {
     positionX: 0,
     positionY: 0,
     currentFieldId: 1,
+    start: false,
   };
 
   FIELDS = [];
@@ -427,21 +428,30 @@ class Board extends Component {
     });
   };
 
-  componentDidMount() {
-    const { currentFieldId } = this.state;
-    const positionY =
-      this.FIELDS[currentFieldId].top + BRICK_HEIGHT + 2 * BALL_SIZE;
-    const positionX =
-      this.FIELDS[currentFieldId].left + BRICK_HEIGHT + BALL_SIZE;
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.state.fieldsReducer.fields.length > 0) {
+      if (!this.state.start) {
+        this.FIELDS = prevProps.state.fieldsReducer.fields;
+        const { currentFieldId } = this.state;
+        const positionY =
+          this.FIELDS[currentFieldId].top + BRICK_HEIGHT + 2 * BALL_SIZE;
+        const positionX =
+          this.FIELDS[currentFieldId].left + BRICK_HEIGHT + BALL_SIZE;
+        this.setState({
+          positionY,
+          positionX,
+          start: true,
+        });
+      }
+    }
+  }
 
-    this.setState({
-      positionY,
-      positionX,
-    });
+  componentDidMount() {
     let accelerometer;
 
     if (isMobile) {
       accelerometer = new window.Accelerometer({ frequency: 60 });
+
       accelerometer.addEventListener('reading', (e) => {
         this.setState({
           x: accelerometer.x,
@@ -450,12 +460,13 @@ class Board extends Component {
       });
       accelerometer.start();
       setInterval(() => {
-        this.moveLeft();
-        this.moveRight();
-        this.moveDown();
-        this.moveUp();
-
-        this.fieldDetector();
+        if (this.state.start) {
+          this.moveLeft();
+          this.moveRight();
+          this.moveDown();
+          this.moveUp();
+          this.fieldDetector();
+        }
       }, 1000 / 60);
     }
   }
@@ -476,10 +487,6 @@ class Board extends Component {
     }
   }
 
-  setAllFields = (fields) => {
-    this.FIELDS = fields;
-  };
-
   render() {
     const { positionX, positionY } = this.state;
 
@@ -495,11 +502,17 @@ class Board extends Component {
         }}
         className="board"
       >
-        <Fields setAllFields={this.setAllFields} />
+        <Fields />
         <Ball positionX={positionX} positionY={positionY} />
       </div>
     );
   }
 }
 
-export default Board;
+const mapStateToProps = (state) => {
+  return {
+    state,
+  };
+};
+
+export default connect(mapStateToProps)(Board);

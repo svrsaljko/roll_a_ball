@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { setAllFields } from '../actions/actions';
 import {
   NUMBER_OF_ROWS,
   NUMBER_OF_COLUMNS,
   FIELD_WIDTH,
   FIELD_HEIGHT,
 } from './Constants';
+
 import Walls from './Walls';
 import { uuid } from 'uuidv4';
 
@@ -126,11 +129,20 @@ class Fields extends Component {
   }
 
   render() {
+    console.log('fields');
     let { fields } = this.state;
     return (
       <div>
         {fields.map((field) => {
-          let { top, left, topWall, bottomWall, rightWall, leftWall } = field;
+          let {
+            top,
+            left,
+            //fieldId,
+            topWall,
+            bottomWall,
+            rightWall,
+            leftWall,
+          } = field;
           return (
             <div
               key={uuid()}
@@ -157,4 +169,10 @@ class Fields extends Component {
   }
 }
 
-export default Fields;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setAllFields: (fields) => dispatch(setAllFields(fields)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Fields);
