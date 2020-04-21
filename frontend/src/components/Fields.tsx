@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { Dispatch } from 'redux';
+//Radi ali ispod javlja grešku, možda ga buni to što ima react-redux za js i ts
 import { connect } from 'react-redux';
 import { setAllFields } from '../actions/actions';
 import {
@@ -7,18 +9,29 @@ import {
   FIELD_WIDTH,
   FIELD_HEIGHT,
 } from './Constants';
-
+import { IField } from '../interfaces/IField';
 import Walls from './Walls';
 import { uuid } from 'uuidv4';
 
+interface IProps {
+  setAllFields(fields: IField[]): void;
+}
+
 const initializeLevel = () => {
-  let fields = [];
-  let fieldId = 0;
-  let topWall = false;
-  let bottomWall = false;
-  let rightWall = false;
-  let leftWall = false;
-  //OKVIR
+  const fields = new Array<IField>(NUMBER_OF_ROWS * NUMBER_OF_COLUMNS);
+  let field: IField;
+  let fieldId: number = 0;
+  let topWall: boolean = false;
+  let bottomWall: boolean = false;
+  let rightWall: boolean = false;
+  let leftWall: boolean = false;
+  let leftFieldId: null | number = null;
+  let rightFieldId: null | number = null;
+  let topFieldId: null | number = null;
+  let bottomFieldId: null | number = null;
+  let top: number;
+  let left: number;
+
   for (let i = 0; i < NUMBER_OF_ROWS; i++) {
     for (let j = 0; j < NUMBER_OF_COLUMNS; j++) {
       if (i === 0) {
@@ -97,23 +110,30 @@ const initializeLevel = () => {
         rightWall = true;
       }
 
-      //
+      top = FIELD_HEIGHT * i;
+      left = FIELD_WIDTH * j;
 
-      fields.push({
-        top: FIELD_HEIGHT * i,
-        left: FIELD_WIDTH * j,
+      leftFieldId = j === 0 ? null : fieldId - 1;
+      rightFieldId = j === NUMBER_OF_COLUMNS - 1 ? null : fieldId + 1;
+      topFieldId = i === 0 ? null : fieldId - NUMBER_OF_COLUMNS;
+      bottomFieldId =
+        i === NUMBER_OF_ROWS - 1 ? null : fieldId + NUMBER_OF_COLUMNS;
+
+      field = {
+        top,
+        left,
         topWall,
         bottomWall,
         rightWall,
         leftWall,
         fieldId,
-        leftFieldId: j === 0 ? null : fieldId - 1,
-        rightFieldId: j === NUMBER_OF_COLUMNS - 1 ? null : fieldId + 1,
-        topFieldId: i === 0 ? null : fieldId - NUMBER_OF_COLUMNS,
-        bottomFieldId:
-          i === NUMBER_OF_ROWS - 1 ? null : fieldId + NUMBER_OF_COLUMNS,
-      });
+        leftFieldId,
+        rightFieldId,
+        topFieldId,
+        bottomFieldId,
+      };
 
+      fields[fieldId] = field;
       fieldId++;
       topWall = false;
       bottomWall = false;
@@ -124,7 +144,7 @@ const initializeLevel = () => {
   return fields;
 };
 
-function Fields(props) {
+function Fields(props: IProps) {
   const [fields, setFields] = useState(() => {
     return initializeLevel();
   });
@@ -137,20 +157,12 @@ function Fields(props) {
   return (
     <div>
       {fields.map((field) => {
-        let {
-          top,
-          left,
-          //fieldId,
-          topWall,
-          bottomWall,
-          rightWall,
-          leftWall,
-        } = field;
+        let { top, left, topWall, bottomWall, rightWall, leftWall } = field;
         return (
           <div
             key={uuid()}
             style={{
-              border: '0.3px solid red',
+              // border: '0.3px solid red',
               width: `${FIELD_WIDTH}px`,
               height: `${FIELD_HEIGHT}px`,
               top: `${top}px`,
@@ -171,9 +183,9 @@ function Fields(props) {
   );
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    setAllFields: (fields) => dispatch(setAllFields(fields)),
+    setAllFields: (fields: IField[]) => dispatch(setAllFields(fields)),
   };
 };
 

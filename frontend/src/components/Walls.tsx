@@ -278,7 +278,14 @@ const drawLeftWall = () => {
   );
 };
 
-const drawWalls = (props) => {
+interface IProps {
+  topWall: boolean;
+  leftWall: boolean;
+  bottomWall: boolean;
+  rightWall: boolean;
+}
+
+const drawWalls = (props: IProps) => {
   const { topWall, leftWall, bottomWall, rightWall } = props;
   if (topWall && leftWall) {
     return <div>{drawTopAndLeftWall()}</div>;
@@ -303,8 +310,6 @@ const drawWalls = (props) => {
   }
 };
 
-function Walls(props) {
+export default function Walls(props: IProps) {
   return <div>{drawWalls(props)}</div>;
 }
-
-export default Walls;

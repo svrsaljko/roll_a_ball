@@ -1,7 +1,12 @@
 import React from 'react';
 import { BALL_SIZE } from './Constants';
 
-export default function Ball(props) {
+interface IProps {
+  positionX: number;
+  positionY: number;
+}
+
+export default function Ball(props: IProps) {
   const { positionX, positionY } = props;
   return (
     <div style={{ position: 'absolute' }}>
