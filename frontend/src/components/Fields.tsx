@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Dispatch } from 'redux';
-//Radi ali ispod javlja grešku, možda ga buni to što ima react-redux za js i ts
 import { connect } from 'react-redux';
 import { setAllFields } from '../actions/actions';
 import {

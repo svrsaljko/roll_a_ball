@@ -546,7 +546,6 @@ class Board extends Component {
   };
 
   componentDidUpdate(prevProps: IPrevProps) {
-    console.log('prevProps: ', prevProps);
     if (prevProps.fields.length > 0) {
       if (!this.state.start) {
         this.FIELDS = prevProps.fields;
