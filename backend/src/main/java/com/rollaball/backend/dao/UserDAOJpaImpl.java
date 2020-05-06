@@ -15,14 +15,12 @@ import org.springframework.stereotype.Repository;
 
 import com.rollaball.backend.entity.User;
 
-//@Configuration
+
 @Repository
 public class UserDAOJpaImpl implements UserDAO {
 
-	//@Bean
-	//public PasswordEncoder passwordEncoder() {
-	//    return new BCryptPasswordEncoder();
-	//}
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	private EntityManager entityManager;
 
@@ -31,7 +29,6 @@ public class UserDAOJpaImpl implements UserDAO {
 	UserDAOJpaImpl (EntityManager entityManager){
 		this.entityManager= entityManager;
 	}
-	//private PasswordEncoder passwordEncoder;
 	
 	
 	@Override
@@ -46,7 +43,7 @@ public class UserDAOJpaImpl implements UserDAO {
 	}
 	
 	private void createNewUser(User newUser) {
-		//newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
+		newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
 		User dbUser = this.entityManager.merge(newUser);
 		if(dbUser.getId() != 0) {
 			System.out.println("user successfully created");
