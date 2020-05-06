@@ -22,6 +22,8 @@ public class UserRestController {
 		this.userService = userService;
 	}
 
+	@GetMapping("/hello") public String hello() {return "hello user";}
+	
 	@PostMapping("/register")
 	public User register(@RequestBody User user) {
 		user.setId(0);
