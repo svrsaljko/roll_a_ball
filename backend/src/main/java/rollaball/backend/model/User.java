@@ -1,4 +1,4 @@
-package com.rollaball.backend.entity;
+package rollaball.backend.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,10 +14,10 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
-	private int id;
+	private long id;
 
 	@Column(name="username", unique=true)
-	private String username;
+	private String userName;
 
 	@Column(name="email", unique=true)
 	private String email;
@@ -25,24 +25,28 @@ public class User {
 	@Column(name="password")
 	private String password;
 	
+ 
+
+	private String roles;
+	
 	
 	public User() {}
 
 	
-	public int getId() {
+	public  long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getEmail() {
@@ -60,5 +64,18 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+
+	public String getRoles() {
+			return roles;
+		}
+
+
+	public void setRoles(String roles) {
+			this.roles = roles;
+		}
+
+
+
 	
 }
