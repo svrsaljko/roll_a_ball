@@ -1,5 +1,13 @@
 import React from 'react';
-import { BRICK_WIDTH, BRICK_HEIGHT } from './Constants';
+import {
+  //BRICK_WIDTH,
+  // BRICK_HEIGHT,
+  VERTICAL_BRICK_S_HEIGHT,
+  VERTICAL_BRICK_M_HEIGHT,
+  VERTICAL_BRICK_WIDTH,
+  HORIZONTAL_BRICK_WIDTH,
+  HORIZONTAL_BRICK_HEIGHT,
+} from './Constants';
 import BrickDark from '../images/brickdark.png';
 import RotatedBrickDark from '../images/rotatedBrickdark.png';
 
@@ -10,8 +18,8 @@ const drawLeftAndRightWall = () => {
         style={{
           position: 'absolute',
           left: 0,
-          width: `${BRICK_HEIGHT}px`,
-          height: `${BRICK_WIDTH - 10}px`,
+          width: `${VERTICAL_BRICK_WIDTH}px`,
+          height: `${VERTICAL_BRICK_S_HEIGHT}px`,
         }}
         src={RotatedBrickDark}
         alt="brickDarkImg"
@@ -19,9 +27,9 @@ const drawLeftAndRightWall = () => {
       <img
         style={{
           position: 'absolute',
-          top: `${BRICK_WIDTH - 10}px`,
-          width: `${BRICK_HEIGHT}px`,
-          height: `${BRICK_WIDTH - 10}px`,
+          top: `${VERTICAL_BRICK_S_HEIGHT}px`,
+          width: `${VERTICAL_BRICK_WIDTH}px`,
+          height: `${VERTICAL_BRICK_S_HEIGHT}px`,
         }}
         src={RotatedBrickDark}
         alt="brickDarkImg"
@@ -30,9 +38,9 @@ const drawLeftAndRightWall = () => {
       <img
         style={{
           position: 'absolute',
-          left: '20px',
-          width: `${BRICK_HEIGHT}px`,
-          height: `${BRICK_WIDTH - 10}px`,
+          left: `${VERTICAL_BRICK_WIDTH}px`,
+          width: `${VERTICAL_BRICK_WIDTH}px`,
+          height: `${VERTICAL_BRICK_S_HEIGHT}px`,
         }}
         src={RotatedBrickDark}
         alt="brickDarkImg"
@@ -40,10 +48,10 @@ const drawLeftAndRightWall = () => {
       <img
         style={{
           position: 'absolute',
-          left: '20px',
-          top: `${BRICK_WIDTH - 10}px`,
-          width: `${BRICK_HEIGHT}px`,
-          height: `${BRICK_WIDTH - 10}px`,
+          left: `${VERTICAL_BRICK_WIDTH}px`,
+          top: `${VERTICAL_BRICK_S_HEIGHT}px`,
+          width: `${VERTICAL_BRICK_WIDTH}px`,
+          height: `${VERTICAL_BRICK_S_HEIGHT}px`,
         }}
         src={RotatedBrickDark}
         alt="brickDarkImg"
@@ -51,15 +59,15 @@ const drawLeftAndRightWall = () => {
     </div>
   );
 };
-
+//STA SI TU
 const drawTopAndBottomWall = () => {
   return (
     <div style={{ position: 'relative' }}>
       <img
         style={{
-          width: `${BRICK_WIDTH}px`,
-          height: `${BRICK_HEIGHT}px`,
-          left: '0px',
+          width: `${HORIZONTAL_BRICK_WIDTH}px`,
+          height: `${HORIZONTAL_BRICK_HEIGHT}px`,
+          left: 0,
         }}
         src={BrickDark}
         alt="brickDarkImg"
@@ -67,10 +75,10 @@ const drawTopAndBottomWall = () => {
       <img
         style={{
           position: 'absolute',
-          left: '0px',
-          top: `${BRICK_WIDTH}px`,
-          width: `${BRICK_WIDTH}px`,
-          height: `${BRICK_HEIGHT}px`,
+          left: 0,
+          top: `${2 * HORIZONTAL_BRICK_HEIGHT}px`,
+          width: `${HORIZONTAL_BRICK_WIDTH}px`,
+          height: `${HORIZONTAL_BRICK_HEIGHT}px`,
         }}
         src={BrickDark}
         alt="brickDarkImg"
@@ -85,9 +93,9 @@ const drawBottomAndRightWall = () => {
       <img
         style={{
           position: 'absolute',
-          width: `${BRICK_HEIGHT}px`,
-          height: `${BRICK_WIDTH}px`,
-          left: '20px',
+          width: `${VERTICAL_BRICK_WIDTH}px`,
+          height: `${VERTICAL_BRICK_M_HEIGHT}px`,
+          left: `${VERTICAL_BRICK_WIDTH}px`,
         }}
         src={RotatedBrickDark}
         alt="brickDarkImg"
@@ -95,10 +103,10 @@ const drawBottomAndRightWall = () => {
       <img
         style={{
           position: 'absolute',
-          left: '0px',
-          top: `${BRICK_WIDTH}px`,
-          width: `${BRICK_WIDTH}px`,
-          height: `${BRICK_HEIGHT}px`,
+          left: 0,
+          top: `${VERTICAL_BRICK_M_HEIGHT}px`,
+          width: `${HORIZONTAL_BRICK_WIDTH}px`,
+          height: `${HORIZONTAL_BRICK_HEIGHT}px`,
         }}
         src={BrickDark}
         alt="brickDarkImg"
@@ -112,9 +120,9 @@ const drawTopAndRightWall = () => {
     <div style={{ position: 'relative' }}>
       <img
         style={{
-          width: `${BRICK_WIDTH}px`,
-          height: `${BRICK_HEIGHT}px`,
-          left: '0px',
+          width: `${HORIZONTAL_BRICK_WIDTH}px`,
+          height: `${HORIZONTAL_BRICK_HEIGHT}px`,
+          left: 0,
         }}
         src={BrickDark}
         alt="brickDarkImg"
@@ -122,10 +130,10 @@ const drawTopAndRightWall = () => {
       <img
         style={{
           position: 'absolute',
-          left: '20px',
-          top: '20px',
-          width: `${BRICK_HEIGHT}px`,
-          height: `${BRICK_WIDTH}px`,
+          left: `${VERTICAL_BRICK_WIDTH}px`,
+          top: `${HORIZONTAL_BRICK_HEIGHT}px`,
+          width: `${VERTICAL_BRICK_WIDTH}px`,
+          height: `${VERTICAL_BRICK_M_HEIGHT}px`,
         }}
         src={RotatedBrickDark}
         alt="brickDarkImg"
@@ -140,9 +148,9 @@ const drawBottomAndLeftWall = () => {
       <img
         style={{
           position: 'absolute',
-          width: `${BRICK_HEIGHT}px`,
-          height: `${BRICK_WIDTH}px`,
-          left: '0px',
+          width: `${VERTICAL_BRICK_WIDTH}px`,
+          height: `${VERTICAL_BRICK_M_HEIGHT}px`,
+          left: 0,
         }}
         src={RotatedBrickDark}
         alt="brickDarkImg"
@@ -150,10 +158,10 @@ const drawBottomAndLeftWall = () => {
       <img
         style={{
           position: 'absolute',
-          left: '0px',
-          top: `${BRICK_WIDTH}px`,
-          width: `${BRICK_WIDTH}px`,
-          height: `${BRICK_HEIGHT}px`,
+          left: 0,
+          top: `${VERTICAL_BRICK_M_HEIGHT}px`,
+          width: `${HORIZONTAL_BRICK_WIDTH}px`,
+          height: `${HORIZONTAL_BRICK_HEIGHT}px`,
         }}
         src={BrickDark}
         alt="brickDarkImg"
@@ -167,9 +175,9 @@ const drawTopAndLeftWall = () => {
     <div style={{ position: 'relative' }}>
       <img
         style={{
-          width: `${BRICK_WIDTH}px`,
-          height: `${BRICK_HEIGHT}px`,
-          left: '0px',
+          width: `${HORIZONTAL_BRICK_WIDTH}px`,
+          height: `${HORIZONTAL_BRICK_HEIGHT}px`,
+          left: 0,
         }}
         src={BrickDark}
         alt="brickDarkImg"
@@ -177,10 +185,10 @@ const drawTopAndLeftWall = () => {
       <img
         style={{
           position: 'absolute',
-          left: '0px',
-          top: '20px',
-          width: `${BRICK_HEIGHT}px`,
-          height: `${BRICK_WIDTH}px`,
+          left: 0,
+          top: `${HORIZONTAL_BRICK_HEIGHT}px`,
+          width: `${VERTICAL_BRICK_WIDTH}px`,
+          height: `${VERTICAL_BRICK_M_HEIGHT}px`,
         }}
         src={RotatedBrickDark}
         alt="brickDarkImg"
@@ -193,8 +201,8 @@ const drawTopWall = () => {
   return (
     <img
       style={{
-        width: `${BRICK_WIDTH}px`,
-        height: `${BRICK_HEIGHT}px`,
+        width: `${HORIZONTAL_BRICK_WIDTH}px`,
+        height: `${HORIZONTAL_BRICK_HEIGHT}px`,
       }}
       src={BrickDark}
       alt="brickDarkImg"
@@ -211,10 +219,10 @@ const drawBottomWall = () => {
     >
       <img
         style={{
-          width: `${BRICK_WIDTH}px`,
-          height: `${BRICK_HEIGHT}px`,
           position: 'absolute',
-          top: `${BRICK_WIDTH}px`,
+          width: `${HORIZONTAL_BRICK_WIDTH}px`,
+          height: `${HORIZONTAL_BRICK_HEIGHT}px`,
+          top: `${2 * HORIZONTAL_BRICK_HEIGHT}px`,
         }}
         src={BrickDark}
         alt="brickDarkImg"
@@ -229,9 +237,9 @@ const drawRightWall = () => {
       <img
         style={{
           position: 'absolute',
-          left: '20px',
-          width: `${BRICK_HEIGHT}px`,
-          height: `${BRICK_WIDTH - 10}px`,
+          left: `${VERTICAL_BRICK_WIDTH}px`,
+          width: `${VERTICAL_BRICK_WIDTH}px`,
+          height: `${VERTICAL_BRICK_S_HEIGHT}px`,
         }}
         src={RotatedBrickDark}
         alt="brickDarkImg"
@@ -239,10 +247,10 @@ const drawRightWall = () => {
       <img
         style={{
           position: 'absolute',
-          left: '20px',
-          top: `${BRICK_WIDTH - 10}px`,
-          width: `${BRICK_HEIGHT}px`,
-          height: `${BRICK_WIDTH - 10}px`,
+          left: `${VERTICAL_BRICK_WIDTH}px`,
+          top: `${VERTICAL_BRICK_S_HEIGHT}px`,
+          width: `${VERTICAL_BRICK_WIDTH}px`,
+          height: `${VERTICAL_BRICK_S_HEIGHT}px`,
         }}
         src={RotatedBrickDark}
         alt="brickDarkImg"
@@ -258,8 +266,8 @@ const drawLeftWall = () => {
         style={{
           position: 'absolute',
           left: 0,
-          width: `${BRICK_HEIGHT}px`,
-          height: `${BRICK_WIDTH - 10}px`,
+          width: `${VERTICAL_BRICK_WIDTH}px`,
+          height: `${VERTICAL_BRICK_S_HEIGHT}px`,
         }}
         src={RotatedBrickDark}
         alt="brickDarkImg"
@@ -267,9 +275,9 @@ const drawLeftWall = () => {
       <img
         style={{
           position: 'absolute',
-          top: `${BRICK_WIDTH - 10}px`,
-          width: `${BRICK_HEIGHT}px`,
-          height: `${BRICK_WIDTH - 10}px`,
+          top: `${VERTICAL_BRICK_S_HEIGHT}px`,
+          width: `${VERTICAL_BRICK_WIDTH}px`,
+          height: `${VERTICAL_BRICK_S_HEIGHT}px`,
         }}
         src={RotatedBrickDark}
         alt="brickDarkImg"
