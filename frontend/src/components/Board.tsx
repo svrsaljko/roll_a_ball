@@ -4,17 +4,16 @@ import Fields from './Fields';
 import Ball from './Ball';
 import { IField } from '../interfaces/IField';
 import { isMobile } from 'react-device-detect';
-// import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { IRootReducer } from '../reducers/index';
 import {
-  BRICK_HEIGHT,
   BOARD_WIDTH,
   BOARD_HEIGHT,
   BALL_SIZE,
   SENSITIVITY,
   FIELD_WIDTH,
   FIELD_HEIGHT,
+  HORIZONTAL_BRICK_HEIGHT,
 } from './Constants';
 
 interface IState {
@@ -28,7 +27,6 @@ interface IState {
 
 interface IPrevProps {
   fields: IField[];
-  // dispatch: Dispatch;
 }
 
 class Board extends Component {
@@ -184,7 +182,7 @@ class Board extends Component {
     FIELDS: IField[]
   ) => {
     const { positionX } = this.state;
-    if (positionX > FIELDS[currentFieldId].left + BRICK_HEIGHT - BALL_SIZE) {
+    if (positionX > FIELDS[currentFieldId].left + FIELD_WIDTH / 2 - BALL_SIZE) {
       if (
         y > SENSITIVITY &&
         positionY < FIELDS[currentFieldId].top + FIELD_HEIGHT - BALL_SIZE
@@ -201,7 +199,7 @@ class Board extends Component {
     FIELDS: IField[]
   ) => {
     const { positionX } = this.state;
-    if (positionX > FIELDS[currentFieldId].left + BRICK_HEIGHT - BALL_SIZE) {
+    if (positionX > FIELDS[currentFieldId].left + FIELD_WIDTH / 2 - BALL_SIZE) {
       if (
         y < SENSITIVITY &&
         positionY > FIELDS[currentFieldId].top + BALL_SIZE
@@ -233,7 +231,7 @@ class Board extends Component {
     FIELDS: IField[]
   ) => {
     const { positionX } = this.state;
-    if (positionX < FIELDS[currentFieldId].left + BRICK_HEIGHT + BALL_SIZE) {
+    if (positionX < FIELDS[currentFieldId].left + FIELD_WIDTH / 2 + BALL_SIZE) {
       if (
         y < SENSITIVITY &&
         positionY > FIELDS[currentFieldId].top + BALL_SIZE
@@ -250,7 +248,7 @@ class Board extends Component {
     FIELDS: IField[]
   ) => {
     const { positionX } = this.state;
-    if (positionX < FIELDS[currentFieldId].left + BRICK_HEIGHT + BALL_SIZE) {
+    if (positionX < FIELDS[currentFieldId].left + FIELD_WIDTH / 2 + BALL_SIZE) {
       if (
         y > SENSITIVITY &&
         positionY < FIELDS[currentFieldId].top + FIELD_HEIGHT - BALL_SIZE
@@ -291,7 +289,7 @@ class Board extends Component {
       this.moveRightToRightFieldTopWall(x, positionX, currentFieldId, FIELDS);
     } else if (
       positionY >
-      FIELDS[currentFieldId].top + FIELD_HEIGHT - BRICK_HEIGHT - BALL_SIZE / 2
+      FIELDS[currentFieldId].top + HORIZONTAL_BRICK_HEIGHT + BALL_SIZE / 2
     ) {
       this.moveRightToRightFieldBottomWall(
         x,
@@ -310,11 +308,17 @@ class Board extends Component {
   ) => {
     const { positionY } = this.state;
 
-    if (positionY < FIELDS[currentFieldId].top + BRICK_HEIGHT + BALL_SIZE / 2) {
+    if (
+      positionY <
+      FIELDS[currentFieldId].top + HORIZONTAL_BRICK_HEIGHT + BALL_SIZE / 2
+    ) {
       this.moveLeftToLeftFieldTopWall(x, positionX, currentFieldId, FIELDS);
     } else if (
       positionY >
-      FIELDS[currentFieldId].top + FIELD_HEIGHT - BRICK_HEIGHT - BALL_SIZE / 2
+      FIELDS[currentFieldId].top +
+        FIELD_HEIGHT -
+        HORIZONTAL_BRICK_HEIGHT -
+        BALL_SIZE / 2
     ) {
       this.moveLeftToLeftFieldBottomWall(x, positionX, currentFieldId, FIELDS);
     } else this.moveLeftToNextField(x, positionX, currentFieldId, FIELDS);
@@ -330,7 +334,10 @@ class Board extends Component {
   ) => {
     const { positionY } = this.state;
 
-    if (positionY < FIELDS[currentFieldId].top + BRICK_HEIGHT + BALL_SIZE) {
+    if (
+      positionY <
+      FIELDS[currentFieldId].top + HORIZONTAL_BRICK_HEIGHT + BALL_SIZE
+    ) {
       if (
         x > SENSITIVITY &&
         positionX > FIELDS[currentFieldId].left + BALL_SIZE
@@ -347,7 +354,10 @@ class Board extends Component {
     FIELDS: IField[]
   ) => {
     const { positionY } = this.state;
-    if (positionY < FIELDS[currentFieldId].top + BRICK_HEIGHT + BALL_SIZE) {
+    if (
+      positionY <
+      FIELDS[currentFieldId].top + HORIZONTAL_BRICK_HEIGHT + BALL_SIZE
+    ) {
       if (
         x < SENSITIVITY &&
         positionX < FIELDS[FIELDS[currentFieldId].rightFieldId].left - BALL_SIZE
@@ -382,7 +392,10 @@ class Board extends Component {
 
     if (
       positionY >
-      FIELDS[currentFieldId].top + FIELD_HEIGHT - BRICK_HEIGHT - BALL_SIZE
+      FIELDS[currentFieldId].top +
+        FIELD_HEIGHT -
+        HORIZONTAL_BRICK_HEIGHT -
+        BALL_SIZE
     ) {
       if (
         x > SENSITIVITY &&
@@ -402,7 +415,10 @@ class Board extends Component {
     const { positionY } = this.state;
     if (
       positionY >
-      FIELDS[currentFieldId].top + FIELD_HEIGHT - BRICK_HEIGHT - BALL_SIZE
+      FIELDS[currentFieldId].top +
+        FIELD_HEIGHT -
+        HORIZONTAL_BRICK_HEIGHT -
+        BALL_SIZE
     ) {
       if (
         x < SENSITIVITY &&
@@ -433,7 +449,7 @@ class Board extends Component {
   ) => {
     if (
       x > SENSITIVITY &&
-      positionX > FIELDS[currentFieldId].left + BRICK_HEIGHT + BALL_SIZE
+      positionX > FIELDS[currentFieldId].left + FIELD_WIDTH / 2 + BALL_SIZE
     ) {
       this.changePositionX(positionX, x);
     }
@@ -472,8 +488,7 @@ class Board extends Component {
   ) => {
     if (
       x < SENSITIVITY &&
-      positionX <
-        FIELDS[currentFieldId].left + FIELD_WIDTH - BRICK_HEIGHT - BALL_SIZE
+      positionX < FIELDS[currentFieldId].left + FIELD_WIDTH / 2 - BALL_SIZE
     ) {
       this.changePositionX(positionX, x);
     }
@@ -498,7 +513,8 @@ class Board extends Component {
   ) => {
     if (
       y < SENSITIVITY &&
-      positionY > FIELDS[currentFieldId].top + BRICK_HEIGHT + BALL_SIZE
+      positionY >
+        FIELDS[currentFieldId].top + HORIZONTAL_BRICK_HEIGHT + BALL_SIZE
     ) {
       this.changePositionY(positionY, y);
     }
@@ -527,7 +543,10 @@ class Board extends Component {
     if (
       y > SENSITIVITY &&
       positionY <
-        FIELDS[currentFieldId].top + FIELD_HEIGHT - BRICK_HEIGHT - BALL_SIZE
+        FIELDS[currentFieldId].top +
+          FIELD_HEIGHT -
+          HORIZONTAL_BRICK_HEIGHT -
+          BALL_SIZE
     ) {
       this.changePositionY(positionY, y);
     }
@@ -551,9 +570,9 @@ class Board extends Component {
         this.FIELDS = prevProps.fields;
         const { currentFieldId } = this.state;
         const positionY =
-          this.FIELDS[currentFieldId].top + BRICK_HEIGHT + 2 * BALL_SIZE;
+          this.FIELDS[currentFieldId].top + HORIZONTAL_BRICK_HEIGHT + BALL_SIZE;
         const positionX =
-          this.FIELDS[currentFieldId].left + BRICK_HEIGHT + BALL_SIZE;
+          this.FIELDS[currentFieldId].left + FIELD_WIDTH / 2 + BALL_SIZE;
         this.setState({
           positionY,
           positionX,
@@ -608,14 +627,12 @@ class Board extends Component {
     return (
       <div
         style={{
-          marginBottom: '1rem',
           backgroundImage: `url(${Background})`,
 
           width: `${BOARD_WIDTH}px`,
           height: `${BOARD_HEIGHT}px`,
           position: 'relative',
         }}
-        className="board"
       >
         <Fields />
         <Ball positionX={positionX} positionY={positionY} />

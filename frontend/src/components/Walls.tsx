@@ -1,7 +1,5 @@
 import React from 'react';
 import {
-  //BRICK_WIDTH,
-  // BRICK_HEIGHT,
   VERTICAL_BRICK_S_HEIGHT,
   VERTICAL_BRICK_M_HEIGHT,
   VERTICAL_BRICK_WIDTH,
@@ -59,7 +57,7 @@ const drawLeftAndRightWall = () => {
     </div>
   );
 };
-//STA SI TU
+
 const drawTopAndBottomWall = () => {
   return (
     <div style={{ position: 'relative' }}>

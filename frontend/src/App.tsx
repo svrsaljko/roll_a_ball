@@ -1,14 +1,13 @@
 import React from 'react';
-import Game from './components/Game';
-import './App.css';
+import Home from './pages/Home';
 
 function App() {
   console.log('Mobile device to pixel ratio: ', window.devicePixelRatio);
   console.log('Mobile device outer width: ', window.outerWidth);
   console.log('Mobile device outer height: ', window.outerHeight);
   return (
-    <div className="App">
-      <Game />
+    <div>
+      <Home />
     </div>
   );
 }
