@@ -1,1 +1,2 @@
 export const SET_ALL_FIELDS = 'SET_ALL_FIELDS';
+export const SET_CURRENT_LEVEL = 'SET_CURRENT_LEVEL';

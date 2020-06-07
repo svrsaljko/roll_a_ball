@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PauseButton from '../images/pauseButton.png';
 import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
 import { IRootReducer } from '../reducers/index';
 
 const onPauseClick = () => {
   console.log('pause button clicked! ');
 };
 
-function GameFooter() {
+function GameFooter(props: any) {
+  console.log('GAME FOOTER props: ', props);
+  //const [currentLevel, setCurrentLevel] = useState(1);
+  //console.log('level: ', currentLevel);
+
   return (
     <div
       style={{
@@ -20,7 +25,8 @@ function GameFooter() {
       }}
     >
       <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <div> Score: 100 </div> <div style={{ marginTop: '5px' }}> LV: 1 </div>
+        <div> Score: 100 </div>{' '}
+        <div style={{ marginTop: '5px' }}> LV: {props.currentLevel} </div>
       </div>
 
       <div onClick={onPauseClick}>
@@ -32,9 +38,16 @@ function GameFooter() {
 
 const mapStateToProps = (state: IRootReducer) => {
   //  const fields: IField[] = state.fieldsReducer.fields;
+  const currentLevel: number = state.levelReducer.currentLevel;
   return {
-    //  fields,
+    currentLevel,
   };
 };
+
+// const mapDispatchToProps = (dispatch: Dispatch) => {
+//   return {
+//     setCurrentLevel: (fields: IField[]) => dispatch(setAllFields(fields)),
+//   };
+// };
 
 export default connect(mapStateToProps)(GameFooter);

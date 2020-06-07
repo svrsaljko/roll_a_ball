@@ -5,6 +5,8 @@ import Ball from './Ball';
 import { IField } from '../interfaces/IField';
 import { isMobile } from 'react-device-detect';
 import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
+import { setCurrentLevel } from '../actions/actions';
 import { IRootReducer } from '../reducers/index';
 import {
   BOARD_WIDTH,
@@ -23,13 +25,22 @@ interface IState {
   positionY: number;
   currentFieldId: number;
   start: boolean;
+  currentLevel: number;
+  numberOfLevels: number;
+}
+
+interface IProps {
+  currentLevel: number;
+  fields: IField[];
+  setCurrentLevel: (currentLevel: number) => void;
 }
 
 interface IPrevProps {
   fields: IField[];
+  currentLevel: number;
 }
 
-class Board extends Component {
+class Board extends Component<IProps> {
   state: IState = {
     x: 0,
     y: 0,
@@ -37,9 +48,12 @@ class Board extends Component {
     positionY: 0,
     currentFieldId: 1,
     start: false,
+    currentLevel: 1,
+    numberOfLevels: 3,
   };
 
   FIELDS: IField[] = [];
+  //currentLevel: number;
 
   moveLeft() {
     let { x, positionX, currentFieldId } = this.state;
@@ -565,10 +579,14 @@ class Board extends Component {
   };
 
   componentDidUpdate(prevProps: IPrevProps) {
-    //console.log('componentDidUpdate');
+    //console.log('prevProps: ', prevProps);
+    //console.log('this.props: ', this.props);
+
     if (prevProps.fields.length > 0) {
       if (!this.state.start) {
         this.FIELDS = prevProps.fields;
+        // this.currentLevel = prevProps.currentLevel;
+        //console.log('currentLevel: ', this.currentLevel);
         const { currentFieldId } = this.state;
         const positionY =
           this.FIELDS[currentFieldId].top + HORIZONTAL_BRICK_HEIGHT + BALL_SIZE;
@@ -578,6 +596,7 @@ class Board extends Component {
           positionY,
           positionX,
           start: true,
+          currentLevel: prevProps.currentLevel,
         });
       }
     }
@@ -639,12 +658,29 @@ class Board extends Component {
       if (ballX === holeX || ballY === holeY) {
         //console.log('upa u rupu');
         //this.setState({ start: false });
+        //console.log('iduci level: ', this.currentLevel + 1);
+        //console.log('this.props: ', this.props);
+        //const { props: IProps } = this;
+
+        let { currentLevel, numberOfLevels } = this.state;
+        if (currentLevel < numberOfLevels) {
+          currentLevel++;
+          const positionY =
+            this.FIELDS[10].top + HORIZONTAL_BRICK_HEIGHT + BALL_SIZE;
+          const positionX = this.FIELDS[10].left + FIELD_WIDTH / 2 + BALL_SIZE;
+          this.props.setCurrentLevel(currentLevel);
+          this.setState({ currentLevel, positionX, positionY });
+        }
+        //console.log('this.currentLevel: ', currentLevel);
+        //const {setCurrentLevel} = this.props: IProps;
+        //this.props.setCurrentLevel('a');
       }
     }
   }
 
   render() {
     const { positionX, positionY } = this.state;
+
     //const { start } = this.state;
     //console.log('start: ', start);
 
@@ -666,10 +702,20 @@ class Board extends Component {
 }
 
 const mapStateToProps = (state: IRootReducer) => {
+  console.log('redux state: ', state);
   const fields: IField[] = state.fieldsReducer.fields;
+  const currentLevel: number = state.levelReducer.currentLevel;
   return {
     fields,
+    currentLevel,
   };
 };
 
-export default connect(mapStateToProps)(Board);
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return {
+    setCurrentLevel: (currentLevel: number) =>
+      dispatch(setCurrentLevel(currentLevel)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Board);

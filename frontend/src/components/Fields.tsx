@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { setAllFields } from '../actions/actions';
+import { IRootReducer } from '../reducers';
 import {
   NUMBER_OF_ROWS,
   NUMBER_OF_COLUMNS,
@@ -65,10 +66,20 @@ function Fields(props: IProps) {
   );
 }
 
+const mapStateToProps = (state: IRootReducer) => {
+  console.log('redux state: ', state);
+  // const fields: IField[] = state.fieldsReducer.fields;
+  const currentLevel: number = state.levelReducer.currentLevel;
+  return {
+    // fields,
+    currentLevel,
+  };
+};
+
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     setAllFields: (fields: IField[]) => dispatch(setAllFields(fields)),
   };
 };
 
-export default connect(null, mapDispatchToProps)(Levels(Fields));
+export default connect(mapStateToProps, mapDispatchToProps)(Levels(Fields));
