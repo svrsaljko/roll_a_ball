@@ -8,6 +8,7 @@ import {
 } from './Constants';
 import BrickDark from '../images/brickdark.png';
 import RotatedBrickDark from '../images/rotatedBrickdark.png';
+import Hole from './Hole';
 
 const drawLeftAndRightWall = () => {
   return (
@@ -284,15 +285,20 @@ const drawLeftWall = () => {
   );
 };
 
+const drawHole = () => {
+  return <Hole />;
+};
+
 interface IProps {
   topWall: boolean;
   leftWall: boolean;
   bottomWall: boolean;
   rightWall: boolean;
+  hasHole: boolean;
 }
 
 const drawWalls = (props: IProps) => {
-  const { topWall, leftWall, bottomWall, rightWall } = props;
+  const { topWall, leftWall, bottomWall, rightWall, hasHole } = props;
   if (topWall && leftWall) {
     return <div>{drawTopAndLeftWall()}</div>;
   } else if (bottomWall && rightWall) {
@@ -313,6 +319,8 @@ const drawWalls = (props: IProps) => {
     return <div> {drawLeftWall()} </div>;
   } else if (rightWall) {
     return <div> {drawRightWall()} </div>;
+  } else if (hasHole) {
+    return <div> {drawHole()} </div>;
   }
 };
 

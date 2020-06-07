@@ -565,6 +565,7 @@ class Board extends Component {
   };
 
   componentDidUpdate(prevProps: IPrevProps) {
+    //console.log('componentDidUpdate');
     if (prevProps.fields.length > 0) {
       if (!this.state.start) {
         this.FIELDS = prevProps.fields;
@@ -600,6 +601,7 @@ class Board extends Component {
           this.moveDown();
           this.moveUp();
           this.fieldDetector();
+          this.holeDetector();
         }
       }, 1000 / 60);
     }
@@ -621,8 +623,30 @@ class Board extends Component {
     }
   }
 
+  holeDetector() {
+    const { FIELDS } = this;
+    const { positionX, positionY, currentFieldId } = this.state;
+    const ballX = positionX.toFixed(0);
+    const ballY = positionY.toFixed(0);
+    if (FIELDS[currentFieldId].hasHole) {
+      const holeX = (FIELDS[currentFieldId].left + FIELD_WIDTH / 2).toFixed(0);
+      const holeY = (FIELDS[currentFieldId].top + FIELD_HEIGHT / 2).toFixed(0);
+      //console.log('ballX', ballX);
+      //console.log('ballY', ballY);
+
+      //console.log('holeX', holeX);
+      //console.log('holeY', holeY);
+      if (ballX === holeX || ballY === holeY) {
+        //console.log('upa u rupu');
+        //this.setState({ start: false });
+      }
+    }
+  }
+
   render() {
     const { positionX, positionY } = this.state;
+    //const { start } = this.state;
+    //console.log('start: ', start);
 
     return (
       <div
