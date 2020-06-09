@@ -1,6 +1,5 @@
 import { SET_CURRENT_LEVEL } from '../actions/types';
 import { IActionSetCurrentLevel } from '../actions/actions';
-import { ILevel } from '../interfaces/ILevel';
 
 export interface ILevelReducerState {
   currentLevel: number;

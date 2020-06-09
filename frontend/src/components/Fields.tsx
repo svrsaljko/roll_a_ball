@@ -3,12 +3,7 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { setAllFields } from '../actions/actions';
 import { IRootReducer } from '../reducers';
-import {
-  NUMBER_OF_ROWS,
-  NUMBER_OF_COLUMNS,
-  FIELD_WIDTH,
-  FIELD_HEIGHT,
-} from './Constants';
+import { FIELD_WIDTH, FIELD_HEIGHT } from './Constants';
 import { IField } from '../interfaces/IField';
 import Walls from './Walls';
 import { uuid } from 'uuidv4';
@@ -16,17 +11,21 @@ import Levels from '../hoc/Levels';
 
 interface IProps {
   setAllFields(fields: IField[]): void;
-  fields: IField[];
+  currentLevel: number;
+  levels: IField[][];
 }
 
 function Fields(props: IProps) {
-  const [fields, setFields] = useState(props.fields);
+  const [fields, setFields] = useState(props.levels[props.currentLevel - 1]);
 
   useEffect(() => {
-    setFields(fields);
-    props.setAllFields(fields);
-  }, [fields, props]);
-
+    // console.log('primljeni level s redux-a ', props.currentLevel);
+    setFields(props.levels[props.currentLevel - 1]);
+    // console.log('šalji polja na redux');
+    // props.setAllFields(props.levels[props.currentLevel - 1]);
+  }, [props]);
+  props.setAllFields(props.levels[props.currentLevel - 1]);
+  // console.log('FIELDS props: ', props.levels);
   return (
     <div>
       {fields.map((field) => {
@@ -44,7 +43,7 @@ function Fields(props: IProps) {
           <div
             key={uuid()}
             style={{
-              //border: '0.3px solid red',
+              border: '0.3px solid red',
               width: `${FIELD_WIDTH}px`,
               height: `${FIELD_HEIGHT}px`,
               top: `${top}px`,
@@ -67,7 +66,7 @@ function Fields(props: IProps) {
 }
 
 const mapStateToProps = (state: IRootReducer) => {
-  console.log('redux state: ', state);
+  // console.log('redux state: ', state);
   // const fields: IField[] = state.fieldsReducer.fields;
   const currentLevel: number = state.levelReducer.currentLevel;
   return {

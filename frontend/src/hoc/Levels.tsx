@@ -7,6 +7,14 @@ import {
 } from '../components/Constants';
 import { IField } from '../interfaces/IField';
 
+const initializeLevels = () => {
+  const level1 = initializeLevel();
+  const level2 = initializeLevel2();
+  const level3 = initializeLevel3();
+  const levels = [level1, level2, level3];
+  return levels;
+};
+
 const initializeLevel = () => {
   const fields = new Array<IField>(NUMBER_OF_ROWS * NUMBER_OF_COLUMNS);
   let field: IField;
@@ -350,34 +358,14 @@ const initializeLevel3 = () => {
   return fields;
 };
 
-//function numberOfLevels(): number {
-// return 3;
-//}
 // any dodati tip !!!!!!
 function Levels(WrappedComponent: any) {
-  let fields: IField[]; //= initializeLevel();
-  //if(cu)
-  const numberOfLevels = 3;
-  return (props: any) => {
-    console.log('levels PROPSSSS: ', props);
-    if (props.currentLevel === 1) {
-      console.log('level 1');
-      fields = initializeLevel();
-    } else if (props.currentLevel === 2) {
-      fields = initializeLevel2();
-      console.log('level 2');
-    } else if (props.currentLevel === 3) {
-      fields = initializeLevel3();
-      console.log('level 3');
-    }
+  let levels = initializeLevels();
 
+  return (props: any) => {
     return (
       <div>
-        <WrappedComponent
-          numberOfLevels={numberOfLevels}
-          fields={fields}
-          {...props}
-        />
+        <WrappedComponent levels={levels} {...props} />
       </div>
     );
   };
