@@ -24,6 +24,7 @@ const initializeLevel = () => {
   let rightWall: boolean = false;
   let leftWall: boolean = false;
   let hasHole: boolean = false;
+  let hasDiamond: boolean = false;
   let leftFieldId: null | number = null;
   let rightFieldId: null | number = null;
   let topFieldId: null | number = null;
@@ -50,6 +51,11 @@ const initializeLevel = () => {
       if (i === 8 && j === 7) {
         hasHole = true;
       }
+
+      if ((i === 4 && j === 1) || (i === 4 && j === 5)) {
+        hasDiamond = true;
+      }
+
       if (j === 2) {
         if (i === 7) {
           bottomWall = true;
@@ -129,6 +135,7 @@ const initializeLevel = () => {
         rightWall,
         leftWall,
         hasHole,
+        hasDiamond,
         fieldId,
         leftFieldId,
         rightFieldId,
@@ -143,6 +150,7 @@ const initializeLevel = () => {
       rightWall = false;
       leftWall = false;
       hasHole = false;
+      hasDiamond = false;
     }
   }
   return fields;
@@ -157,6 +165,7 @@ const initializeLevel2 = () => {
   let rightWall: boolean = false;
   let leftWall: boolean = false;
   let hasHole: boolean = false;
+  let hasDiamond: boolean = false;
   let leftFieldId: null | number = null;
   let rightFieldId: null | number = null;
   let topFieldId: null | number = null;
@@ -183,6 +192,11 @@ const initializeLevel2 = () => {
       if (i === 8 && j === 7) {
         hasHole = true;
       }
+
+      if ((i === 4 && j === 1) || (i === 4 && j === 5)) {
+        hasDiamond = true;
+      }
+
       if (j === 2) {
         if (i === 7) {
           bottomWall = true;
@@ -262,6 +276,7 @@ const initializeLevel2 = () => {
         rightWall,
         leftWall,
         hasHole,
+        hasDiamond,
         fieldId,
         leftFieldId,
         rightFieldId,
@@ -276,6 +291,7 @@ const initializeLevel2 = () => {
       rightWall = false;
       leftWall = false;
       hasHole = false;
+      hasDiamond = false;
     }
   }
   return fields;
@@ -290,6 +306,7 @@ const initializeLevel3 = () => {
   let rightWall: boolean = false;
   let leftWall: boolean = false;
   let hasHole: boolean = false;
+  let hasDiamond: boolean = false;
   let leftFieldId: null | number = null;
   let rightFieldId: null | number = null;
   let topFieldId: null | number = null;
@@ -317,6 +334,10 @@ const initializeLevel3 = () => {
         hasHole = true;
       }
 
+      if ((i === 4 && j === 1) || (i === 4 && j === 5)) {
+        hasDiamond = true;
+      }
+
       if (i === 5 && (j === 3 || j === 5)) {
         leftWall = true;
         rightWall = true;
@@ -339,6 +360,7 @@ const initializeLevel3 = () => {
         rightWall,
         leftWall,
         hasHole,
+        hasDiamond,
         fieldId,
         leftFieldId,
         rightFieldId,
@@ -353,6 +375,7 @@ const initializeLevel3 = () => {
       rightWall = false;
       leftWall = false;
       hasHole = false;
+      hasDiamond = false;
     }
   }
   return fields;

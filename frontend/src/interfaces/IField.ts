@@ -6,6 +6,7 @@ export interface IField {
   rightWall: boolean;
   leftWall: boolean;
   hasHole: boolean;
+  hasDiamond: boolean;
   fieldId: number;
   leftFieldId: number | null;
   rightFieldId: number | null;

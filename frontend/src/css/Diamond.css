@@ -1,0 +1,11 @@
+.Diamond {
+  border-style: solid;
+  border-color: transparent transparent #b9f2ff transparent;
+  box-sizing: content-box;
+}
+
+.DiamondAfter {
+  border-style: solid;
+  border-color: #b9f2ff transparent transparent transparent;
+  border-width: 14px 10px 0 10px;
+}

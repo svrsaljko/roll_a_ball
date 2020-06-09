@@ -9,6 +9,7 @@ import {
 import BrickDark from '../images/brickdark.png';
 import RotatedBrickDark from '../images/rotatedBrickdark.png';
 import Hole from './Hole';
+import Diamond from './Diamond';
 
 const drawLeftAndRightWall = () => {
   return (
@@ -289,16 +290,28 @@ const drawHole = () => {
   return <Hole />;
 };
 
+const drawDiamond = () => {
+  return <Diamond />;
+};
+
 interface IProps {
   topWall: boolean;
   leftWall: boolean;
   bottomWall: boolean;
   rightWall: boolean;
   hasHole: boolean;
+  hasDiamond: boolean;
 }
 
 const drawWalls = (props: IProps) => {
-  const { topWall, leftWall, bottomWall, rightWall, hasHole } = props;
+  const {
+    topWall,
+    leftWall,
+    bottomWall,
+    rightWall,
+    hasHole,
+    hasDiamond,
+  } = props;
   if (topWall && leftWall) {
     return <div>{drawTopAndLeftWall()}</div>;
   } else if (bottomWall && rightWall) {
@@ -321,6 +334,8 @@ const drawWalls = (props: IProps) => {
     return <div> {drawRightWall()} </div>;
   } else if (hasHole) {
     return <div> {drawHole()} </div>;
+  } else if (hasDiamond) {
+    return <div> {drawDiamond()} </div>;
   }
 };
 

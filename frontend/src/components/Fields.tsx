@@ -37,6 +37,7 @@ function Fields(props: IProps) {
           rightWall,
           leftWall,
           hasHole,
+          hasDiamond,
         } = field;
         //console.log('hasHole, ', hasHole);
         return (
@@ -57,6 +58,7 @@ function Fields(props: IProps) {
               rightWall={rightWall}
               leftWall={leftWall}
               hasHole={hasHole}
+              hasDiamond={hasDiamond}
             />
           </div>
         );
