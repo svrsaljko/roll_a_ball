@@ -6,7 +6,11 @@ import { IField } from '../interfaces/IField';
 import { isMobile } from 'react-device-detect';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { setCurrentLevel } from '../actions/actions';
+import {
+  setCurrentLevel,
+  setScore,
+  removeDiamondFromField,
+} from '../actions/actions';
 import { IRootReducer } from '../reducers/index';
 import {
   BOARD_WIDTH,
@@ -31,8 +35,11 @@ interface IState {
 
 interface IProps {
   currentLevel: number;
+  currentScore: number;
   fields: IField[];
   setCurrentLevel: (currentLevel: number) => void;
+  removeDiamondFromField: (fields: IField[]) => void;
+  setScore: (newScore: number) => void;
 }
 
 interface IPrevProps {
@@ -624,6 +631,7 @@ class Board extends Component<IProps> {
           this.moveUp();
           this.fieldDetector();
           this.holeDetector();
+          this.diamondDetector();
         }
       }, 1000 / 60);
     }
@@ -670,6 +678,32 @@ class Board extends Component<IProps> {
     }
   }
 
+  diamondDetector() {
+    const { FIELDS } = this;
+    const { positionX, positionY, currentFieldId } = this.state;
+    const { currentScore } = this.props;
+    const ballX = positionX.toFixed(0);
+    const ballY = positionY.toFixed(0);
+    if (FIELDS[currentFieldId].hasDiamond) {
+      const holeX = (FIELDS[currentFieldId].left + FIELD_WIDTH / 2).toFixed(0);
+      const holeY = (FIELDS[currentFieldId].top + FIELD_HEIGHT / 2).toFixed(0);
+
+      if (ballX === holeX || ballY === holeY) {
+        console.log('diamond detected');
+        const newFileds = FIELDS.map((field) => {
+          if (field.fieldId === currentFieldId) {
+            console.log('delete diamond');
+            field.hasDiamond = false;
+          }
+          return field;
+        });
+        const newScore = currentScore + 1000;
+        this.props.removeDiamondFromField(newFileds);
+        this.props.setScore(newScore);
+      }
+    }
+  }
+
   render() {
     const { positionX, positionY } = this.state;
 
@@ -693,9 +727,11 @@ class Board extends Component<IProps> {
 const mapStateToProps = (state: IRootReducer) => {
   const fields: IField[] = state.fieldsReducer.fields;
   const currentLevel: number = state.levelReducer.currentLevel;
+  const currentScore: number = state.scoreReducer.currentScore;
   return {
     fields,
     currentLevel,
+    currentScore,
   };
 };
 
@@ -703,6 +739,9 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     setCurrentLevel: (currentLevel: number) =>
       dispatch(setCurrentLevel(currentLevel)),
+    removeDiamondFromField: (fields: IField[]) =>
+      dispatch(removeDiamondFromField(fields)),
+    setScore: (newScore: number) => dispatch(setScore(newScore)),
   };
 };
 

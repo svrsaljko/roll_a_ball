@@ -7,7 +7,7 @@ import { IRootReducer } from '../reducers/index';
 const onPauseClick = () => {
   console.log('pause button clicked! ');
 };
-
+//************MAKNI any type */
 function GameFooter(props: any) {
   console.log('GAME FOOTER props: ', props);
   //const [currentLevel, setCurrentLevel] = useState(1);
@@ -25,7 +25,7 @@ function GameFooter(props: any) {
       }}
     >
       <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <div> Score: 100 </div>{' '}
+        <div> Score: {props.currentScore} </div>{' '}
         <div style={{ marginTop: '5px' }}> LV: {props.currentLevel} </div>
       </div>
 
@@ -39,8 +39,10 @@ function GameFooter(props: any) {
 const mapStateToProps = (state: IRootReducer) => {
   //  const fields: IField[] = state.fieldsReducer.fields;
   const currentLevel: number = state.levelReducer.currentLevel;
+  const currentScore: number = state.scoreReducer.currentScore;
   return {
     currentLevel,
+    currentScore,
   };
 };
 

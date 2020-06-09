@@ -12,18 +12,19 @@ import Levels from '../hoc/Levels';
 interface IProps {
   setAllFields(fields: IField[]): void;
   currentLevel: number;
+  currentScore: number;
   levels: IField[][];
 }
 
 function Fields(props: IProps) {
   const [fields, setFields] = useState(props.levels[props.currentLevel - 1]);
-
+  const { currentScore } = props;
   useEffect(() => {
     // console.log('primljeni level s redux-a ', props.currentLevel);
     setFields(props.levels[props.currentLevel - 1]);
     // console.log('šalji polja na redux');
     // props.setAllFields(props.levels[props.currentLevel - 1]);
-  }, [props]);
+  }, [props, currentScore]);
   props.setAllFields(props.levels[props.currentLevel - 1]);
   // console.log('FIELDS props: ', props.levels);
   return (
@@ -71,9 +72,11 @@ const mapStateToProps = (state: IRootReducer) => {
   // console.log('redux state: ', state);
   // const fields: IField[] = state.fieldsReducer.fields;
   const currentLevel: number = state.levelReducer.currentLevel;
+  const currentScore: number = state.scoreReducer.currentScore;
   return {
     // fields,
     currentLevel,
+    currentScore,
   };
 };
 

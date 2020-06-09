@@ -16,6 +16,7 @@ function Diamond() {
           borderWidth: `0 ${BALL_SIZE / 2}px ${BALL_SIZE / 2}px ${
             BALL_SIZE / 2
           }px`,
+
           width: `${BALL_SIZE}px`,
         }}
         className="Diamond"
