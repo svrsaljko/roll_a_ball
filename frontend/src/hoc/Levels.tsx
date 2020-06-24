@@ -685,12 +685,14 @@ const initializeLevel6 = () => {
 
       if (j === 4 && i === 2) {
         topWall = true;
+        rightWall = true;
       }
       if (j === 4 && i === 1) {
         bottomWall = true;
       }
       if (j === 4 && i === 7) {
         bottomWall = true;
+        rightWall = true;
       }
       if (j === 4 && i === 8) {
         topWall = true;
@@ -730,12 +732,24 @@ const initializeLevel6 = () => {
         rightWall = true;
       }
 
-      if ((i === 4 || i === 3) && j === 4) {
+      if (i === 4 && j === 4) {
         bottomWall = true;
       }
-      if ((i === 5 || i === 6) && j === 4) {
+
+      if (i === 3 && j === 4) {
+        bottomWall = true;
+        rightWall = true;
+      }
+
+      if (i === 5 && j === 4) {
         topWall = true;
       }
+
+      if (i === 6 && j === 4) {
+        rightWall = true;
+        topWall = true;
+      }
+
       if (i === 3 && j === 3) {
         bottomWall = true;
       }

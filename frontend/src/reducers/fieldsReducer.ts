@@ -20,7 +20,7 @@ const fieldsReducer = (state = initState, action: IActionSetAllFields) => {
         fields: action.fields,
       };
     case REMOVE_DIAMOND_FROM_FIELD:
-      console.log('delete diamond redux');
+      // console.log('delete diamond redux');
       return {
         fields: action.fields,
       };

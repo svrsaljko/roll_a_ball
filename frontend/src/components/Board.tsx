@@ -689,10 +689,10 @@ class Board extends Component<IProps> {
       const holeY = (FIELDS[currentFieldId].top + FIELD_HEIGHT / 2).toFixed(0);
 
       if (ballX === holeX || ballY === holeY) {
-        console.log('diamond detected');
+        // console.log('diamond detected');
         const newFileds = FIELDS.map((field) => {
           if (field.fieldId === currentFieldId) {
-            console.log('delete diamond');
+            // console.log('delete diamond');
             field.hasDiamond = false;
           }
           return field;

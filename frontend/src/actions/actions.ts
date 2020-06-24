@@ -3,10 +3,10 @@ import {
   SET_CURRENT_LEVEL,
   REMOVE_DIAMOND_FROM_FIELD,
   SET_SCORE,
+  SET_PAUSE_MENU_STATE,
 } from './types';
 
 import { IField } from '../interfaces/IField';
-// import { ILevel } from '../interfaces/ILevel';
 
 export interface IActionSetAllFields {
   type: string;
@@ -23,6 +23,10 @@ export interface IActionSetScore {
   newScore: number;
 }
 
+export interface IActionSetPauseMenuState {
+  type: string;
+}
+
 export const setAllFields = (fields: IField[]) => {
   return { type: SET_ALL_FIELDS, fields };
 };
@@ -37,4 +41,8 @@ export const removeDiamondFromField = (fields: IField[]) => {
 
 export const setScore = (newScore: number) => {
   return { type: SET_SCORE, newScore };
+};
+
+export const setPauseMenuState = () => {
+  return { type: SET_PAUSE_MENU_STATE };
 };

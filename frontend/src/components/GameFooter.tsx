@@ -1,17 +1,23 @@
-import React, { useState } from 'react';
-import PauseButton from '../images/pauseButton.png';
+import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPauseCircle } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { IRootReducer } from '../reducers/index';
+import { setPauseMenuState } from '../actions/actions';
 
-const onPauseClick = () => {
-  console.log('pause button clicked! ');
+interface IProps {
+  setPauseMenuState(): void;
+  currentLevel: number;
+  currentScore: number;
+}
+
+const onPauseClick = (setPauseMenuState: () => void) => {
+  setPauseMenuState();
 };
-//************MAKNI any type */
-function GameFooter(props: any) {
-  console.log('GAME FOOTER props: ', props);
-  //const [currentLevel, setCurrentLevel] = useState(1);
-  //console.log('level: ', currentLevel);
+
+function GameFooter(props: IProps) {
+  const { currentLevel, currentScore, setPauseMenuState } = props;
 
   return (
     <div
@@ -25,19 +31,22 @@ function GameFooter(props: any) {
       }}
     >
       <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <div> Score: {props.currentScore} </div>{' '}
-        <div style={{ marginTop: '5px' }}> LV: {props.currentLevel} </div>
+        <div> Score: {currentScore} </div>{' '}
+        <div style={{ marginTop: '5px' }}> LV: {currentLevel} </div>
       </div>
 
-      <div onClick={onPauseClick}>
-        <img src={PauseButton} height="35px" width="35px" alt="" />
+      <div
+        onClick={() => {
+          onPauseClick(setPauseMenuState);
+        }}
+      >
+        <FontAwesomeIcon icon={faPauseCircle} size="2x" />
       </div>
     </div>
   );
 }
 
 const mapStateToProps = (state: IRootReducer) => {
-  //  const fields: IField[] = state.fieldsReducer.fields;
   const currentLevel: number = state.levelReducer.currentLevel;
   const currentScore: number = state.scoreReducer.currentScore;
   return {
@@ -46,10 +55,12 @@ const mapStateToProps = (state: IRootReducer) => {
   };
 };
 
-// const mapDispatchToProps = (dispatch: Dispatch) => {
-//   return {
-//     setCurrentLevel: (fields: IField[]) => dispatch(setAllFields(fields)),
-//   };
-// };
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return {
+    setPauseMenuState: () => {
+      dispatch(setPauseMenuState());
+    },
+  };
+};
 
-export default connect(mapStateToProps)(GameFooter);
+export default connect(mapStateToProps, mapDispatchToProps)(GameFooter);
