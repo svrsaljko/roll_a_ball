@@ -6,14 +6,12 @@ import {
   FIELD_WIDTH,
 } from '../components/Constants';
 import { IField } from '../interfaces/IField';
-import { scryRenderedDOMComponentsWithTag } from 'react-dom/test-utils';
-import { isEdge } from 'react-device-detect';
 
 const initializeLevels = () => {
   const level1 = initializeLevel();
   const level2 = initializeLevel2();
   const level3 = initializeLevel3();
-  const level4 = initializeLevel6();
+  const level4 = initializeLevel5();
 
   const levels = [level4, level1, level2, level3];
   return levels;
