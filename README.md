@@ -6,6 +6,8 @@
 
 ## Collect items!
 
+## Enter hole for next level!
+
 ## Set new high score!!
 
 |                                                                      |                                                                      |
