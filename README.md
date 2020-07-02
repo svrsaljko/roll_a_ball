@@ -10,6 +10,8 @@
 
 ## Set new high score!!
 
+![GIF 1]('./readmeImages/roll_a_boll10.gif')
+
 |                                                                      |                                                                      |
 | :------------------------------------------------------------------: | :------------------------------------------------------------------: |
 | <img  alt="roll-a-ball image" src="./readmeImages/roll_a_ball1.png"> | <img  alt="roll-a-ball image" src="./readmeImages/roll_a_ball2.png"> |

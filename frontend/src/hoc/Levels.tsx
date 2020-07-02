@@ -6,7 +6,6 @@ import {
   FIELD_WIDTH,
 } from '../components/Constants';
 import { IField } from '../interfaces/IField';
-import { Hash } from 'crypto';
 
 const initializeLevels = () => {
   const level1 = initializeLevel4();
