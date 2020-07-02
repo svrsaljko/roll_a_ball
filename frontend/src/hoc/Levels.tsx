@@ -6,12 +6,13 @@ import {
   FIELD_WIDTH,
 } from '../components/Constants';
 import { IField } from '../interfaces/IField';
+import { Hash } from 'crypto';
 
 const initializeLevels = () => {
-  const level1 = initializeLevel();
+  const level1 = initializeLevel4();
   const level2 = initializeLevel2();
   const level3 = initializeLevel3();
-  const level4 = initializeLevel5();
+  const level4 = initializeLevel7();
 
   const levels = [level4, level1, level2, level3];
   return levels;
@@ -764,6 +765,244 @@ const initializeLevel6 = () => {
       }
 
       if (i === 2 && (j === 1 || j === 7)) {
+        hasDiamond = true;
+      }
+
+      //
+      top = FIELD_HEIGHT * i;
+      left = FIELD_WIDTH * j;
+
+      leftFieldId = j === 0 ? null : fieldId - 1;
+      rightFieldId = j === NUMBER_OF_COLUMNS - 1 ? null : fieldId + 1;
+      topFieldId = i === 0 ? null : fieldId - NUMBER_OF_COLUMNS;
+      bottomFieldId =
+        i === NUMBER_OF_ROWS - 1 ? null : fieldId + NUMBER_OF_COLUMNS;
+
+      field = {
+        top,
+        left,
+        topWall,
+        bottomWall,
+        rightWall,
+        leftWall,
+        hasHole,
+        hasDiamond,
+        fieldId,
+        leftFieldId,
+        rightFieldId,
+        topFieldId,
+        bottomFieldId,
+      };
+
+      fields[fieldId] = field;
+      fieldId++;
+      topWall = false;
+      bottomWall = false;
+      rightWall = false;
+      leftWall = false;
+      hasHole = false;
+      hasDiamond = false;
+    }
+  }
+  return fields;
+};
+
+// NO-CONNECTION DINO LEVEL
+const initializeLevel7 = () => {
+  const fields = new Array<IField>(NUMBER_OF_ROWS * NUMBER_OF_COLUMNS);
+  let field: IField;
+  let fieldId: number = 0;
+  let topWall: boolean = false;
+  let bottomWall: boolean = false;
+  let rightWall: boolean = false;
+  let leftWall: boolean = false;
+  let hasHole: boolean = false;
+  let hasDiamond: boolean = false;
+  let leftFieldId: null | number = null;
+  let rightFieldId: null | number = null;
+  let topFieldId: null | number = null;
+  let bottomFieldId: null | number = null;
+  let top: number;
+  let left: number;
+
+  for (let i = 0; i < NUMBER_OF_ROWS; i++) {
+    for (let j = 0; j < NUMBER_OF_COLUMNS; j++) {
+      if (i === 0) {
+        topWall = true;
+      }
+      if (i === NUMBER_OF_ROWS - 1) {
+        bottomWall = true;
+      }
+      if (j === 0) {
+        leftWall = true;
+      }
+      if (j === NUMBER_OF_COLUMNS - 1) {
+        rightWall = true;
+      }
+      //
+      // TESTNI LEVEL
+
+      if (i === 0 && (j === 4 || j === 5 || j === 6)) {
+        bottomWall = true;
+      }
+
+      if (i === 1 && (j === 5 || j === 6 || j === 7)) {
+        leftWall = true;
+        rightWall = true;
+      }
+
+      if (i === 1 && j === 3) {
+        rightWall = true;
+      }
+
+      if (i === 1 && j === 4) {
+        leftWall = true;
+        bottomWall = true;
+      }
+
+      if (i === 2 && (j === 4 || j === 5)) {
+        leftWall = true;
+        rightWall = true;
+      }
+      // i===2
+      if (i === 2 && j === 3) {
+        rightWall = true;
+      }
+      if (i === 2 && j === 6) {
+        // leftWall = true;
+        topWall = true;
+      }
+
+      if (i === 2 && j === 7) {
+        topWall = true;
+      }
+      // i ===3
+
+      if (i === 3 && j === 1) {
+        leftWall = true;
+      }
+
+      if (i === 3 && j === 4) {
+        leftWall = true;
+        rightWall = true;
+      }
+
+      if (i === 3 && j === 3) {
+        rightWall = true;
+      }
+      if (i === 3 && j === 6) {
+        // leftWall = true;
+        topWall = true;
+      }
+      if (i === 3 && j === 5) {
+        leftWall = true;
+        topWall = true;
+      }
+
+      if (i === 3 && j === 7) {
+        // topWall = true;
+      }
+
+      // i === 4
+
+      if (i === 4 && (j === 3 || j === 4)) {
+        leftWall = true;
+        rightWall = true;
+      }
+      if (i === 4 && j === 5) {
+        topWall = true;
+        leftWall = true;
+      }
+
+      if (i === 4 && j === 1) {
+        leftWall = true;
+        rightWall = true;
+        // bottomWall = true;
+      }
+
+      if (i === 4 && j === 2) {
+        bottomWall = true;
+      }
+
+      if (i === 4 && j === 6) {
+        rightWall = true;
+        topWall = true;
+      }
+      if (i === 4 && j === 7) {
+        // rightWall = true;
+        // leftWall = true;
+        // topWall = true;
+      }
+
+      // i ===5
+
+      if (i === 5 && j >= 1 && j <= 5) {
+        leftWall = true;
+        rightWall = true;
+      }
+
+      // i === 6
+      if (i === 6 && j >= 2 && j <= 4) {
+        leftWall = true;
+        rightWall = true;
+      }
+
+      if (i === 6 && j === 1) {
+        rightWall = true;
+      }
+
+      if (i === 6 && j === 5) {
+        leftWall = true;
+        topWall = true;
+      }
+
+      // i === 7
+      if (i === 7 && j === 2) {
+        topWall = true;
+        rightWall = true;
+      }
+      if (i === 7 && j === 3) {
+        leftWall = true;
+        rightWall = true;
+      }
+
+      if (i === 7 && j === 4) {
+        topWall = true;
+        leftWall = true;
+      }
+      if (i === 7 && j === 5) {
+        // topWall = true;
+        leftWall = true;
+      }
+
+      // i===8
+      if (i === 8 && j === 3) {
+        topWall = true;
+        leftWall = true;
+      }
+      if (i === 8 && j === 5) {
+        leftWall = true;
+      }
+
+      // i === 9
+
+      if (i === 9 && (j === 3 || j === 5)) {
+        topWall = true;
+      }
+
+      //  diamond & hole;
+
+      if (i === 8 && j === 4) {
+        hasHole = true;
+      }
+
+      if (i === 5 && j === 6) {
+        hasDiamond = true;
+      }
+      if (i === 8 && j === 2) {
+        hasDiamond = true;
+      }
+      if (i === 3 && j === 7) {
         hasDiamond = true;
       }
 
