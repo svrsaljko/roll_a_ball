@@ -4,7 +4,7 @@
 
 |                                                                   |                                                            |
 | :---------------------------------------------------------------: | :--------------------------------------------------------: |
-| ![NO-INTERNET-CONNECTION-T-REX](./readmeImages/roll_a_boll10.gif) | ![ROLL_A_BALL_T_REX_LV1](./readmeImages/roll_a_ball_11gif) |
+| ![NO-INTERNET-CONNECTION-T-REX](./readmeImages/roll_a_ball10.gif) | ![ROLL_A_BALL_T_REX_LV1](./readmeImages/roll_a_ball_11gif) |
 
 ## Tilt device in any direction
 
