@@ -2,6 +2,10 @@
 
 ## React PWA
 
+|                                                                   |                                                            |
+| :---------------------------------------------------------------: | :--------------------------------------------------------: |
+| ![NO-INTERNET-CONNECTION-T-REX](./readmeImages/roll_a_boll10.gif) | ![ROLL_A_BALL_T_REX_LV1](./readmeImages/roll_a_ball_11gif) |
+
 ## Tilt device in any direction
 
 ## Collect items!
@@ -9,8 +13,6 @@
 ## Enter hole for next level!
 
 ## Set new high score!!
-
-![GIF 1]('./readmeImages/roll_a_boll10.gif')
 
 |                                                                      |                                                                      |
 | :------------------------------------------------------------------: | :------------------------------------------------------------------: |
