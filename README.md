@@ -1,6 +1,6 @@
 # Roll a ball
 
-## Offline playing with T-Rex gets a new dimension
+## Offline playing with the T-Rex gets a new dimension
 
 ## ... only on ROLL A BALL PWA
 
