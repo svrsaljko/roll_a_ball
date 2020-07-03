@@ -4,6 +4,8 @@
 
 ## ... only on ROLL A BALL PWA
 
+|                                                                   |                                                            |
+| :---------------------------------------------------------------: | :--------------------------------------------------------: |
 | ![NO-INTERNET-CONNECTION-T-REX](./readmeImages/roll_a_ball10.gif) | ![ROLL-A-BALL-T-REX-LV1](./readmeImages/roll_a_ball11.gif) |
 
 ## Tilt device in any direction
