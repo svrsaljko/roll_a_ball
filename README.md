@@ -1,6 +1,8 @@
 # Roll a ball
 
-## React PWA
+## Offline playing with T-Rex gets a new dimension
+
+## ... only on ROLL A BALL PWA
 
 |                                                                   |                                                            |
 | :---------------------------------------------------------------: | :--------------------------------------------------------: |
