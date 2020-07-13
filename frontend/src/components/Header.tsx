@@ -38,8 +38,8 @@ export default function Header() {
       </div>
 
       <div id="menuBar" className="header-container-menu">
+        <div className="header-container-element">HOME</div>
         <div className="header-container-element">SIGN IN</div>
-        <div className="header-container-element">MENU</div>
         <div className="header-container-element">MENU</div>
         <div className="header-container-element">MENU</div>
       </div>

@@ -22,9 +22,10 @@ function PauseMenu(props: IProps) {
       style={{
         display: `${pauseMenuState}`,
         backgroundColor: 'white',
-        position: 'fixed',
-        marginTop: `-${BOARD_HEIGHT - HORIZONTAL_BRICK_HEIGHT}px`,
+        position: 'absolute',
+        marginTop: `${HORIZONTAL_BRICK_HEIGHT}px`,
         marginLeft: `${VERTICAL_BRICK_WIDTH}px`,
+
         height: `${BOARD_HEIGHT - 2 * HORIZONTAL_BRICK_HEIGHT}px`,
         width: `${BOARD_WIDTH - 2 * VERTICAL_BRICK_WIDTH}px`,
       }}

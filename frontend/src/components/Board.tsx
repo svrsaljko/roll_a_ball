@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Background from '../images/background.png';
 import Fields from './Fields';
 import Ball from './Ball';
+import PauseMenu from './PauseMenu';
+
 import { IField } from '../interfaces/IField';
 import { isMobile } from 'react-device-detect';
 import { connect } from 'react-redux';
@@ -719,6 +721,7 @@ class Board extends Component<IProps> {
       >
         <Fields />
         <Ball positionX={positionX} positionY={positionY} />
+        <PauseMenu />
       </div>
     );
   }

@@ -8,7 +8,7 @@ export default function Game() {
     <div>
       <Board />
 
-      <PauseMenu />
+      {/* <PauseMenu /> */}
 
       <GameFooter />
     </div>
