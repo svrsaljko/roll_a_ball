@@ -40,6 +40,7 @@ function GameFooter(props: IProps) {
           onPauseClick(setPauseMenuState);
         }}
       >
+        {/* <FontAwesomeIcon icon={faPauseCircle} size="2x" /> */}
         <FontAwesomeIcon icon={faPauseCircle} size="2x" />
       </div>
     </div>

@@ -6,6 +6,7 @@ import {
   FIELD_WIDTH,
 } from '../components/Constants';
 import { IField } from '../interfaces/IField';
+// import { level1 } from './level1';
 
 const initializeLevels = () => {
   const level1 = initializeLevel4();
@@ -13,7 +14,7 @@ const initializeLevels = () => {
   const level3 = initializeLevel3();
   const level4 = initializeLevel7();
 
-  const levels = [level4, level1, level2, level3];
+  const levels = [level4, level4, level2, level3];
   return levels;
 };
 
