@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 
@@ -38,8 +38,21 @@ export default function Header() {
       </div>
 
       <div id="menuBar" className="header-container-menu">
-        <div className="header-container-element">HOME</div>
-        <div className="header-container-element">SIGN IN</div>
+        <NavLink
+          exact
+          to="/"
+          activeClassName="header-container-element"
+          activeStyle={{
+            fontWeight: 'bold',
+            color: 'red',
+          }}
+          className="header-container-element"
+        >
+          HOME
+        </NavLink>
+        <NavLink exact to="/signin" className="header-container-element">
+          SIGN IN
+        </NavLink>
         <div className="header-container-element">MENU</div>
         <div className="header-container-element">MENU</div>
       </div>

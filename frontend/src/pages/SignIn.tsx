@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import { useForm } from '../hooks/useForm';
 import '../css/SignIn.css';
@@ -34,6 +35,9 @@ export default function SignIn() {
           >
             SIGN IN
           </button>
+          <Link to="/signup" className="signup-link">
+            Don't have an account yet!?
+          </Link>
         </div>
       </div>
     </div>
