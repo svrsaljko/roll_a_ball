@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Header from '../components/Header';
@@ -9,10 +9,13 @@ const SIGNUP_URL = 'http://localhost:8000/public/registration';
 
 export default function SignUp() {
   const [values, handleChange] = useForm({
+    userName: '',
     email: '',
     password: '',
-    userName: '',
   });
+
+  const [message, setMessage] = useState(' ');
+
   const onSubmit = () => {
     console.log('on submit', values);
     axios({
@@ -21,25 +24,29 @@ export default function SignUp() {
       headers: {
         'Content-Type': 'application/json',
       },
+      //UBACI STVORENOG USERA, REDIRECT ITD.. public private routes
       data: {
-        userName: 'aakkaa',
-        email: 'aakaa@aaka.com',
+        userName: 'rootl',
+        email: 'korisnik@aaka.com',
         password: '12345',
       },
     })
       .then((res) => {
-        console.log('res: ', res.data);
+        console.log('res: ', res);
       })
-      .catch((err) => console.log('err: ', err));
+      .catch((err) =>
+        console.log('err: ', setMessage(err.response.data.message))
+      );
   };
   return (
     <div>
       <Header />
       <div className="signin-container">
         <div className="signin-form">
+          <div>{message}</div>
           <label>USERNAME:</label>
           <input
-            name="username"
+            name="userName"
             placeholder="Enter your username here... "
             type="text"
             value={values.userName}

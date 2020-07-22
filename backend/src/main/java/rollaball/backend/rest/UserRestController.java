@@ -52,28 +52,39 @@ public class UserRestController {
 		return "<h1> Hello user </h1>";	
 		}
 	
-	
+    
+    
+    
     @PostMapping("public/login")
-	public ResponseEntity<?> login(@RequestBody User user ) throws Exception
-    {
-    	try {
-			authenticationManager.authenticate(
-					new UsernamePasswordAuthenticationToken(user.getUserName(), user.getPassword())
-			);
-		}
-		catch (BadCredentialsException e) {
-			throw new Exception("Incorrect username or password", e);
-		}
+ 	public ResponseEntity<?> login(@RequestBody User user ) throws Exception
+     {
+    	System.out.println("username: "+ user.getUserName() + "email: " + user.getEmail() + "password: " + user.getPassword());
+    	if( user.getUserName() == null )
+    		{ 
+    			User userByEmail = userRepository.findByEmail(user.getEmail());
+    			System.out.println("user by email has username: " + userByEmail.getUserName());
+    			user.setUserName(userByEmail.getUserName());
+    		}
+     	try {
+ 			authenticationManager.authenticate(
+ 					new UsernamePasswordAuthenticationToken(user.getUserName(), user.getPassword())
+ 			);
+ 		}
+ 		catch (BadCredentialsException e) {
+ 			throw new Exception("Incorrect username or password", e);
+ 		}
 
 
-		final UserDetails userDetails = userDetailsService
-				.loadUserByUsername(user.getUserName());
+ 		final UserDetails userDetails = userDetailsService
+ 				.loadUserByUsername(user.getUserName());
 
-		final String jwt = jwtTokenUtil.generateToken(userDetails);
+ 		final String jwt = jwtTokenUtil.generateToken(userDetails);
 
-		return ResponseEntity.ok(jwt);
-		
-	}
+ 		return ResponseEntity.ok(jwt);
+ 		
+ 	}
+    
+    
 	
 	@PostMapping("public/registration")
 	@ResponseStatus(code = HttpStatus.CREATED, reason = "User successfully created! " )
