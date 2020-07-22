@@ -53,6 +53,13 @@ export default function Header() {
         <NavLink exact to="/signin" className="header-container-element">
           SIGN IN
         </NavLink>
+        <NavLink
+          exact
+          to="/levelgenerator"
+          className="header-container-element"
+        >
+          LEVEL GENERATOR
+        </NavLink>
         <div className="header-container-element">MENU</div>
         <div className="header-container-element">MENU</div>
       </div>

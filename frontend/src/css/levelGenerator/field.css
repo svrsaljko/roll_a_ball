@@ -1,0 +1,11 @@
+.field {
+  border: 1px groove ivory;
+  /* border-width: 3px; */
+  /* border-color: lightblue; */
+}
+
+.field:hover {
+  cursor: pointer;
+  background-color: sandybrown;
+  /* opacity: 0.2; */
+}

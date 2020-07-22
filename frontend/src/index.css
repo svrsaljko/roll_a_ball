@@ -17,6 +17,14 @@ code {
     monospace;
 }
 
+img {
+  -khtml-user-select: none;
+  -o-user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
 /*margin: 0 !important;
   padding: 0 !important;
 */

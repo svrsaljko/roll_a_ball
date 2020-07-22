@@ -12,4 +12,5 @@ export interface IField {
   rightFieldId: number | null;
   topFieldId: number | null;
   bottomFieldId: number | null;
+  clickCounter?: number;
 }

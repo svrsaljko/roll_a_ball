@@ -4,6 +4,7 @@ import {
   REMOVE_DIAMOND_FROM_FIELD,
   SET_SCORE,
   SET_PAUSE_MENU_STATE,
+  UPDATE_FIELD,
 } from './types';
 
 import { IField } from '../interfaces/IField';
@@ -27,6 +28,12 @@ export interface IActionSetPauseMenuState {
   type: string;
 }
 
+export interface IActionUpdateField {
+  type: string;
+  fieldId: number;
+  clickCounter: number;
+}
+
 export const setAllFields = (fields: IField[]) => {
   return { type: SET_ALL_FIELDS, fields };
 };
@@ -45,4 +52,8 @@ export const setScore = (newScore: number) => {
 
 export const setPauseMenuState = () => {
   return { type: SET_PAUSE_MENU_STATE };
+};
+
+export const updateField = (fieldId: number, clickCounter: number) => {
+  return { type: UPDATE_FIELD, fieldId, clickCounter };
 };
