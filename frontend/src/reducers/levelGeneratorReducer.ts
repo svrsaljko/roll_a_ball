@@ -14,7 +14,7 @@ export interface ILevelGeneratorReducerState {
 }
 
 const initializeFields = () => {
-  console.log('initialize field');
+  // console.log('initialize field');
   const fields = new Array<IField>(NUMBER_OF_ROWS * NUMBER_OF_COLUMNS);
   let field: IField;
   let fieldId: number = 0;

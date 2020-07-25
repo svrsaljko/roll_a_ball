@@ -38,6 +38,7 @@ interface IState {
 interface IProps {
   currentLevel: number;
   currentScore: number;
+  isGamePaused: boolean;
   fields: IField[];
   setCurrentLevel: (currentLevel: number) => void;
   removeDiamondFromField: (fields: IField[]) => void;
@@ -599,7 +600,7 @@ class Board extends Component<IProps> {
           this.FIELDS[currentFieldId].top + HORIZONTAL_BRICK_HEIGHT + BALL_SIZE;
         const positionX =
           this.FIELDS[currentFieldId].left + FIELD_WIDTH / 2 + BALL_SIZE;
-
+        // console.log('prev props: ', prevProps.isGamePaused);
         // const positionY =
         //   this.FIELDS[currentFieldId].top + HORIZONTAL_BRICK_HEIGHT + BALL_SIZE;
         // const positionX =
@@ -609,6 +610,7 @@ class Board extends Component<IProps> {
           positionX,
           start: true,
           currentLevel: prevProps.currentLevel,
+          // isGamePaused: prevProps.isGamePaused,
         });
       }
     }
@@ -627,16 +629,25 @@ class Board extends Component<IProps> {
       accelerometer.start();
       setInterval(() => {
         if (this.state.start) {
-          this.moveLeft();
-          this.moveRight();
-          this.moveDown();
-          this.moveUp();
-          this.fieldDetector();
-          this.holeDetector();
-          this.diamondDetector();
+          // IZBACIT FLAG ???
+          if (!this.returnGamePauseState()) {
+            this.moveLeft();
+            this.moveRight();
+            this.moveDown();
+            this.moveUp();
+            this.fieldDetector();
+            this.holeDetector();
+            this.diamondDetector();
+          }
         }
       }, 1000 / 60);
     }
+  }
+
+  returnGamePauseState() {
+    if (this.props.isGamePaused === undefined) {
+      return false;
+    } else return this.props.isGamePaused;
   }
 
   fieldDetector() {
@@ -709,6 +720,8 @@ class Board extends Component<IProps> {
   render() {
     const { positionX, positionY } = this.state;
 
+    // console.log('paused: ', this.state.isGamePaused);
+
     return (
       <div
         style={{
@@ -730,11 +743,15 @@ class Board extends Component<IProps> {
 const mapStateToProps = (state: IRootReducer) => {
   const fields: IField[] = state.fieldsReducer.fields;
   const currentLevel: number = state.levelReducer.currentLevel;
+  // koristenje score-a???
   const currentScore: number = state.scoreReducer.currentScore;
+  const isGamePaused: boolean = state.pauseMenuReducer.isGamePaused;
+  // console.log('isgame paused: ', isGamePaused);
   return {
     fields,
     currentLevel,
     currentScore,
+    isGamePaused,
   };
 };
 

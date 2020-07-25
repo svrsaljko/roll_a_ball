@@ -3,10 +3,12 @@ import { IActionSetPauseMenuState } from '../actions/actions';
 
 export interface IPauseMenuReducerState {
   pauseMenuState: string;
+  isGamePaused: boolean;
 }
 
 const initState: IPauseMenuReducerState = {
   pauseMenuState: 'none',
+  isGamePaused: false,
 };
 
 const pauseMenuReducer = (
@@ -16,13 +18,17 @@ const pauseMenuReducer = (
   switch (action.type) {
     case SET_PAUSE_MENU_STATE:
       let pauseMenuState;
+      let isGamePaused;
       if (state.pauseMenuState === 'none') {
         pauseMenuState = 'block';
+        isGamePaused = true;
       } else {
         pauseMenuState = 'none';
+        isGamePaused = false;
       }
       return {
         pauseMenuState,
+        isGamePaused,
       };
 
     default:

@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPauseCircle } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
+import Timer from '../components/Timer';
 import { IRootReducer } from '../reducers/index';
 import { setPauseMenuState } from '../actions/actions';
 
@@ -34,7 +35,7 @@ function GameFooter(props: IProps) {
         <div> Score: {currentScore} </div>{' '}
         <div style={{ marginTop: '5px' }}> LV: {currentLevel} </div>
       </div>
-
+      <Timer />
       <div
         onClick={() => {
           onPauseClick(setPauseMenuState);
