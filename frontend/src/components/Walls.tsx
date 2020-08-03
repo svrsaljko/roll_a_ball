@@ -6,8 +6,12 @@ import {
   HORIZONTAL_BRICK_WIDTH,
   HORIZONTAL_BRICK_HEIGHT,
 } from './Constants';
-import BrickDark from '../images/brickdark.png';
-import RotatedBrickDark from '../images/rotatedBrickdark.png';
+// import BrickDark from '../images/brickdark.png';
+// import RotatedBrickDark from '../images/rotatedBrickdark.png';
+import BrickDark from '../images/brick7.png';
+import RotatedBrickDark from '../images/brick7.png';
+// import BrickDark from '../images/brick3.jpg';
+// import RotatedBrickDark from '../images/brick3.jpg';
 import Hole from './Hole';
 import Diamond from './Diamond';
 

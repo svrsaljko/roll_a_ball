@@ -12,8 +12,9 @@ const initState: ILevelReducerState = {
 const levelReducer = (state = initState, action: IActionSetCurrentLevel) => {
   switch (action.type) {
     case SET_CURRENT_LEVEL:
+      const { currentLevel } = action;
       return {
-        currentLevel: action.currentLevel,
+        currentLevel,
       };
 
     default:

@@ -15,6 +15,7 @@ const pauseMenuReducer = (
   state = initState,
   action: IActionSetPauseMenuState
 ) => {
+  // console.log('pozvano pause game ');
   switch (action.type) {
     case SET_PAUSE_MENU_STATE:
       let pauseMenuState;

@@ -992,7 +992,7 @@ const initializeLevel7 = () => {
 
       //  diamond & hole;
 
-      if (i === 8 && j === 4) {
+      if (i === 2 && j === 2) {
         hasHole = true;
       }
 

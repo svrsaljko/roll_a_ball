@@ -5,6 +5,8 @@ import {
   SET_SCORE,
   SET_PAUSE_MENU_STATE,
   UPDATE_FIELD,
+  SET_NEXT_LEVEL_MENU_STATE,
+  SET_CURRENT_TIME,
 } from './types';
 
 import { IField } from '../interfaces/IField';
@@ -34,6 +36,15 @@ export interface IActionUpdateField {
   clickCounter: number;
 }
 
+export interface IActionSetNextLevelMenuState {
+  type: string;
+  isNextLevelMenuActive: boolean;
+}
+export interface IActionSetCurrentTime {
+  type: string;
+  currentTime: number;
+}
+
 export const setAllFields = (fields: IField[]) => {
   return { type: SET_ALL_FIELDS, fields };
 };
@@ -56,4 +67,11 @@ export const setPauseMenuState = () => {
 
 export const updateField = (fieldId: number, clickCounter: number) => {
   return { type: UPDATE_FIELD, fieldId, clickCounter };
+};
+export const setNextLevelMenuState = (isNextLevelMenuActive: boolean) => {
+  return { type: SET_NEXT_LEVEL_MENU_STATE, isNextLevelMenuActive };
+};
+
+export const setCurrentTime = (currentTime: number) => {
+  return { type: SET_CURRENT_TIME, currentTime };
 };

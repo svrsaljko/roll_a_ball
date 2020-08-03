@@ -1,56 +1,22 @@
 import React from 'react';
 import { BALL_SIZE, FIELD_HEIGHT, FIELD_WIDTH } from './Constants';
 
+const BACKROUND_COLOR = 'white';
+
 function Hole() {
   return (
     <div style={{ position: 'absolute' }}>
       <div
         style={{
-          width: `${BALL_SIZE}px`,
-          height: `${BALL_SIZE}px`,
-          backgroundColor: 'black',
+          width: `${BALL_SIZE * 2.3}px`,
+          height: `${BALL_SIZE * 2.3}px`,
+          backgroundColor: `${BACKROUND_COLOR}`,
           position: 'relative',
-          borderRadius: `0 0  ${BALL_SIZE}px 0 `,
+          borderRadius: '50%',
           top: FIELD_HEIGHT / 2,
-          left: FIELD_WIDTH / 2,
+          left: FIELD_WIDTH / 4,
         }}
-      >
-        <div
-          style={{
-            position: 'absolute',
-            top: `${-BALL_SIZE}px`,
-            width: `${BALL_SIZE}px`,
-            height: `${BALL_SIZE}px`,
-            backgroundColor: 'black',
-
-            borderRadius: `0   ${BALL_SIZE}px 0 0 `,
-          }}
-        />
-        <div
-          style={{
-            position: 'absolute',
-            left: `${-BALL_SIZE}px`,
-            top: `${-BALL_SIZE}px`,
-            width: `${BALL_SIZE}px`,
-            height: `${BALL_SIZE}px`,
-            backgroundColor: 'black',
-
-            borderRadius: `  ${BALL_SIZE}px 0 0 0 `,
-          }}
-        />
-        <div
-          style={{
-            position: 'absolute',
-            left: `${-BALL_SIZE}px`,
-
-            width: `${BALL_SIZE}px`,
-            height: `${BALL_SIZE}px`,
-            backgroundColor: 'black',
-
-            borderRadius: `0 0 0  ${BALL_SIZE}px  `,
-          }}
-        />
-      </div>
+      ></div>
     </div>
   );
 }

@@ -6,6 +6,10 @@ import pauseMenuReducer, { IPauseMenuReducerState } from './pauseMenuReducer';
 import levelGeneratorReducer, {
   ILevelGeneratorReducerState,
 } from './levelGeneratorReducer';
+import nextLevelMenuReducer, {
+  INextLevelMenuReducerState,
+} from './nextLevelMenuReducer';
+import timerReducer, { ITimerReducerState } from './timerReducer';
 
 export interface IRootReducer {
   fieldsReducer: IFieldsReducerState;
@@ -13,6 +17,8 @@ export interface IRootReducer {
   scoreReducer: IScoreReducerState;
   pauseMenuReducer: IPauseMenuReducerState;
   levelGeneratorReducer: ILevelGeneratorReducerState;
+  nextLevelMenuReducer: INextLevelMenuReducerState;
+  timerReducer: ITimerReducerState;
 }
 
 export default combineReducers({
@@ -21,4 +27,6 @@ export default combineReducers({
   scoreReducer,
   pauseMenuReducer,
   levelGeneratorReducer,
+  nextLevelMenuReducer,
+  timerReducer,
 });

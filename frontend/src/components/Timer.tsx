@@ -1,77 +1,88 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
+import { setCurrentTime } from '../actions/actions';
 import { IRootReducer } from '../reducers';
 
-interface IProps {
-  isGamePaused: boolean;
-}
-
-interface IState {
-  timerState: number;
-  timerStart: boolean;
-}
-
 const SECOND = 1000;
-const COUNTDOWN_TIMER = 10;
+
+interface IProps {
+  currentTime: number;
+  isGamePaused: boolean;
+  currentLevel: number;
+  setCurrentTime: (currentTime: number) => void;
+  nextLevelMenuState: string;
+}
 
 class Timer extends Component<IProps> {
-  state: IState = { timerState: COUNTDOWN_TIMER, timerStart: false };
-
-  returnGamePauseState = () => {
-    if (this.props.isGamePaused === undefined) {
-      return false;
-    } else return this.props.isGamePaused;
-  };
-
   timerCall = () => {
-    console.log('timer call');
-
-    let countdown = this.state.timerState;
     let doEachInterval = () => {
-      console.log('countdown: ', countdown);
-      countdown = countdown - 1;
+      const {
+        currentTime,
+        setCurrentTime,
+        isGamePaused,
+        nextLevelMenuState,
+      } = this.props;
 
-      if (countdown === 0 || this.returnGamePauseState()) {
+      if (isGamePaused) {
         clearInterval(timer);
-        this.setState({ timerStart: true });
-        console.log('clear timer');
+      } else if (nextLevelMenuState === 'block') {
+        clearInterval(timer);
+        console.log('next level destroy timer');
+      } else if (currentTime === 0) {
+        clearInterval(timer);
+      } else {
+        setCurrentTime(currentTime - 1);
       }
-
-      this.setState({ timerState: countdown });
     };
-    let timer = setInterval(doEachInterval, SECOND);
-  };
-  componentDidUpdate(prevProps: IProps) {
-    console.log('prevProps: ', prevProps.isGamePaused);
-    console.log('currentProps: ', this.props.isGamePaused);
+    console.log('timer created');
+    let timer: any;
 
-    if (this.state.timerStart) {
-      if (
-        prevProps.isGamePaused === true &&
-        this.props.isGamePaused === false
-      ) {
-        console.log('OPET PODESI TIMER');
-        this.timerCall();
-      }
-    }
-  }
+    timer = setInterval(doEachInterval, SECOND);
+  };
 
   componentDidMount() {
     this.timerCall();
   }
 
-  render() {
-    const { timerState } = this.state;
+  componentDidUpdate(prevProps: IProps) {
+    const { isGamePaused, currentLevel, setCurrentTime } = this.props;
 
-    return <div> {timerState} </div>;
+    if (prevProps.isGamePaused === true && isGamePaused === false) {
+      this.timerCall();
+    }
+
+    if (prevProps.currentLevel === currentLevel - 1) {
+      setCurrentTime(10);
+      this.timerCall();
+    }
+  }
+
+  render() {
+    const { currentTime } = this.props;
+
+    return <div>{currentTime}</div>;
   }
 }
 
 const mapStateToProps = (state: IRootReducer) => {
-  const isGamePaused: boolean = state.pauseMenuReducer.isGamePaused;
+  const { currentTime } = state.timerReducer;
+  const { currentLevel } = state.levelReducer;
+  const { isGamePaused } = state.pauseMenuReducer;
+  const { nextLevelMenuState } = state.nextLevelMenuReducer;
   return {
+    currentTime,
     isGamePaused,
+    currentLevel,
+    nextLevelMenuState,
   };
 };
 
-export default connect(mapStateToProps)(Timer);
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return {
+    setCurrentTime: (currentTime: number) =>
+      dispatch(setCurrentTime(currentTime)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Timer);

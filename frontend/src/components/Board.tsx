@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import Background from '../images/background.png';
+import Background from '../images/background1.png';
 import Fields from './Fields';
 import Ball from './Ball';
 import PauseMenu from './PauseMenu';
+import NextLevelMenu from './NextLevelMenu';
 
 import { IField } from '../interfaces/IField';
 import { isMobile } from 'react-device-detect';
@@ -12,6 +13,7 @@ import {
   setCurrentLevel,
   setScore,
   removeDiamondFromField,
+  setNextLevelMenuState,
 } from '../actions/actions';
 import { IRootReducer } from '../reducers/index';
 import {
@@ -43,6 +45,7 @@ interface IProps {
   setCurrentLevel: (currentLevel: number) => void;
   removeDiamondFromField: (fields: IField[]) => void;
   setScore: (newScore: number) => void;
+  setNextLevelMenuState: (isNextLevelMenuActive: boolean) => void;
 }
 
 interface IPrevProps {
@@ -680,8 +683,9 @@ class Board extends Component<IProps> {
         if (currentLevel < numberOfLevels) {
           currentLevel++;
 
-          this.props.setCurrentLevel(currentLevel);
+          // this.props.setCurrentLevel(currentLevel);
           this.FIELDS = this.props.fields;
+          this.props.setNextLevelMenuState(true);
           this.setState({
             currentLevel,
             start: false,
@@ -735,6 +739,7 @@ class Board extends Component<IProps> {
         <Fields />
         <Ball positionX={positionX} positionY={positionY} />
         <PauseMenu />
+        <NextLevelMenu />
       </div>
     );
   }
@@ -762,6 +767,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     removeDiamondFromField: (fields: IField[]) =>
       dispatch(removeDiamondFromField(fields)),
     setScore: (newScore: number) => dispatch(setScore(newScore)),
+    setNextLevelMenuState: (isNextLevelMenuActive: boolean) =>
+      dispatch(setNextLevelMenuState(isNextLevelMenuActive)),
   };
 };
 
