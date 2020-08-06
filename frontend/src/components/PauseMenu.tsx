@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { IRootReducer } from '../reducers';
 import axios from 'axios';
+import { getUsername } from '../service/authService';
 import {
   BOARD_HEIGHT,
   BOARD_WIDTH,
@@ -10,7 +11,9 @@ import {
 } from '../components/Constants';
 
 const URL = 'http://localhost:8000/private/highscore';
-const URL_GET = 'http://localhost:8000/private/highscore/list';
+const URL_PATCH = 'http://localhost:8000/private/highscore';
+const URL_GET = `http://localhost:8000/private/highscore?userName=${getUsername()}`;
+const URL_GET_LIST = `http://localhost:8000/private/highscore/list?userName=${getUsername()}`;
 
 interface IProps {
   pauseMenuState: string;
@@ -22,11 +25,11 @@ const onSubmitScore = (currentScore: number) => {
 
   let testUser: any = {
     userName: 'stipe',
-    highscore: 3333,
+    highscore: 7000,
   };
 
   axios
-    .get(URL_GET)
+    .get(URL_GET_LIST)
     .then((res) => {
       console.log('res: ', res);
     })
@@ -35,7 +38,7 @@ const onSubmitScore = (currentScore: number) => {
     });
 
   // axios
-  //   .patch(URL, testUser)
+  //   .patch(URL_PATCH, testUser)
   //   .then((res) => {
   //     console.log('res: ', res);
   //   })

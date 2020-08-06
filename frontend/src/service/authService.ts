@@ -56,9 +56,9 @@ export const setUserNameAndTokenToLocalStorage = (
   localStorage.setItem('username', username);
 };
 
-// export const getIdFromLocalStorage = () => {
-//   return localStorage.getItem('id');
-// };
+export const getTokenFromLocalStorage = () => {
+  return localStorage.getItem('token');
+};
 
 // export const logOut = (history) => {
 //   localStorage.clear();
@@ -74,6 +74,10 @@ export const getUsernameFromToken = (token: string) => {
   let decodedToken: any = decode(token);
   console.log('decoded token: ', decodedToken);
   return decodedToken.sub;
+};
+
+export const getUsername = () => {
+  return getUsernameFromToken(getTokenFromLocalStorage());
 };
 // export const getIdFromToken = (token: string) => {
 //   let decodedToken: any = decode(token);
