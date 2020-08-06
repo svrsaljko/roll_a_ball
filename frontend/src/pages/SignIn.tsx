@@ -4,6 +4,10 @@ import axios from 'axios';
 import { IUser } from '../interfaces/IUser';
 import Header from '../components/Header';
 import { useForm } from '../hooks/useForm';
+import {
+  setUserNameAndTokenToLocalStorage,
+  getUsernameFromToken,
+} from '../service/authService';
 import '../css/SignIn.css';
 
 const SIGNIN_URL = 'http://localhost:8000/public/login';
@@ -16,7 +20,7 @@ export default function SignIn() {
   const onSubmit = () => {
     let testUser: IUser = {
       userName: null,
-      email: 'ajde@aaka.com',
+      email: 'stipe@aaka.com',
       password: '12345',
     };
 
@@ -26,6 +30,24 @@ export default function SignIn() {
       .post(SIGNIN_URL, testUser)
       .then((res) => {
         console.log('res: ', res);
+        console.log('token: ', res.data);
+        const token = res.data;
+        if (token) {
+          const username = getUsernameFromToken(token);
+          setUserNameAndTokenToLocalStorage(token, username);
+
+          axios.interceptors.request.use(
+            function (config) {
+              console.log('configured AUTHORIZATION HEADER');
+              config.headers['Authorization'] = 'Bearer ' + token;
+
+              return config;
+            },
+            function (err) {
+              return Promise.reject(err);
+            }
+          );
+        }
       })
       .catch((err) => {
         console.log('err: ', err);

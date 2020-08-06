@@ -17,7 +17,7 @@ public class User {
 	private long id;
 
 	@Column(name="username", unique=true)
-	private String userName;
+	protected String userName;
 
 	@Column(name="email", unique=true)
 	private String email;
@@ -28,8 +28,13 @@ public class User {
  
 
 	private String roles;
+
+	@Column(name="highscore")
+	protected Integer highscore;
 	
 	
+
+
 	public User() {}
 
 	
@@ -76,6 +81,13 @@ public class User {
 		}
 
 
+	public Integer getHighscore() {
+		return highscore;
+	}
 
+
+	public void setHighscore(Integer highscore) {
+		this.highscore = highscore;
+	}
 	
 }

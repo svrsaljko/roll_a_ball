@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { IRootReducer } from '../reducers';
-
+import axios from 'axios';
 import {
   BOARD_HEIGHT,
   BOARD_WIDTH,
@@ -9,12 +9,43 @@ import {
   VERTICAL_BRICK_WIDTH,
 } from '../components/Constants';
 
+const URL = 'http://localhost:8000/private/highscore';
+const URL_GET = 'http://localhost:8000/private/highscore/list';
+
 interface IProps {
   pauseMenuState: string;
+  currentScore: number;
 }
 
+const onSubmitScore = (currentScore: number) => {
+  console.log('current score: ', currentScore);
+
+  let testUser: any = {
+    userName: 'stipe',
+    highscore: 3333,
+  };
+
+  axios
+    .get(URL_GET)
+    .then((res) => {
+      console.log('res: ', res);
+    })
+    .catch((err) => {
+      console.log('err: ', err);
+    });
+
+  // axios
+  //   .patch(URL, testUser)
+  //   .then((res) => {
+  //     console.log('res: ', res);
+  //   })
+  //   .catch((err) => {
+  //     console.log('err: ', err);
+  //   });
+};
+
 function PauseMenu(props: IProps) {
-  const { pauseMenuState } = props;
+  const { pauseMenuState, currentScore } = props;
   // console.log('props. ', props);
 
   return (
@@ -30,15 +61,21 @@ function PauseMenu(props: IProps) {
         width: `${BOARD_WIDTH - 2 * VERTICAL_BRICK_WIDTH}px`,
       }}
     >
-      {' '}
-      pause menu{' '}
+      <button
+        onClick={() => {
+          onSubmitScore(currentScore);
+        }}
+      >
+        get score
+      </button>
     </div>
   );
 }
 
 export const mapStateToProps = (state: IRootReducer) => {
-  const pauseMenuState: string = state.pauseMenuReducer.pauseMenuState;
-  return { pauseMenuState };
+  const { pauseMenuState } = state.pauseMenuReducer;
+  const { currentScore } = state.scoreReducer;
+  return { pauseMenuState, currentScore };
 };
 
 export default connect(mapStateToProps)(PauseMenu);

@@ -1,6 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPauseCircle } from '@fortawesome/free-solid-svg-icons';
+import { faPlayCircle } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import Timer from '../components/Timer';
@@ -11,6 +12,7 @@ interface IProps {
   setPauseMenuState(): void;
   currentLevel: number;
   currentScore: number;
+  isGamePaused: boolean;
 }
 
 const onPauseClick = (setPauseMenuState: () => void) => {
@@ -18,7 +20,7 @@ const onPauseClick = (setPauseMenuState: () => void) => {
 };
 
 function GameFooter(props: IProps) {
-  const { currentLevel, currentScore, setPauseMenuState } = props;
+  const { currentLevel, currentScore, isGamePaused, setPauseMenuState } = props;
 
   return (
     <div
@@ -41,19 +43,23 @@ function GameFooter(props: IProps) {
           onPauseClick(setPauseMenuState);
         }}
       >
-        {/* <FontAwesomeIcon icon={faPauseCircle} size="2x" /> */}
-        <FontAwesomeIcon icon={faPauseCircle} size="2x" />
+        <FontAwesomeIcon
+          icon={isGamePaused ? faPlayCircle : faPauseCircle}
+          size="2x"
+        />
       </div>
     </div>
   );
 }
 
 const mapStateToProps = (state: IRootReducer) => {
-  const currentLevel: number = state.levelReducer.currentLevel;
-  const currentScore: number = state.scoreReducer.currentScore;
+  const { currentLevel } = state.levelReducer;
+  const { currentScore } = state.scoreReducer;
+  const { isGamePaused } = state.pauseMenuReducer;
   return {
     currentLevel,
     currentScore,
+    isGamePaused,
   };
 };
 

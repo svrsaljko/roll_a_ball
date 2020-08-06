@@ -1,6 +1,10 @@
 package rollaball.backend.rest;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -8,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +26,8 @@ import rollaball.backend.dao.UserRepository;
 import rollaball.backend.exception.EmailAlreadyExistException;
 import rollaball.backend.exception.UserNameAlreadyExistException;
 import rollaball.backend.model.MyUserDetails;
+import rollaball.backend.model.RankedUser;
+import rollaball.backend.model.UpdateHighscoreReqBody;
 import rollaball.backend.model.User;
 import rollaball.backend.security.JwtUtil;
 import rollaball.backend.service.MyUserDetailsService;
@@ -47,12 +54,39 @@ public class UserRestController {
 	private JwtUtil jwtTokenUtil;
 	
 //	
-    @GetMapping("user/hello") 
+    @GetMapping("private/hello") 
 	public String hello() {
 		return "<h1> Hello user </h1>";	
 		}
 	
-    
+   @PatchMapping("private/highscore")
+   public ResponseEntity<?> updateHighScore(@RequestBody UpdateHighscoreReqBody reqBody) throws Exception
+   	{
+	   System.out.println("HIGHSCORE API CALLED");
+		User userByUserName = userRepository.findByUserName(reqBody.getUserName());
+		userByUserName.setHighscore(reqBody.getHighscore());
+		userRepository.save(userByUserName);
+	    return ResponseEntity.ok("New highscore submitted successfully!");
+   	}
+   
+   @GetMapping("private/highscore/list")
+   public ResponseEntity<?> getHighScoreList() throws Exception
+   {
+	   List<User> users = userRepository.findAll(Sort.by(Sort.Direction.DESC, "highscore"));
+	   List<RankedUser> rankedUsers = new ArrayList<RankedUser>();
+	   for (int i = 0; i < users.size(); i++) {
+//		    System.out.println("No." + i +"  " + users.get(i).getUserName());
+		    if( i<10 ||users.get(i).getUserName().equals("stipe") ) 
+		    	{
+		    		RankedUser user = new RankedUser(users.get(i).getUserName(),
+		    				users.get(i).getHighscore(),i+1);
+		    		rankedUsers.add(user);
+		    		
+		    	}
+		}       
+	return ResponseEntity.ok(rankedUsers);
+	   
+   }
     
     
     @PostMapping("public/login")
@@ -84,7 +118,7 @@ public class UserRestController {
  		
  	}
     
-    
+   
 	
 	@PostMapping("public/registration")
 	@ResponseStatus(code = HttpStatus.CREATED, reason = "User successfully created! " )
@@ -96,16 +130,10 @@ public class UserRestController {
 			throw new EmailAlreadyExistException();
 	        }
 		else {
+		user.setRoles("ROLE_USER");
+//		user.setHighscore(0);	
 		userService.registration(user);
 		}
 		
 	}
-	
-	@GetMapping("public/hello") 
-	public String helloGET() {
-		return "<h1> Hello from public page </h1>";	
-		}
-	
-	
-	
 }
