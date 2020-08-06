@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -60,7 +61,7 @@ public class UserRestController {
 		}
 	
    @PatchMapping("private/highscore")
-   public ResponseEntity<?> updateHighScore(@RequestBody UpdateHighscoreReqBody reqBody) throws Exception
+   public ResponseEntity<?> updateHighscore(@RequestBody UpdateHighscoreReqBody reqBody) throws Exception
    	{
 	   System.out.println("HIGHSCORE API CALLED");
 		User userByUserName = userRepository.findByUserName(reqBody.getUserName());
@@ -68,15 +69,22 @@ public class UserRestController {
 		userRepository.save(userByUserName);
 	    return ResponseEntity.ok("New highscore submitted successfully!");
    	}
+ 
+   @GetMapping("private/highscore")
+   public ResponseEntity<?> getHighscore(@RequestParam String userName) throws Exception
+   	{
+	   	User userByUserName = userRepository.findByUserName(userName);
+		return ResponseEntity.ok(userByUserName.getHighscore());
+   	}
+   
    
    @GetMapping("private/highscore/list")
-   public ResponseEntity<?> getHighScoreList() throws Exception
+   public ResponseEntity<?> getHighScoreList(@RequestParam String userName) throws Exception
    {
 	   List<User> users = userRepository.findAll(Sort.by(Sort.Direction.DESC, "highscore"));
 	   List<RankedUser> rankedUsers = new ArrayList<RankedUser>();
 	   for (int i = 0; i < users.size(); i++) {
-//		    System.out.println("No." + i +"  " + users.get(i).getUserName());
-		    if( i<10 ||users.get(i).getUserName().equals("stipe") ) 
+		    if( i<10 ||users.get(i).getUserName().equals(userName) ) 
 		    	{
 		    		RankedUser user = new RankedUser(users.get(i).getUserName(),
 		    				users.get(i).getHighscore(),i+1);
@@ -131,7 +139,7 @@ public class UserRestController {
 	        }
 		else {
 		user.setRoles("ROLE_USER");
-//		user.setHighscore(0);	
+		user.setHighscore(0);	
 		userService.registration(user);
 		}
 		
