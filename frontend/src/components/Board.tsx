@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Background from '../images/background1.png';
+import { Background1 } from '../images';
 import Fields from './Fields';
 import Ball from './Ball';
 import PauseMenu from './PauseMenu';
@@ -729,7 +729,7 @@ class Board extends Component<IProps> {
     return (
       <div
         style={{
-          backgroundImage: `url(${Background})`,
+          backgroundImage: `url(${Background1})`,
 
           width: `${BOARD_WIDTH}px`,
           height: `${BOARD_HEIGHT}px`,

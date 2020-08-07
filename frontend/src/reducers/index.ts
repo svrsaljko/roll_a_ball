@@ -3,9 +3,7 @@ import fieldsReducer, { IFieldsReducerState } from './fieldsReducer';
 import levelReducer, { ILevelReducerState } from './levelReducer';
 import scoreReducer, { IScoreReducerState } from './scoreReducer';
 import pauseMenuReducer, { IPauseMenuReducerState } from './pauseMenuReducer';
-import levelGeneratorReducer, {
-  ILevelGeneratorReducerState,
-} from './levelGeneratorReducer';
+
 import nextLevelMenuReducer, {
   INextLevelMenuReducerState,
 } from './nextLevelMenuReducer';
@@ -16,7 +14,6 @@ export interface IRootReducer {
   levelReducer: ILevelReducerState;
   scoreReducer: IScoreReducerState;
   pauseMenuReducer: IPauseMenuReducerState;
-  levelGeneratorReducer: ILevelGeneratorReducerState;
   nextLevelMenuReducer: INextLevelMenuReducerState;
   timerReducer: ITimerReducerState;
 }
@@ -26,7 +23,6 @@ export default combineReducers({
   levelReducer,
   scoreReducer,
   pauseMenuReducer,
-  levelGeneratorReducer,
   nextLevelMenuReducer,
   timerReducer,
 });

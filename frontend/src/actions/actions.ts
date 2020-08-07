@@ -4,7 +4,6 @@ import {
   REMOVE_DIAMOND_FROM_FIELD,
   SET_SCORE,
   SET_PAUSE_MENU_STATE,
-  UPDATE_FIELD,
   SET_NEXT_LEVEL_MENU_STATE,
   SET_CURRENT_TIME,
 } from './types';
@@ -65,9 +64,6 @@ export const setPauseMenuState = () => {
   return { type: SET_PAUSE_MENU_STATE };
 };
 
-export const updateField = (fieldId: number, clickCounter: number) => {
-  return { type: UPDATE_FIELD, fieldId, clickCounter };
-};
 export const setNextLevelMenuState = (isNextLevelMenuActive: boolean) => {
   return { type: SET_NEXT_LEVEL_MENU_STATE, isNextLevelMenuActive };
 };

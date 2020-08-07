@@ -8,8 +8,11 @@ import {
 } from './Constants';
 // import BrickDark from '../images/brickdark.png';
 // import RotatedBrickDark from '../images/rotatedBrickdark.png';
-import BrickDark from '../images/brick7.png';
-import RotatedBrickDark from '../images/brick7.png';
+import {
+  Brick1 as BrickDark,
+  RotatedBrick1 as RotatedBrickDark,
+} from '../images';
+// import RotatedBrickDark1 from '../images/brick7.png';
 // import BrickDark from '../images/brick3.jpg';
 // import RotatedBrickDark from '../images/brick3.jpg';
 import Hole from './Hole';

@@ -3,7 +3,6 @@ import React from 'react';
 import Home from './pages/Home';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
-import LevelGenerator from './pages/LevelGenerator';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 function App() {
@@ -15,7 +14,6 @@ function App() {
       <Route exact path="/" component={Home} />
       <Route path="/signin" component={SignIn} />
       <Route path="/signup" component={SignUp} />
-      <Route path="/levelgenerator" component={LevelGenerator} />
     </Router>
   );
 }
