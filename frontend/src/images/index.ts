@@ -23,6 +23,79 @@ import RotatedBrick6 from './brick6.jpg';
 import RotatedBrick7 from './brick7.jpg';
 import RotatedBrick8 from './brick8.jpg';
 
+export const BOARD_BACKGROUNDS = [
+  {
+    title: 'yellow sand',
+    description: 'Slow for rolling',
+    image: Background1,
+    frictionCoefficient: 0.5,
+    currentFieldColor: 'gold',
+  },
+  {
+    frictionCoefficient: 1,
+    title: 'space1',
+    description: 'Slow for rolling',
+    image: Background2,
+    currentFieldColor: '#4666ff',
+  },
+  {
+    frictionCoefficient: 1,
+    title: 'space2',
+    description: 'Slow for rolling',
+    image: Background3,
+    currentFieldColor: '#bc13fe',
+  },
+  {
+    frictionCoefficient: 0.5,
+    title: 'red sand',
+    description: 'Slow for rolling',
+    image: Background4,
+    currentFieldColor: 'sandybrown',
+  },
+  {
+    frictionCoefficient: 0.9,
+    title: 'wooden surface',
+    description: 'Slow for rolling',
+    image: Background5,
+    currentFieldColor: 'sandybrown',
+  },
+  {
+    frictionCoefficient: 0.5,
+    title: 'sea',
+    description: 'Slow for rolling',
+    image: Brick7,
+    currentFieldColor: '#006994',
+  },
+  {
+    frictionCoefficient: 0.8,
+    title: 'grass',
+    description: 'Slow for rolling',
+    image: Brick4,
+    currentFieldColor: '#567d46',
+  },
+  {
+    frictionCoefficient: 1,
+    title: 'ice',
+    description: 'Slow for rolling',
+    image: Brick5,
+    currentFieldColor: '#006994',
+  },
+  {
+    frictionCoefficient: 0.5,
+    title: 'moving water',
+    description: 'Slow for rolling',
+    image: Background6,
+    currentFieldColor: '#006994',
+  },
+  {
+    frictionCoefficient: 0.5,
+    title: 'under water',
+    description: 'Slow for rolling',
+    image: Background7,
+    currentFieldColor: '#00b0ff',
+  },
+];
+
 export {
   Background1,
   Background2,

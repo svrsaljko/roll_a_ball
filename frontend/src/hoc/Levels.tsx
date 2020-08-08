@@ -29,12 +29,13 @@ import {
   RotatedBrick6,
   RotatedBrick7,
   RotatedBrick8,
+  BOARD_BACKGROUNDS,
 } from '../images';
 import { IField } from '../interfaces/IField';
 import { ILevel } from '../interfaces/ILevel';
 
 const initializeLevels = () => {
-  const level1 = initializeLevel2();
+  const level1 = initializeLevel1();
   const level2 = initializeLevel1();
   const level3 = initializeLevel1();
   const level4 = initializeLevel1();
@@ -177,7 +178,7 @@ const fieldsHardcoding1 = (fields: IField[]) => {
   fields[10].rightWall = true;
   fields[12].leftWall = true;
   fields[14].hasNeonGreenEnemy = true;
-  fields[15].hasIceDoor = true;
+  // fields[15].hasIceDoor = true;
   fields[16].hasNeonBlueEnemy = true;
   //
   fields[19].rightWall = true;
@@ -220,7 +221,7 @@ const fieldsHardcoding1 = (fields: IField[]) => {
   //
   fields[55].hasRuby = true;
   fields[64].hasRuby = true;
-  fields[73].hasIceDoor = true;
+  // fields[73].hasIceDoor = true;
   fields[74].hasNeonGreenEnemy = true;
   fields[56].hasGold = true;
 
@@ -229,26 +230,28 @@ const fieldsHardcoding1 = (fields: IField[]) => {
 
 const initializeLevel1 = () => {
   const level: ILevel = {
-    fields: fieldsHardcoding1(initializeField()),
+    // fields: fieldsHardcoding1(initializeField()),
+    fields: initializeField(),
     ballColor: 'darkRed',
     ballStartFieldId: 11,
     brick: Brick6,
     rotatedBrick: RotatedBrick6,
-    boardBackground: Background3,
+    boardBackground: BOARD_BACKGROUNDS[2].image,
+    frictionCoefficient: BOARD_BACKGROUNDS[2].frictionCoefficient,
   };
   return level;
 };
-const initializeLevel2 = () => {
-  const level: ILevel = {
-    fields: fieldsHardcoding1(initializeField()),
-    ballColor: '#dcf3ff',
-    ballStartFieldId: 20,
-    brick: Brick4,
-    rotatedBrick: RotatedBrick4,
-    boardBackground: Background7,
-  };
-  return level;
-};
+// const initializeLevel2 = () => {
+//   const level: ILevel = {
+//     fields: initializeField(),
+//     ballColor: '#dcf3ff',
+//     ballStartFieldId: 20,
+//     brick: Brick4,
+//     rotatedBrick: RotatedBrick4,
+//     boardBackground: Background7,
+//   };
+//   return level;
+// };
 
 function Levels(WrappedComponent: any) {
   let levels = initializeLevels();

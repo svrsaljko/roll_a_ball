@@ -26,6 +26,8 @@ import {
   HORIZONTAL_BRICK_HEIGHT,
 } from './Constants';
 
+const SPEED_LIMIT = 2.5;
+
 interface IState {
   x: number;
   y: number;
@@ -45,6 +47,7 @@ interface IProps {
   ballStartFieldId: number;
   ballColor: string;
   boardBackground: string;
+  frictionCoefficient: number;
   setCurrentLevel: (currentLevel: number) => void;
   removeDiamondFromField: (fields: IField[]) => void;
   setScore: (newScore: number) => void;
@@ -584,13 +587,35 @@ class Board extends Component<IProps> {
     }
   };
 
+  setSpeedLimit = (accelerometerCoordinate: number) => {
+    const { frictionCoefficient } = this.props;
+    const speedLimit = SPEED_LIMIT * frictionCoefficient;
+    if (accelerometerCoordinate > 0) {
+      if (accelerometerCoordinate >= speedLimit) {
+        return speedLimit;
+      } else {
+        return accelerometerCoordinate;
+      }
+    } else if (accelerometerCoordinate <= 0) {
+      if (accelerometerCoordinate <= -speedLimit) {
+        return -speedLimit;
+      } else {
+        return accelerometerCoordinate;
+      }
+    }
+  };
+
   changePositionX = (positionX: number, x: number) => {
+    x = this.setSpeedLimit(x);
+    // console.log('x: ', x);
     this.setState({
       positionX: positionX - x,
     });
   };
 
   changePositionY = (positionY: number, y: number) => {
+    y = this.setSpeedLimit(y);
+    // console.log('y: ', y);
     this.setState({
       positionY: positionY + y,
     });
@@ -763,7 +788,7 @@ const mapStateToProps = (state: IRootReducer) => {
   const { currentLevel, ballStartFieldId, ballColor } = state.levelReducer;
   const { currentScore } = state.scoreReducer;
   const { isGamePaused } = state.pauseMenuReducer;
-  const { boardBackground } = state.boardBackgroundReducer;
+  const { boardBackground, frictionCoefficient } = state.boardBackgroundReducer;
 
   return {
     fields,
@@ -773,6 +798,7 @@ const mapStateToProps = (state: IRootReducer) => {
     ballStartFieldId,
     ballColor,
     boardBackground,
+    frictionCoefficient,
   };
 };
 

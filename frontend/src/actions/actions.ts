@@ -58,6 +58,7 @@ export interface IActionSetCurrentTime {
 export interface IActionSetBoardBackground {
   type: string;
   boardBackground: string;
+  frictionCoefficient: number;
 }
 
 export const setAllFields = (fields: IField[]) => {
@@ -95,6 +96,9 @@ export const setBallStartFieldId = (
   return { type: SET_BALL_START_FIELD_ID, ballStartFieldId, ballColor };
 };
 
-export const setBoardBackground = (boardBackground: string) => {
-  return { type: SET_BOARD_BACKGROUND, boardBackground };
+export const setBoardBackground = (
+  boardBackground: string,
+  frictionCoefficient: number
+) => {
+  return { type: SET_BOARD_BACKGROUND, boardBackground, frictionCoefficient };
 };
