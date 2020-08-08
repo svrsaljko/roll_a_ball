@@ -5,20 +5,45 @@ import {
   FIELD_HEIGHT,
   FIELD_WIDTH,
 } from '../components/Constants';
+import {
+  Background1,
+  Background2,
+  Background3,
+  Background4,
+  Background5,
+  Background6,
+  Background7,
+  Brick1,
+  Brick2,
+  Brick3,
+  Brick4,
+  Brick5,
+  Brick6,
+  Brick7,
+  Brick8,
+  RotatedBrick1,
+  RotatedBrick2,
+  RotatedBrick3,
+  RotatedBrick4,
+  RotatedBrick5,
+  RotatedBrick6,
+  RotatedBrick7,
+  RotatedBrick8,
+} from '../images';
 import { IField } from '../interfaces/IField';
 import { ILevel } from '../interfaces/ILevel';
 
 const initializeLevels = () => {
-  const level1 = initializeLevel();
+  const level1 = initializeLevel2();
   const level2 = initializeLevel();
   const level3 = initializeLevel();
   const level4 = initializeLevel();
 
-  const levels = [level4, level4, level2, level3];
+  const levels = [level4, level1, level2, level3];
   return levels;
 };
 
-const initializeLevel = () => {
+const initializeField = () => {
   const fields = new Array<IField>(NUMBER_OF_ROWS * NUMBER_OF_COLUMNS);
   let field: IField;
   let fieldId: number = 0;
@@ -66,6 +91,11 @@ const initializeLevel = () => {
       }
       if (j === NUMBER_OF_COLUMNS - 1) {
         rightWall = true;
+      }
+      // LEVEL
+
+      if (fieldId === 50) {
+        hasBlackDoor = true;
       }
 
       //
@@ -141,17 +171,32 @@ const initializeLevel = () => {
     }
   }
 
+  return fields;
+};
+
+const initializeLevel = () => {
   const level: ILevel = {
-    fields,
-    hasDarkRedBall: false,
-    hasNeonBlueBall: false,
-    hasIceBall: false,
+    fields: initializeField(),
+    ballColor: '#1b03a3',
     ballStartFieldId: 70,
+    brick: Brick3,
+    rotatedBrick: RotatedBrick3,
+    boardBackground: Background6,
+  };
+  return level;
+};
+const initializeLevel2 = () => {
+  const level: ILevel = {
+    fields: initializeField(),
+    ballColor: '#dcf3ff',
+    ballStartFieldId: 20,
+    brick: Brick4,
+    rotatedBrick: RotatedBrick4,
+    boardBackground: Background7,
   };
   return level;
 };
 
-// any dodati tip !!!!!!
 function Levels(WrappedComponent: any) {
   let levels = initializeLevels();
 

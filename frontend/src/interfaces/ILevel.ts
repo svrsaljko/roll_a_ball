@@ -1,9 +1,10 @@
 import { IField } from './IField';
 
 export interface ILevel {
-  hasDarkRedBall: boolean;
-  hasIceBall: boolean;
-  hasNeonBlueBall: boolean;
+  ballColor: string;
   ballStartFieldId: number;
+  brick: string;
+  rotatedBrick: string;
+  boardBackground: string;
   fields: IField[];
 }

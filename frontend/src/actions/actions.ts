@@ -7,6 +7,7 @@ import {
   SET_NEXT_LEVEL_MENU_STATE,
   SET_CURRENT_TIME,
   SET_BALL_START_FIELD_ID,
+  SET_BOARD_BACKGROUND,
 } from './types';
 
 import { IField } from '../interfaces/IField';
@@ -24,6 +25,7 @@ export interface IActionSetCurrentLevel {
 export interface IActionSetBallStartFieldId {
   type: typeof SET_BALL_START_FIELD_ID;
   ballStartFieldId: number;
+  ballColor: string;
 }
 
 export type IActionLevelReducer =
@@ -52,6 +54,10 @@ export interface IActionSetNextLevelMenuState {
 export interface IActionSetCurrentTime {
   type: string;
   currentTime: number;
+}
+export interface IActionSetBoardBackground {
+  type: string;
+  boardBackground: string;
 }
 
 export const setAllFields = (fields: IField[]) => {
@@ -82,6 +88,13 @@ export const setCurrentTime = (currentTime: number) => {
   return { type: SET_CURRENT_TIME, currentTime };
 };
 
-export const setBallStartFieldId = (ballStartFieldId: number) => {
-  return { type: SET_BALL_START_FIELD_ID, ballStartFieldId };
+export const setBallStartFieldId = (
+  ballStartFieldId: number,
+  ballColor: string
+) => {
+  return { type: SET_BALL_START_FIELD_ID, ballStartFieldId, ballColor };
+};
+
+export const setBoardBackground = (boardBackground: string) => {
+  return { type: SET_BOARD_BACKGROUND, boardBackground };
 };

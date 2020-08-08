@@ -2,9 +2,10 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { connect } from 'react-redux';
+import { IRootReducer } from '../reducers/index';
 
 import '../css/Header.css';
-// import { BALL_SIZE, BOARD_WIDTH } from './Constants';
 
 const onMenuClick = () => {
   console.log('menu is clicked');
@@ -19,12 +20,23 @@ const onMenuClick = () => {
   }
 };
 
-export default function Header() {
+interface IProps {
+  color: string;
+}
+
+function Header(props: IProps) {
+  const { color } = props;
   return (
     <div className="header-container">
       <div className="header-container-title-menu-button">
         <div className="header-container-title">
-          R <div className="header-container-element-ball"> </div>
+          R{' '}
+          <div
+            style={{ backgroundColor: color }}
+            className="header-container-element-ball"
+          >
+            {' '}
+          </div>
           LL A BALL
         </div>
         <div
@@ -66,3 +78,12 @@ export default function Header() {
     </div>
   );
 }
+
+const mapStateToProps = (state: IRootReducer) => {
+  const color = state.levelReducer.ballColor;
+  return {
+    color,
+  };
+};
+
+export default connect(mapStateToProps)(Header);

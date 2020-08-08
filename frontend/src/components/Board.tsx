@@ -43,6 +43,8 @@ interface IProps {
   isGamePaused: boolean;
   fields: IField[];
   ballStartFieldId: number;
+  ballColor: string;
+  boardBackground: string;
   setCurrentLevel: (currentLevel: number) => void;
   removeDiamondFromField: (fields: IField[]) => void;
   setScore: (newScore: number) => void;
@@ -733,13 +735,14 @@ class Board extends Component<IProps> {
 
   render() {
     const { positionX, positionY } = this.state;
+    const { ballColor, boardBackground } = this.props;
 
     // console.log('paused: ', this.state.isGamePaused);
 
     return (
       <div
         style={{
-          backgroundImage: `url(${Background1})`,
+          backgroundImage: `url(${boardBackground})`,
 
           width: `${BOARD_WIDTH}px`,
           height: `${BOARD_HEIGHT}px`,
@@ -747,7 +750,7 @@ class Board extends Component<IProps> {
         }}
       >
         <Fields />
-        <Ball positionX={positionX} positionY={positionY} />
+        <Ball color={ballColor} positionX={positionX} positionY={positionY} />
         <PauseMenu />
         <NextLevelMenu />
       </div>
@@ -757,16 +760,19 @@ class Board extends Component<IProps> {
 
 const mapStateToProps = (state: IRootReducer) => {
   const { fields } = state.fieldsReducer;
-  const { currentLevel } = state.levelReducer;
+  const { currentLevel, ballStartFieldId, ballColor } = state.levelReducer;
   const { currentScore } = state.scoreReducer;
   const { isGamePaused } = state.pauseMenuReducer;
-  const { ballStartFieldId } = state.levelReducer;
+  const { boardBackground } = state.boardBackgroundReducer;
+
   return {
     fields,
     currentLevel,
     currentScore,
     isGamePaused,
     ballStartFieldId,
+    ballColor,
+    boardBackground,
   };
 };
 

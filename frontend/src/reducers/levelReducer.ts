@@ -4,11 +4,13 @@ import { IActionLevelReducer } from '../actions/actions';
 export interface ILevelReducerState {
   currentLevel: number;
   ballStartFieldId: number;
+  ballColor: string;
 }
 
 const initState: ILevelReducerState = {
   currentLevel: 1,
   ballStartFieldId: 10,
+  ballColor: '#1b03a3',
 };
 
 const levelReducer = (state = initState, action: IActionLevelReducer) => {
@@ -20,9 +22,10 @@ const levelReducer = (state = initState, action: IActionLevelReducer) => {
         currentLevel,
       };
     case SET_BALL_START_FIELD_ID:
-      const { ballStartFieldId } = action;
+      const { ballStartFieldId, ballColor } = action;
       return {
         ...state,
+        ballColor,
         ballStartFieldId,
       };
 

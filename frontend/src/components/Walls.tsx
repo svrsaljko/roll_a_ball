@@ -472,14 +472,4 @@ function Walls(props: IProps) {
   return <div>{drawWalls(props)}</div>;
 }
 
-const mapStateToProps = (state: IRootReducer) => {
-  const { brick } = state.wallsReducer;
-  const { rotatedBrick } = state.wallsReducer;
-
-  return {
-    brick,
-    rotatedBrick,
-  };
-};
-
-export default connect(mapStateToProps)(Walls);
+export default Walls;

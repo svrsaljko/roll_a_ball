@@ -7,7 +7,9 @@ import nextLevelMenuReducer, {
   INextLevelMenuReducerState,
 } from './nextLevelMenuReducer';
 import timerReducer, { ITimerReducerState } from './timerReducer';
-import wallsReducer, { IWallsReducerState } from './wallsReducer';
+import boardBackgroundReducer, {
+  IBoardBackgroundReducerState,
+} from './boardBackgroundReducer';
 
 export interface IRootReducer {
   fieldsReducer: IFieldsReducerState;
@@ -16,7 +18,7 @@ export interface IRootReducer {
   pauseMenuReducer: IPauseMenuReducerState;
   nextLevelMenuReducer: INextLevelMenuReducerState;
   timerReducer: ITimerReducerState;
-  wallsReducer: IWallsReducerState;
+  boardBackgroundReducer: IBoardBackgroundReducerState;
 }
 
 export default combineReducers({
@@ -26,5 +28,5 @@ export default combineReducers({
   pauseMenuReducer,
   nextLevelMenuReducer,
   timerReducer,
-  wallsReducer,
+  boardBackgroundReducer,
 });

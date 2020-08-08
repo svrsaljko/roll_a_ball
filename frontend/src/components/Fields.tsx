@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { setAllFields, setBallStartFieldId } from '../actions/actions';
+import {
+  setAllFields,
+  setBallStartFieldId,
+  setBoardBackground,
+} from '../actions/actions';
 import { IRootReducer } from '../reducers';
 import { FIELD_WIDTH, FIELD_HEIGHT } from './Constants';
 import { IField } from '../interfaces/IField';
@@ -12,15 +16,25 @@ import Levels from '../hoc/Levels';
 
 interface IProps {
   setAllFields(fields: IField[]): void;
-  setBallStartFieldId(ballStartFieldId: number): void;
+  setBallStartFieldId(ballStartFieldId: number, ballColor: string): void;
+  setBoardBackground(boardBackground: string): void;
+
   currentLevel: number;
   currentScore: number;
   levels: ILevel[];
 }
 
 function Fields(props: IProps) {
-  const { setBallStartFieldId } = props;
-  setBallStartFieldId(props.levels[props.currentLevel - 1].ballStartFieldId);
+  const { setBallStartFieldId, setAllFields, setBoardBackground } = props;
+  const {
+    ballStartFieldId,
+    ballColor,
+    brick,
+    rotatedBrick,
+    boardBackground,
+  } = props.levels[props.currentLevel - 1];
+  setBoardBackground(boardBackground);
+  setBallStartFieldId(ballStartFieldId, ballColor);
   const [fields, setFields] = useState(
     props.levels[props.currentLevel - 1].fields
   );
@@ -28,7 +42,7 @@ function Fields(props: IProps) {
   useEffect(() => {
     setFields(props.levels[props.currentLevel - 1].fields);
   }, [props, currentScore]);
-  props.setAllFields(props.levels[props.currentLevel - 1].fields);
+  setAllFields(props.levels[props.currentLevel - 1].fields);
   return (
     <div>
       {fields.map((field) => {
@@ -73,6 +87,8 @@ function Fields(props: IProps) {
             }}
           >
             <Walls
+              brick={brick}
+              rotatedBrick={rotatedBrick}
               topWall={topWall}
               bottomWall={bottomWall}
               rightWall={rightWall}
@@ -119,8 +135,10 @@ const mapStateToProps = (state: IRootReducer) => {
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     setAllFields: (fields: IField[]) => dispatch(setAllFields(fields)),
-    setBallStartFieldId: (ballStartFieldId: number) =>
-      dispatch(setBallStartFieldId(ballStartFieldId)),
+    setBallStartFieldId: (ballStartFieldId: number, ballColor: string) =>
+      dispatch(setBallStartFieldId(ballStartFieldId, ballColor)),
+    setBoardBackground: (boardBackground: string) =>
+      dispatch(setBoardBackground(boardBackground)),
   };
 };
 

@@ -4,17 +4,18 @@ import { BALL_SIZE } from './Constants';
 interface IProps {
   positionX: number;
   positionY: number;
+  color: string;
 }
 
 export default function Ball(props: IProps) {
-  const { positionX, positionY } = props;
+  const { positionX, positionY, color } = props;
   return (
     <div style={{ position: 'absolute' }}>
       <div
         style={{
           width: `${BALL_SIZE}px`,
           height: `${BALL_SIZE}px`,
-          backgroundColor: 'darkRed',
+          backgroundColor: `${color}`,
           position: 'relative',
           borderRadius: `0 0  ${BALL_SIZE}px 0 `,
 
@@ -28,7 +29,7 @@ export default function Ball(props: IProps) {
             top: `${-BALL_SIZE}px`,
             width: `${BALL_SIZE}px`,
             height: `${BALL_SIZE}px`,
-            backgroundColor: 'darkRed',
+            backgroundColor: `${color}`,
 
             borderRadius: `0   ${BALL_SIZE}px 0 0 `,
           }}
@@ -40,7 +41,7 @@ export default function Ball(props: IProps) {
             top: `${-BALL_SIZE}px`,
             width: `${BALL_SIZE}px`,
             height: `${BALL_SIZE}px`,
-            backgroundColor: 'darkRed',
+            backgroundColor: `${color}`,
 
             borderRadius: `  ${BALL_SIZE}px 0 0 0 `,
           }}
@@ -52,7 +53,7 @@ export default function Ball(props: IProps) {
 
             width: `${BALL_SIZE}px`,
             height: `${BALL_SIZE}px`,
-            backgroundColor: 'darkRed',
+            backgroundColor: `${color}`,
 
             borderRadius: `0 0 0  ${BALL_SIZE}px  `,
           }}
