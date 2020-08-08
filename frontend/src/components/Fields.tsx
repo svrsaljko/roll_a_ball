@@ -78,7 +78,7 @@ function Fields(props: IProps) {
           <div
             key={uuid()}
             style={{
-              border: '0.3px solid red',
+              // border: '0.3px solid red',
               width: `${FIELD_WIDTH}px`,
               height: `${FIELD_HEIGHT}px`,
               top: `${top}px`,
