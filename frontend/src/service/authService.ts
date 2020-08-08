@@ -72,7 +72,7 @@ export const getTokenFromLocalStorage = () => {
 
 export const getUsernameFromToken = (token: string) => {
   let decodedToken: any = decode(token);
-  console.log('decoded token: ', decodedToken);
+
   return decodedToken.sub;
 };
 

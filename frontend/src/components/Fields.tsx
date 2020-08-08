@@ -1,32 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { setAllFields } from '../actions/actions';
+import { setAllFields, setBallStartFieldId } from '../actions/actions';
 import { IRootReducer } from '../reducers';
 import { FIELD_WIDTH, FIELD_HEIGHT } from './Constants';
 import { IField } from '../interfaces/IField';
+import { ILevel } from '../interfaces/ILevel';
 import Walls from './Walls';
 import { uuid } from 'uuidv4';
 import Levels from '../hoc/Levels';
 
 interface IProps {
   setAllFields(fields: IField[]): void;
+  setBallStartFieldId(ballStartFieldId: number): void;
   currentLevel: number;
   currentScore: number;
-  levels: IField[][];
+  levels: ILevel[];
 }
 
 function Fields(props: IProps) {
-  const [fields, setFields] = useState(props.levels[props.currentLevel - 1]);
+  const { setBallStartFieldId } = props;
+  setBallStartFieldId(props.levels[props.currentLevel - 1].ballStartFieldId);
+  const [fields, setFields] = useState(
+    props.levels[props.currentLevel - 1].fields
+  );
   const { currentScore } = props;
   useEffect(() => {
-    // console.log('primljeni level s redux-a ', props.currentLevel);
-    setFields(props.levels[props.currentLevel - 1]);
-    // console.log('šalji polja na redux');
-    // props.setAllFields(props.levels[props.currentLevel - 1]);
+    setFields(props.levels[props.currentLevel - 1].fields);
   }, [props, currentScore]);
-  props.setAllFields(props.levels[props.currentLevel - 1]);
-  // console.log('FIELDS props: ', props.levels);
+  props.setAllFields(props.levels[props.currentLevel - 1].fields);
   return (
     <div>
       {fields.map((field) => {
@@ -37,10 +39,27 @@ function Fields(props: IProps) {
           bottomWall,
           rightWall,
           leftWall,
-          hasHole,
+          // BALL
+          hasDarkRedBall,
+          hasIceBall,
+          hasNeonBlueBall,
+          // DOOR
+          hasBlackDoor,
+          hasGoldDoor,
+          hasIceDoor,
+          // ITEMS
+          hasGold,
+          hasSilver,
           hasDiamond,
+          hasEmerald,
+          hasSapphire,
+          hasRuby,
+          // ENEMY
+          hasNeonRedEnemy,
+          hasNeonGreenEnemy,
+          hasNeonBlueEnemy,
         } = field;
-        //console.log('hasHole, ', hasHole);
+
         return (
           <div
             key={uuid()}
@@ -58,8 +77,25 @@ function Fields(props: IProps) {
               bottomWall={bottomWall}
               rightWall={rightWall}
               leftWall={leftWall}
-              hasHole={hasHole}
+              // BALL
+              hasDarkRedBall={hasDarkRedBall}
+              hasIceBall={hasIceBall}
+              hasNeonBlueBall={hasNeonBlueBall}
+              // DOOR
+              hasBlackDoor={hasBlackDoor}
+              hasGoldDoor={hasGoldDoor}
+              hasIceDoor={hasIceDoor}
+              // ITEMS
+              hasGold={hasGold}
+              hasSilver={hasSilver}
               hasDiamond={hasDiamond}
+              hasEmerald={hasEmerald}
+              hasSapphire={hasSapphire}
+              hasRuby={hasRuby}
+              // ENEMY
+              hasNeonRedEnemy={hasNeonRedEnemy}
+              hasNeonGreenEnemy={hasNeonGreenEnemy}
+              hasNeonBlueEnemy={hasNeonBlueEnemy}
             />
           </div>
         );
@@ -83,6 +119,8 @@ const mapStateToProps = (state: IRootReducer) => {
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     setAllFields: (fields: IField[]) => dispatch(setAllFields(fields)),
+    setBallStartFieldId: (ballStartFieldId: number) =>
+      dispatch(setBallStartFieldId(ballStartFieldId)),
   };
 };
 

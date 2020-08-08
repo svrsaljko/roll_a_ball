@@ -6,6 +6,7 @@ import {
   SET_PAUSE_MENU_STATE,
   SET_NEXT_LEVEL_MENU_STATE,
   SET_CURRENT_TIME,
+  SET_BALL_START_FIELD_ID,
 } from './types';
 
 import { IField } from '../interfaces/IField';
@@ -16,9 +17,18 @@ export interface IActionSetAllFields {
 }
 
 export interface IActionSetCurrentLevel {
-  type: string;
+  type: typeof SET_CURRENT_LEVEL;
   currentLevel: number;
 }
+
+export interface IActionSetBallStartFieldId {
+  type: typeof SET_BALL_START_FIELD_ID;
+  ballStartFieldId: number;
+}
+
+export type IActionLevelReducer =
+  | IActionSetCurrentLevel
+  | IActionSetBallStartFieldId;
 
 export interface IActionSetScore {
   type: string;
@@ -70,4 +80,8 @@ export const setNextLevelMenuState = (isNextLevelMenuActive: boolean) => {
 
 export const setCurrentTime = (currentTime: number) => {
   return { type: SET_CURRENT_TIME, currentTime };
+};
+
+export const setBallStartFieldId = (ballStartFieldId: number) => {
+  return { type: SET_BALL_START_FIELD_ID, ballStartFieldId };
 };

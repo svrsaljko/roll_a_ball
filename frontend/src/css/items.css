@@ -1,0 +1,104 @@
+.diamond {
+  border-style: solid;
+  box-sizing: content-box;
+}
+
+.diamond-after {
+  border-style: solid;
+}
+
+.dark-red-ball {
+  background-color: darkred;
+}
+.dark-red-ball:hover {
+  background-color: darkred;
+}
+.ice-ball {
+  background-color: #dcf3ff;
+}
+.ice-ball:hover {
+  background-color: #dcf3ff;
+}
+.neon-blue-ball {
+  background-color: #1b03a3;
+}
+.neon-blue-ball:hover {
+  background-color: #1b03a3;
+}
+
+.black-door {
+  background-color: black;
+}
+.black-door:hover {
+  background-color: black;
+}
+.gold-door {
+  background-color: #ffd700;
+}
+.gold-door:hover {
+  background-color: #ffd700;
+}
+.ice-door {
+  background-color: #396d7c;
+}
+.ice-door:hover {
+  background-color: #396d7c;
+}
+
+.gold {
+  width: 2rem;
+  height: 1.1547rem;
+  background: #ffd700;
+  position: relative;
+}
+.gold::before {
+  content: '';
+  position: absolute;
+  top: -0.57735rem;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 1rem solid transparent;
+  border-right: 1rem solid transparent;
+  border-bottom: 0.57735rem solid #ffd700;
+}
+.gold::after {
+  content: '';
+  position: absolute;
+  bottom: -0.57735rem;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 1rem solid transparent;
+  border-right: 1rem solid transparent;
+  border-top: 0.57735rem solid #ffd700;
+}
+
+.silver {
+  width: 2rem;
+  height: 1.1547rem;
+  background: #c0c0c0;
+  position: relative;
+}
+.silver::before {
+  content: '';
+  position: absolute;
+  top: -0.57735rem;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 1rem solid transparent;
+  border-right: 1rem solid transparent;
+  border-bottom: 0.57735rem solid #c0c0c0;
+}
+.silver::after {
+  content: '';
+  position: absolute;
+  bottom: -0.57735rem;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 1rem solid transparent;
+  border-right: 1rem solid transparent;
+  border-top: 0.57735rem solid #c0c0c0;
+}

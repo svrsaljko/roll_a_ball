@@ -42,6 +42,7 @@ interface IProps {
   currentScore: number;
   isGamePaused: boolean;
   fields: IField[];
+  ballStartFieldId: number;
   setCurrentLevel: (currentLevel: number) => void;
   removeDiamondFromField: (fields: IField[]) => void;
   setScore: (newScore: number) => void;
@@ -51,6 +52,7 @@ interface IProps {
 interface IPrevProps {
   fields: IField[];
   currentLevel: number;
+  ballStartFieldId: number;
 }
 
 class Board extends Component<IProps> {
@@ -596,7 +598,7 @@ class Board extends Component<IProps> {
     if (prevProps.fields.length > 0) {
       if (!this.state.start) {
         // const { currentFieldId } = this.state;
-        const currentFieldId = 10;
+        const currentFieldId = prevProps.ballStartFieldId;
         this.FIELDS = prevProps.fields;
 
         const positionY =
@@ -639,7 +641,7 @@ class Board extends Component<IProps> {
             this.moveDown();
             this.moveUp();
             this.fieldDetector();
-            this.holeDetector();
+            this.doorDetector();
             this.diamondDetector();
           }
         }
@@ -669,16 +671,24 @@ class Board extends Component<IProps> {
     }
   }
 
-  holeDetector() {
+  fieldHasDoor(field: IField) {
+    const { hasBlackDoor, hasGoldDoor, hasIceDoor } = field;
+
+    if (hasBlackDoor || hasGoldDoor || hasIceDoor) {
+      return true;
+    } else return false;
+  }
+
+  doorDetector() {
     const { FIELDS } = this;
     const { positionX, positionY, currentFieldId } = this.state;
     const ballX = positionX.toFixed(0);
     const ballY = positionY.toFixed(0);
-    if (FIELDS[currentFieldId].hasHole) {
-      const holeX = (FIELDS[currentFieldId].left + FIELD_WIDTH / 2).toFixed(0);
-      const holeY = (FIELDS[currentFieldId].top + FIELD_HEIGHT / 2).toFixed(0);
+    if (this.fieldHasDoor(FIELDS[currentFieldId])) {
+      const doorX = (FIELDS[currentFieldId].left + FIELD_WIDTH / 2).toFixed(0);
+      const doorY = (FIELDS[currentFieldId].top + FIELD_HEIGHT / 2).toFixed(0);
 
-      if (ballX === holeX || ballY === holeY) {
+      if (ballX === doorX || ballY === doorY) {
         let { currentLevel, numberOfLevels } = this.state;
         if (currentLevel < numberOfLevels) {
           currentLevel++;
@@ -702,10 +712,10 @@ class Board extends Component<IProps> {
     const ballX = positionX.toFixed(0);
     const ballY = positionY.toFixed(0);
     if (FIELDS[currentFieldId].hasDiamond) {
-      const holeX = (FIELDS[currentFieldId].left + FIELD_WIDTH / 2).toFixed(0);
-      const holeY = (FIELDS[currentFieldId].top + FIELD_HEIGHT / 2).toFixed(0);
+      const doorX = (FIELDS[currentFieldId].left + FIELD_WIDTH / 2).toFixed(0);
+      const doorY = (FIELDS[currentFieldId].top + FIELD_HEIGHT / 2).toFixed(0);
 
-      if (ballX === holeX || ballY === holeY) {
+      if (ballX === doorX || ballY === doorY) {
         // console.log('diamond detected');
         const newFileds = FIELDS.map((field) => {
           if (field.fieldId === currentFieldId) {
@@ -746,17 +756,17 @@ class Board extends Component<IProps> {
 }
 
 const mapStateToProps = (state: IRootReducer) => {
-  const fields: IField[] = state.fieldsReducer.fields;
-  const currentLevel: number = state.levelReducer.currentLevel;
-  // koristenje score-a???
-  const currentScore: number = state.scoreReducer.currentScore;
-  const isGamePaused: boolean = state.pauseMenuReducer.isGamePaused;
-  // console.log('isgame paused: ', isGamePaused);
+  const { fields } = state.fieldsReducer;
+  const { currentLevel } = state.levelReducer;
+  const { currentScore } = state.scoreReducer;
+  const { isGamePaused } = state.pauseMenuReducer;
+  const { ballStartFieldId } = state.levelReducer;
   return {
     fields,
     currentLevel,
     currentScore,
     isGamePaused,
+    ballStartFieldId,
   };
 };
 
