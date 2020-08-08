@@ -5,12 +5,14 @@ export interface ILevelReducerState {
   currentLevel: number;
   ballStartFieldId: number;
   ballColor: string;
+  ballSpeedCoefficient: number;
 }
 
 const initState: ILevelReducerState = {
   currentLevel: 1,
   ballStartFieldId: 10,
   ballColor: '#1b03a3',
+  ballSpeedCoefficient: 1,
 };
 
 const levelReducer = (state = initState, action: IActionLevelReducer) => {
@@ -22,11 +24,12 @@ const levelReducer = (state = initState, action: IActionLevelReducer) => {
         currentLevel,
       };
     case SET_BALL_START_FIELD_ID:
-      const { ballStartFieldId, ballColor } = action;
+      const { ballStartFieldId, ballColor, ballSpeedCoefficient } = action;
       return {
         ...state,
         ballColor,
         ballStartFieldId,
+        ballSpeedCoefficient,
       };
 
     default:

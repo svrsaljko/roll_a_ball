@@ -28,14 +28,14 @@ class Timer extends Component<IProps> {
         clearInterval(timer);
       } else if (nextLevelMenuState === 'block') {
         clearInterval(timer);
-        console.log('next level destroy timer');
+        // console.log('next level destroy timer');
       } else if (currentTime === 0) {
         clearInterval(timer);
       } else {
         setCurrentTime(currentTime - 1);
       }
     };
-    console.log('timer created');
+    // console.log('timer created');
     let timer: any;
 
     timer = setInterval(doEachInterval, SECOND);

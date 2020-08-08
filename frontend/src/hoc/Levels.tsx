@@ -31,6 +31,7 @@ import {
   RotatedBrick8,
   BOARD_BACKGROUNDS,
 } from '../images';
+import { BALL } from '../items/Items';
 import { IField } from '../interfaces/IField';
 import { ILevel } from '../interfaces/ILevel';
 
@@ -232,12 +233,13 @@ const initializeLevel1 = () => {
   const level: ILevel = {
     // fields: fieldsHardcoding1(initializeField()),
     fields: initializeField(),
-    ballColor: 'darkRed',
+    ballColor: BALL[0].ballColor,
     ballStartFieldId: 11,
     brick: Brick6,
     rotatedBrick: RotatedBrick6,
     boardBackground: BOARD_BACKGROUNDS[2].image,
     frictionCoefficient: BOARD_BACKGROUNDS[2].frictionCoefficient,
+    ballSpeedCoefficient: BALL[0].ballSpeedCoefficient,
   };
   return level;
 };

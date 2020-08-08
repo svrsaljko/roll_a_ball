@@ -16,12 +16,17 @@ import Levels from '../hoc/Levels';
 
 interface IProps {
   setAllFields(fields: IField[]): void;
-  setBallStartFieldId(ballStartFieldId: number, ballColor: string): void;
+  setBallStartFieldId(
+    ballStartFieldId: number,
+    ballColor: string,
+    ballSpeedCoefficient: number
+  ): void;
   setBoardBackground(
     boardBackground: string,
     frictionCoefficient: number
   ): void;
   frictionCoefficient: number;
+  ballSpeedCoefficient: number;
   currentLevel: number;
   currentScore: number;
   levels: ILevel[];
@@ -36,9 +41,10 @@ function Fields(props: IProps) {
     rotatedBrick,
     boardBackground,
     frictionCoefficient,
+    ballSpeedCoefficient,
   } = props.levels[props.currentLevel - 1];
   setBoardBackground(boardBackground, frictionCoefficient);
-  setBallStartFieldId(ballStartFieldId, ballColor);
+  setBallStartFieldId(ballStartFieldId, ballColor, ballSpeedCoefficient);
   const [fields, setFields] = useState(
     props.levels[props.currentLevel - 1].fields
   );
@@ -139,8 +145,14 @@ const mapStateToProps = (state: IRootReducer) => {
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     setAllFields: (fields: IField[]) => dispatch(setAllFields(fields)),
-    setBallStartFieldId: (ballStartFieldId: number, ballColor: string) =>
-      dispatch(setBallStartFieldId(ballStartFieldId, ballColor)),
+    setBallStartFieldId: (
+      ballStartFieldId: number,
+      ballColor: string,
+      ballSpeedCoefficient: number
+    ) =>
+      dispatch(
+        setBallStartFieldId(ballStartFieldId, ballColor, ballSpeedCoefficient)
+      ),
     setBoardBackground: (
       boardBackground: string,
       frictionCoefficient: number

@@ -48,6 +48,7 @@ interface IProps {
   ballColor: string;
   boardBackground: string;
   frictionCoefficient: number;
+  ballSpeedCoefficient: number;
   setCurrentLevel: (currentLevel: number) => void;
   removeDiamondFromField: (fields: IField[]) => void;
   setScore: (newScore: number) => void;
@@ -588,8 +589,8 @@ class Board extends Component<IProps> {
   };
 
   setSpeedLimit = (accelerometerCoordinate: number) => {
-    const { frictionCoefficient } = this.props;
-    const speedLimit = SPEED_LIMIT * frictionCoefficient;
+    const { frictionCoefficient, ballSpeedCoefficient } = this.props;
+    const speedLimit = SPEED_LIMIT * frictionCoefficient * ballSpeedCoefficient;
     if (accelerometerCoordinate > 0) {
       if (accelerometerCoordinate >= speedLimit) {
         return speedLimit;
@@ -785,7 +786,12 @@ class Board extends Component<IProps> {
 
 const mapStateToProps = (state: IRootReducer) => {
   const { fields } = state.fieldsReducer;
-  const { currentLevel, ballStartFieldId, ballColor } = state.levelReducer;
+  const {
+    currentLevel,
+    ballStartFieldId,
+    ballColor,
+    ballSpeedCoefficient,
+  } = state.levelReducer;
   const { currentScore } = state.scoreReducer;
   const { isGamePaused } = state.pauseMenuReducer;
   const { boardBackground, frictionCoefficient } = state.boardBackgroundReducer;
@@ -799,6 +805,7 @@ const mapStateToProps = (state: IRootReducer) => {
     ballColor,
     boardBackground,
     frictionCoefficient,
+    ballSpeedCoefficient,
   };
 };
 

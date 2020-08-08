@@ -7,5 +7,6 @@ export interface ILevel {
   rotatedBrick: string;
   boardBackground: string;
   frictionCoefficient: number;
+  ballSpeedCoefficient: number;
   fields: IField[];
 }

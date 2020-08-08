@@ -26,6 +26,7 @@ export interface IActionSetBallStartFieldId {
   type: typeof SET_BALL_START_FIELD_ID;
   ballStartFieldId: number;
   ballColor: string;
+  ballSpeedCoefficient: number;
 }
 
 export type IActionLevelReducer =
@@ -91,9 +92,15 @@ export const setCurrentTime = (currentTime: number) => {
 
 export const setBallStartFieldId = (
   ballStartFieldId: number,
-  ballColor: string
+  ballColor: string,
+  ballSpeedCoefficient: number
 ) => {
-  return { type: SET_BALL_START_FIELD_ID, ballStartFieldId, ballColor };
+  return {
+    type: SET_BALL_START_FIELD_ID,
+    ballStartFieldId,
+    ballColor,
+    ballSpeedCoefficient,
+  };
 };
 
 export const setBoardBackground = (

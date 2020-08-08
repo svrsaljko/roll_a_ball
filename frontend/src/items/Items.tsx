@@ -73,6 +73,23 @@ const createEnemy = (color: string) => {
 const DarkRedBall = createCircleShape('darkRed', 'dark-red-ball');
 const IceBall = createCircleShape('#dcf3ff', 'ice-ball');
 const NeonBlueBall = createCircleShape('#1b03a3', 'neon-blue-ball');
+export const BALL = [
+  {
+    title: 'DarkRedBall',
+    ballColor: 'darkRed',
+    ballSpeedCoefficient: 0.8,
+  },
+  {
+    title: 'NeonBlueBall',
+    ballColor: '#1b03a3',
+    ballSpeedCoefficient: 1.1,
+  },
+  {
+    title: 'IceBall',
+    ballColor: '#dcf3ff',
+    ballSpeedCoefficient: 1,
+  },
+];
 
 //
 
