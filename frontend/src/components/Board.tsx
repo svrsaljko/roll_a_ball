@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { Background1 } from '../images';
 import Fields from './Fields';
 import Ball from './Ball';
 import PauseMenu from './PauseMenu';
 import NextLevelMenu from './NextLevelMenu';
-
+import GameOverMenu from './GameOverMenu';
 import { IField } from '../interfaces/IField';
 import { isMobile } from 'react-device-detect';
 import { connect } from 'react-redux';
@@ -14,6 +13,7 @@ import {
   setScore,
   removeDiamondFromField,
   setNextLevelMenuState,
+  setGameOverMenuState,
 } from '../actions/actions';
 import { IRootReducer } from '../reducers/index';
 import {
@@ -53,6 +53,7 @@ interface IProps {
   removeDiamondFromField: (fields: IField[]) => void;
   setScore: (newScore: number) => void;
   setNextLevelMenuState: (isNextLevelMenuActive: boolean) => void;
+  setGameOverMenuState: (isGameOverMenuActive: boolean) => void;
 }
 
 interface IPrevProps {
@@ -71,11 +72,9 @@ class Board extends Component<IProps> {
     start: false,
     currentLevel: 1,
     numberOfLevels: 3,
-    // FIELDS:[null]
   };
 
   FIELDS: IField[] = [];
-  //currentLevel: number;
 
   moveLeft() {
     let { x, positionX, currentFieldId } = this.state;
@@ -608,7 +607,6 @@ class Board extends Component<IProps> {
 
   changePositionX = (positionX: number, x: number) => {
     x = this.setSpeedLimit(x);
-    // console.log('x: ', x);
     this.setState({
       positionX: positionX - x,
     });
@@ -616,7 +614,6 @@ class Board extends Component<IProps> {
 
   changePositionY = (positionY: number, y: number) => {
     y = this.setSpeedLimit(y);
-    // console.log('y: ', y);
     this.setState({
       positionY: positionY + y,
     });
@@ -669,8 +666,7 @@ class Board extends Component<IProps> {
             this.moveDown();
             this.moveUp();
             this.fieldDetector();
-            this.doorDetector();
-            this.diamondDetector();
+            this.itemsDetector();
           }
         }
       }, 1000 / 60);
@@ -699,29 +695,55 @@ class Board extends Component<IProps> {
     }
   }
 
-  fieldHasDoor(field: IField) {
-    const { hasBlackDoor, hasGoldDoor, hasIceDoor } = field;
-
-    if (hasBlackDoor || hasGoldDoor || hasIceDoor) {
-      return true;
-    } else return false;
-  }
-
-  doorDetector() {
+  itemsDetector() {
     const { FIELDS } = this;
     const { positionX, positionY, currentFieldId } = this.state;
     const ballX = positionX.toFixed(0);
     const ballY = positionY.toFixed(0);
-    if (this.fieldHasDoor(FIELDS[currentFieldId])) {
-      const doorX = (FIELDS[currentFieldId].left + FIELD_WIDTH / 2).toFixed(0);
-      const doorY = (FIELDS[currentFieldId].top + FIELD_HEIGHT / 2).toFixed(0);
 
-      if (ballX === doorX || ballY === doorY) {
+    this.doorDetector(FIELDS, ballX, ballY, currentFieldId);
+    this.diamondShapeDetector(FIELDS, ballX, ballY, currentFieldId);
+    this.hexgonShapeDetector(FIELDS, ballX, ballY, currentFieldId);
+    this.enemyShapeDetector(FIELDS, ballX, ballY, currentFieldId);
+  }
+
+  doorDetector(
+    FIELDS: IField[],
+    ballX: string,
+    ballY: string,
+    currentFieldId: number
+  ) {
+    const leftBorder = (FIELDS[currentFieldId].left + FIELD_WIDTH / 5).toFixed(
+      0
+    );
+    const rightBorder = (
+      FIELDS[currentFieldId].left +
+      FIELD_WIDTH * (4 / 5)
+    ).toFixed(0);
+
+    const topBorder = (FIELDS[currentFieldId].top + FIELD_HEIGHT / 5).toFixed(
+      0
+    );
+    const bottomBorder = (
+      FIELDS[currentFieldId].top +
+      FIELD_HEIGHT * (3 / 4)
+    ).toFixed(0);
+
+    if (
+      FIELDS[currentFieldId].hasBlackDoor ||
+      FIELDS[currentFieldId].hasIceDoor ||
+      FIELDS[currentFieldId].hasGoldDoor
+    ) {
+      if (
+        ballX > leftBorder &&
+        ballX < rightBorder &&
+        ballY > topBorder &&
+        ballY < bottomBorder
+      ) {
         let { currentLevel, numberOfLevels } = this.state;
         if (currentLevel < numberOfLevels) {
           currentLevel++;
 
-          // this.props.setCurrentLevel(currentLevel);
           this.FIELDS = this.props.fields;
           this.props.setNextLevelMenuState(true);
           this.setState({
@@ -733,26 +755,165 @@ class Board extends Component<IProps> {
     }
   }
 
-  diamondDetector() {
-    const { FIELDS } = this;
-    const { positionX, positionY, currentFieldId } = this.state;
-    const { currentScore } = this.props;
-    const ballX = positionX.toFixed(0);
-    const ballY = positionY.toFixed(0);
-    if (FIELDS[currentFieldId].hasDiamond) {
-      const doorX = (FIELDS[currentFieldId].left + FIELD_WIDTH / 2).toFixed(0);
-      const doorY = (FIELDS[currentFieldId].top + FIELD_HEIGHT / 2).toFixed(0);
+  enemyShapeDetector(
+    FIELDS: IField[],
+    ballX: string,
+    ballY: string,
+    currentFieldId: number
+  ) {
+    const leftBorder = (
+      FIELDS[currentFieldId].left +
+      FIELD_WIDTH * (1 / 12)
+    ).toFixed(0);
+    const rightBorder = (
+      FIELDS[currentFieldId].left +
+      FIELD_WIDTH * (10 / 12)
+    ).toFixed(0);
 
-      if (ballX === doorX || ballY === doorY) {
-        // console.log('diamond detected');
+    const topBorder = (FIELDS[currentFieldId].top + FIELD_HEIGHT / 5).toFixed(
+      0
+    );
+    const bottomBorder = (
+      FIELDS[currentFieldId].top +
+      FIELD_HEIGHT * (3 / 4)
+    ).toFixed(0);
+    if (
+      FIELDS[currentFieldId].hasNeonRedEnemy ||
+      FIELDS[currentFieldId].hasNeonGreenEnemy ||
+      FIELDS[currentFieldId].hasNeonBlueEnemy
+    ) {
+      if (
+        ballX > leftBorder &&
+        ballX < rightBorder &&
+        ballY > topBorder &&
+        ballY < bottomBorder
+      ) {
+        console.log('enemy detected');
         const newFileds = FIELDS.map((field) => {
           if (field.fieldId === currentFieldId) {
-            // console.log('delete diamond');
-            field.hasDiamond = false;
+            if (field.hasNeonRedEnemy) {
+              field.hasNeonRedEnemy = false;
+            } else if (field.hasNeonGreenEnemy) {
+              field.hasNeonGreenEnemy = false;
+            } else if (field.hasNeonBlueEnemy) {
+              field.hasNeonBlueEnemy = false;
+            }
           }
           return field;
         });
-        const newScore = currentScore + 1000;
+
+        const newScore = this.props.currentScore + 1333;
+        // this.props.setGameOverMenuState(true);
+        this.props.setScore(newScore);
+      }
+    }
+  }
+
+  hexgonShapeDetector(
+    FIELDS: IField[],
+    ballX: string,
+    ballY: string,
+    currentFieldId: number
+  ) {
+    const { currentScore } = this.props;
+
+    const leftBorder = (FIELDS[currentFieldId].left + FIELD_WIDTH / 10).toFixed(
+      0
+    );
+    const rightBorder = (
+      FIELDS[currentFieldId].left +
+      FIELD_WIDTH * (9 / 10)
+    ).toFixed(0);
+
+    const topBorder = (FIELDS[currentFieldId].top + FIELD_HEIGHT / 7).toFixed(
+      0
+    );
+    const bottomBorder = (
+      FIELDS[currentFieldId].top +
+      FIELD_HEIGHT * (6 / 7)
+    ).toFixed(0);
+    if (FIELDS[currentFieldId].hasGold || FIELDS[currentFieldId].hasSilver) {
+      if (
+        ballX > leftBorder &&
+        ballX < rightBorder &&
+        ballY > topBorder &&
+        ballY < bottomBorder
+      ) {
+        let newScore;
+        const newFileds = FIELDS.map((field) => {
+          if (field.fieldId === currentFieldId) {
+            if (field.hasGold) {
+              field.hasGold = false;
+              newScore = currentScore + 10000;
+            } else if (field.hasSilver) {
+              field.hasSilver = false;
+              newScore = currentScore + 2000;
+            }
+          }
+          return field;
+        });
+
+        this.props.removeDiamondFromField(newFileds);
+        this.props.setScore(newScore);
+      }
+    }
+  }
+
+  diamondShapeDetector(
+    FIELDS: IField[],
+    ballX: string,
+    ballY: string,
+    currentFieldId: number
+  ) {
+    const { currentScore } = this.props;
+
+    const leftBorder = (FIELDS[currentFieldId].left + FIELD_WIDTH / 5).toFixed(
+      0
+    );
+    const rightBorder = (
+      FIELDS[currentFieldId].left +
+      FIELD_WIDTH * (4 / 5)
+    ).toFixed(0);
+
+    const topBorder = (FIELDS[currentFieldId].top + FIELD_HEIGHT / 5).toFixed(
+      0
+    );
+    const bottomBorder = (
+      FIELDS[currentFieldId].top +
+      FIELD_HEIGHT * (3 / 4)
+    ).toFixed(0);
+    if (
+      FIELDS[currentFieldId].hasEmerald ||
+      FIELDS[currentFieldId].hasSapphire ||
+      FIELDS[currentFieldId].hasRuby ||
+      FIELDS[currentFieldId].hasDiamond
+    ) {
+      if (
+        ballX > leftBorder &&
+        ballX < rightBorder &&
+        ballY > topBorder &&
+        ballY < bottomBorder
+      ) {
+        let newScore;
+        const newFileds = FIELDS.map((field) => {
+          if (field.fieldId === currentFieldId) {
+            if (field.hasEmerald) {
+              field.hasEmerald = false;
+              newScore = currentScore + 50000;
+            } else if (field.hasSapphire) {
+              field.hasSapphire = false;
+              newScore = currentScore + 40000;
+            } else if (field.hasRuby) {
+              field.hasRuby = false;
+              newScore = currentScore + 30000;
+            } else if (field.hasDiamond) {
+              field.hasDiamond = false;
+              newScore = currentScore + 20000;
+            }
+          }
+          return field;
+        });
+
         this.props.removeDiamondFromField(newFileds);
         this.props.setScore(newScore);
       }
@@ -779,6 +940,7 @@ class Board extends Component<IProps> {
         <Ball color={ballColor} positionX={positionX} positionY={positionY} />
         <PauseMenu />
         <NextLevelMenu />
+        <GameOverMenu />
       </div>
     );
   }
@@ -818,6 +980,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     setScore: (newScore: number) => dispatch(setScore(newScore)),
     setNextLevelMenuState: (isNextLevelMenuActive: boolean) =>
       dispatch(setNextLevelMenuState(isNextLevelMenuActive)),
+    setGameOverMenuState: (isGameOverMenuActive: boolean) =>
+      dispatch(setGameOverMenuState(isGameOverMenuActive)),
   };
 };
 

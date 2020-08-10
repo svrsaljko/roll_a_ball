@@ -366,8 +366,8 @@ const drawWalls = (props: IProps) => {
       <div
         style={{
           position: 'absolute',
-          top: `${FIELD_HEIGHT / 4}px`,
-          left: `${FIELD_WIDTH / 5}px`,
+          top: `${FIELD_HEIGHT / 3}px`,
+          left: `${FIELD_WIDTH / 4}px`,
         }}
       >
         {shape}
@@ -378,9 +378,10 @@ const drawWalls = (props: IProps) => {
     return (
       <div
         style={{
+          display: 'block',
           position: 'absolute',
-          top: `${FIELD_HEIGHT / 3}px`,
-          left: `${FIELD_WIDTH / 5}px`,
+          top: `${FIELD_HEIGHT * 0.4}px`,
+          left: `${FIELD_WIDTH / 4}px`,
         }}
       >
         {shape}
@@ -391,9 +392,11 @@ const drawWalls = (props: IProps) => {
     return (
       <div
         style={{
+          display: 'block',
+
           position: 'absolute',
           top: `${FIELD_HEIGHT / 3}px`,
-          left: `${FIELD_WIDTH / 5}px`,
+          left: `${FIELD_WIDTH / 4}px`,
         }}
       >
         {shape}
@@ -405,6 +408,8 @@ const drawWalls = (props: IProps) => {
     return (
       <div
         style={{
+          display: 'block',
+
           position: 'absolute',
           top: `${FIELD_HEIGHT * 0.45}px`,
           left: `${FIELD_WIDTH * 0.45}px`,
@@ -469,6 +474,8 @@ const drawWalls = (props: IProps) => {
 };
 
 function Walls(props: IProps) {
+  console.log('set WALLS');
+
   return <div>{drawWalls(props)}</div>;
 }
 

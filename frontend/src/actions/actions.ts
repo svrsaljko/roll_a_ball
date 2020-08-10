@@ -8,6 +8,7 @@ import {
   SET_CURRENT_TIME,
   SET_BALL_START_FIELD_ID,
   SET_BOARD_BACKGROUND,
+  SET_GAME_OVER_MENU_STATE,
 } from './types';
 
 import { IField } from '../interfaces/IField';
@@ -61,6 +62,10 @@ export interface IActionSetBoardBackground {
   boardBackground: string;
   frictionCoefficient: number;
 }
+export interface IActionSetGameOverMenuState {
+  type: string;
+  isGameOverMenuActive: boolean;
+}
 
 export const setAllFields = (fields: IField[]) => {
   return { type: SET_ALL_FIELDS, fields };
@@ -108,4 +113,8 @@ export const setBoardBackground = (
   frictionCoefficient: number
 ) => {
   return { type: SET_BOARD_BACKGROUND, boardBackground, frictionCoefficient };
+};
+
+export const setGameOverMenuState = (isGameOverMenuActive: boolean) => {
+  return { type: SET_GAME_OVER_MENU_STATE, isGameOverMenuActive };
 };

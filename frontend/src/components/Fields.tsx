@@ -33,6 +33,7 @@ interface IProps {
 }
 
 function Fields(props: IProps) {
+  console.log('set fields');
   const { setBallStartFieldId, setAllFields, setBoardBackground } = props;
   const {
     ballStartFieldId,
@@ -88,7 +89,7 @@ function Fields(props: IProps) {
           <div
             key={uuid()}
             style={{
-              // border: '0.3px solid red',
+              border: '0.3px solid red',
               width: `${FIELD_WIDTH}px`,
               height: `${FIELD_HEIGHT}px`,
               top: `${top}px`,

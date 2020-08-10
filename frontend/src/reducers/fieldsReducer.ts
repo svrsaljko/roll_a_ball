@@ -14,15 +14,16 @@ const initState: IFieldsReducerState = {
 //**** PROMIJENIT IME AKCIJI */
 
 const fieldsReducer = (state = initState, action: IActionSetAllFields) => {
+  const { fields } = action;
   switch (action.type) {
     case SET_ALL_FIELDS:
       return {
-        fields: action.fields,
+        fields,
       };
     case REMOVE_DIAMOND_FROM_FIELD:
-      // console.log('delete diamond redux');
+      console.log('remove item');
       return {
-        fields: action.fields,
+        fields,
       };
     default:
       return state;
