@@ -696,43 +696,39 @@ class Board extends Component<IProps> {
   }
 
   itemsDetector() {
-    const { FIELDS } = this;
     const { positionX, positionY, currentFieldId } = this.state;
-    const ballX = positionX.toFixed(0);
-    const ballY = positionY.toFixed(0);
+    const ballX = parseInt(positionX.toFixed(0), 10);
+    const ballY = parseInt(positionY.toFixed(0), 10);
 
-    this.doorDetector(FIELDS, ballX, ballY, currentFieldId);
-    this.diamondShapeDetector(FIELDS, ballX, ballY, currentFieldId);
-    this.hexgonShapeDetector(FIELDS, ballX, ballY, currentFieldId);
-    this.enemyShapeDetector(FIELDS, ballX, ballY, currentFieldId);
+    this.doorDetector(ballX, ballY, currentFieldId);
+    this.diamondShapeDetector(ballX, ballY, currentFieldId);
+    this.hexgonShapeDetector(ballX, ballY, currentFieldId);
+    this.enemyShapeDetector(ballX, ballY, currentFieldId);
   }
 
-  doorDetector(
-    FIELDS: IField[],
-    ballX: string,
-    ballY: string,
-    currentFieldId: number
-  ) {
-    const leftBorder = (FIELDS[currentFieldId].left + FIELD_WIDTH / 5).toFixed(
-      0
+  doorDetector(ballX: number, ballY: number, currentFieldId: number) {
+    const leftBorder = parseInt(
+      (this.FIELDS[currentFieldId].left + FIELD_WIDTH / 5).toFixed(0),
+      10
     );
-    const rightBorder = (
-      FIELDS[currentFieldId].left +
-      FIELD_WIDTH * (4 / 5)
-    ).toFixed(0);
+    const rightBorder = parseInt(
+      (this.FIELDS[currentFieldId].left + FIELD_WIDTH * (4 / 5)).toFixed(0),
+      10
+    );
 
-    const topBorder = (FIELDS[currentFieldId].top + FIELD_HEIGHT / 5).toFixed(
-      0
+    const topBorder = parseInt(
+      (this.FIELDS[currentFieldId].top + FIELD_HEIGHT / 5).toFixed(0),
+      10
     );
-    const bottomBorder = (
-      FIELDS[currentFieldId].top +
-      FIELD_HEIGHT * (3 / 4)
-    ).toFixed(0);
+    const bottomBorder = parseInt(
+      (this.FIELDS[currentFieldId].top + FIELD_HEIGHT * (3 / 4)).toFixed(0),
+      10
+    );
 
     if (
-      FIELDS[currentFieldId].hasBlackDoor ||
-      FIELDS[currentFieldId].hasIceDoor ||
-      FIELDS[currentFieldId].hasGoldDoor
+      this.FIELDS[currentFieldId].hasBlackDoor ||
+      this.FIELDS[currentFieldId].hasIceDoor ||
+      this.FIELDS[currentFieldId].hasGoldDoor
     ) {
       if (
         ballX > leftBorder &&
@@ -755,32 +751,28 @@ class Board extends Component<IProps> {
     }
   }
 
-  enemyShapeDetector(
-    FIELDS: IField[],
-    ballX: string,
-    ballY: string,
-    currentFieldId: number
-  ) {
-    const leftBorder = (
-      FIELDS[currentFieldId].left +
-      FIELD_WIDTH * (1 / 12)
-    ).toFixed(0);
-    const rightBorder = (
-      FIELDS[currentFieldId].left +
-      FIELD_WIDTH * (10 / 12)
-    ).toFixed(0);
-
-    const topBorder = (FIELDS[currentFieldId].top + FIELD_HEIGHT / 5).toFixed(
-      0
+  enemyShapeDetector(ballX: number, ballY: number, currentFieldId: number) {
+    const leftBorder = parseInt(
+      (this.FIELDS[currentFieldId].left + FIELD_WIDTH * (1 / 12)).toFixed(0),
+      10
     );
-    const bottomBorder = (
-      FIELDS[currentFieldId].top +
-      FIELD_HEIGHT * (3 / 4)
-    ).toFixed(0);
+    const rightBorder = parseInt(
+      (this.FIELDS[currentFieldId].left + FIELD_WIDTH * (10 / 12)).toFixed(0),
+      10
+    );
+
+    const topBorder = parseInt(
+      (this.FIELDS[currentFieldId].top + FIELD_HEIGHT / 5).toFixed(0),
+      10
+    );
+    const bottomBorder = parseInt(
+      (this.FIELDS[currentFieldId].top + FIELD_HEIGHT * (3 / 4)).toFixed(0),
+      10
+    );
     if (
-      FIELDS[currentFieldId].hasNeonRedEnemy ||
-      FIELDS[currentFieldId].hasNeonGreenEnemy ||
-      FIELDS[currentFieldId].hasNeonBlueEnemy
+      this.FIELDS[currentFieldId].hasNeonRedEnemy ||
+      this.FIELDS[currentFieldId].hasNeonGreenEnemy ||
+      this.FIELDS[currentFieldId].hasNeonBlueEnemy
     ) {
       if (
         ballX > leftBorder &&
@@ -788,51 +780,35 @@ class Board extends Component<IProps> {
         ballY > topBorder &&
         ballY < bottomBorder
       ) {
-        console.log('enemy detected');
-        const newFileds = FIELDS.map((field) => {
-          if (field.fieldId === currentFieldId) {
-            if (field.hasNeonRedEnemy) {
-              field.hasNeonRedEnemy = false;
-            } else if (field.hasNeonGreenEnemy) {
-              field.hasNeonGreenEnemy = false;
-            } else if (field.hasNeonBlueEnemy) {
-              field.hasNeonBlueEnemy = false;
-            }
-          }
-          return field;
-        });
-
-        const newScore = this.props.currentScore + 1333;
-        // this.props.setGameOverMenuState(true);
-        this.props.setScore(newScore);
+        this.props.setGameOverMenuState(true);
       }
     }
   }
 
-  hexgonShapeDetector(
-    FIELDS: IField[],
-    ballX: string,
-    ballY: string,
-    currentFieldId: number
-  ) {
+  hexgonShapeDetector(ballX: number, ballY: number, currentFieldId: number) {
     const { currentScore } = this.props;
 
-    const leftBorder = (FIELDS[currentFieldId].left + FIELD_WIDTH / 10).toFixed(
-      0
+    const leftBorder = parseInt(
+      (this.FIELDS[currentFieldId].left + FIELD_WIDTH / 10).toFixed(0),
+      10
     );
-    const rightBorder = (
-      FIELDS[currentFieldId].left +
-      FIELD_WIDTH * (9 / 10)
-    ).toFixed(0);
+    const rightBorder = parseInt(
+      (this.FIELDS[currentFieldId].left + FIELD_WIDTH * (9 / 10)).toFixed(0),
+      10
+    );
 
-    const topBorder = (FIELDS[currentFieldId].top + FIELD_HEIGHT / 7).toFixed(
-      0
+    const topBorder = parseInt(
+      (this.FIELDS[currentFieldId].top + FIELD_HEIGHT / 7).toFixed(0),
+      10
     );
-    const bottomBorder = (
-      FIELDS[currentFieldId].top +
-      FIELD_HEIGHT * (6 / 7)
-    ).toFixed(0);
-    if (FIELDS[currentFieldId].hasGold || FIELDS[currentFieldId].hasSilver) {
+    const bottomBorder = parseInt(
+      (this.FIELDS[currentFieldId].top + FIELD_HEIGHT * (6 / 7)).toFixed(0),
+      10
+    );
+    if (
+      this.FIELDS[currentFieldId].hasGold ||
+      this.FIELDS[currentFieldId].hasSilver
+    ) {
       if (
         ballX > leftBorder &&
         ballX < rightBorder &&
@@ -840,7 +816,7 @@ class Board extends Component<IProps> {
         ballY < bottomBorder
       ) {
         let newScore;
-        const newFileds = FIELDS.map((field) => {
+        const newFileds = this.FIELDS.map((field: IField) => {
           if (field.fieldId === currentFieldId) {
             if (field.hasGold) {
               field.hasGold = false;
@@ -859,34 +835,31 @@ class Board extends Component<IProps> {
     }
   }
 
-  diamondShapeDetector(
-    FIELDS: IField[],
-    ballX: string,
-    ballY: string,
-    currentFieldId: number
-  ) {
+  diamondShapeDetector(ballX: number, ballY: number, currentFieldId: number) {
     const { currentScore } = this.props;
 
-    const leftBorder = (FIELDS[currentFieldId].left + FIELD_WIDTH / 5).toFixed(
-      0
+    const leftBorder = parseInt(
+      (this.FIELDS[currentFieldId].left + FIELD_WIDTH / 5).toFixed(0),
+      10
     );
-    const rightBorder = (
-      FIELDS[currentFieldId].left +
-      FIELD_WIDTH * (4 / 5)
-    ).toFixed(0);
+    const rightBorder = parseInt(
+      (this.FIELDS[currentFieldId].left + FIELD_WIDTH * (4 / 5)).toFixed(0),
+      10
+    );
 
-    const topBorder = (FIELDS[currentFieldId].top + FIELD_HEIGHT / 5).toFixed(
-      0
+    const topBorder = parseInt(
+      (this.FIELDS[currentFieldId].top + FIELD_HEIGHT / 5).toFixed(0),
+      10
     );
-    const bottomBorder = (
-      FIELDS[currentFieldId].top +
-      FIELD_HEIGHT * (3 / 4)
-    ).toFixed(0);
+    const bottomBorder = parseInt(
+      (this.FIELDS[currentFieldId].top + FIELD_HEIGHT * (3 / 4)).toFixed(0),
+      10
+    );
     if (
-      FIELDS[currentFieldId].hasEmerald ||
-      FIELDS[currentFieldId].hasSapphire ||
-      FIELDS[currentFieldId].hasRuby ||
-      FIELDS[currentFieldId].hasDiamond
+      this.FIELDS[currentFieldId].hasEmerald ||
+      this.FIELDS[currentFieldId].hasSapphire ||
+      this.FIELDS[currentFieldId].hasRuby ||
+      this.FIELDS[currentFieldId].hasDiamond
     ) {
       if (
         ballX > leftBorder &&
@@ -894,8 +867,9 @@ class Board extends Component<IProps> {
         ballY > topBorder &&
         ballY < bottomBorder
       ) {
+        console.log('emerald colission');
         let newScore;
-        const newFileds = FIELDS.map((field) => {
+        const newFileds = this.FIELDS.map((field: IField) => {
           if (field.fieldId === currentFieldId) {
             if (field.hasEmerald) {
               field.hasEmerald = false;

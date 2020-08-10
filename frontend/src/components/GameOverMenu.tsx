@@ -18,7 +18,6 @@ interface IProps {
 
 function GameOverMenu(props: IProps) {
   const { gameOverMenuState, setGameOverMenuState } = props;
-  console.log('gameOverMenuState', gameOverMenuState);
   return (
     <div
       style={{

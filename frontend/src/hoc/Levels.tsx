@@ -173,87 +173,51 @@ const initializeField = () => {
 };
 
 const fieldsHardcoding1 = (fields: IField[]) => {
-  //
-  // fields[9].topWall = true;
-  // fields[10].topWall = true;
-  // fields[10].rightWall = true;
-  // fields[12].leftWall = true;
-  // fields[14].hasNeonGreenEnemy = true;
-  // // fields[15].hasIceDoor = true;
-  // fields[16].hasNeonBlueEnemy = true;
-  // //
-  // fields[19].rightWall = true;
-  // fields[21].leftWall = true;
-  // fields[22].hasDiamond = true;
-  // fields[23].hasSapphire = true;
-  // fields[25].hasDiamond = true;
-  // //
-  // fields[28].rightWall = true;
-  // fields[29].hasEmerald = true;
-  // fields[30].topWall = true;
-  // fields[31].topWall = true;
-  // fields[32].topWall = true;
-  // fields[34].topWall = true;
-  // fields[35].topWall = true;
-  // //
-  // fields[37].rightWall = true;
-  // fields[38].bottomWall = true;
-  // fields[39].leftWall = true;
-  // fields[39].topWall = true;
-  // fields[40].topWall = true;
-  // fields[40].rightWall = true;
-  // fields[42].hasNeonGreenEnemy = true;
-  // fields[43].leftWall = true;
-  // fields[43].topWall = true;
-  // //
-  // fields[49].rightWall = true;
-  // fields[50].leftWall = true;
-  // fields[51].rightWall = true;
-  // //
-  // fields[52].hasDiamond = true;
-  // fields[61].hasSapphire = true;
-  // //
-  // fields[59].leftWall = true;
-  // fields[60].rightWall = true;
-  // fields[68].leftWall = true;
-  // fields[69].rightWall = true;
-  // fields[77].leftWall = true;
-  // fields[78].rightWall = true;
-  // //
-  // fields[55].hasRuby = true;
-  // fields[64].hasRuby = true;
-  // // fields[73].hasIceDoor = true;
-  // fields[74].hasNeonGreenEnemy = true;
-  // fields[56].hasGold = true;
-  // fields[21].hasEmerald = true;
-  // fields[22].hasSapphire = true;
-  // fields[23].hasRuby = true;
-  // fields[24].hasDiamond = true;
-  // fields[21 + 18].hasGold = true;
-  // fields[22 + 18].hasSilver = true;
-  // fields[21 - 18].hasGold = true;
-  // fields[22 - 18].hasSilver = true;
-  // fields[21 - 18].hasGold = true;
-  // fields[22 - 9].hasSilver = true;
-  // fields[21 - 9].hasGold = true;
-  // fields[21].hasGold = true;
-  // fields[22].hasSilver = true;
-  // fields[21 + 9].hasGold = true;
-  // fields[22 + 9].hasSilver = true;
-  // fields[21 + 18].hasNeonBlueEnemy = true;
-  // fields[22 + 18].hasNeonGreenEnemy = true;
-  // fields[21 - 18].hasNeonRedEnemy = true;
-  // fields[22 - 18].hasNeonBlueEnemy = true;
-  // fields[21 - 18].hasNeonBlueEnemy = true;
-  // fields[22 - 9].hasNeonBlueEnemy = true;
-  // fields[21 - 9].hasNeonBlueEnemy = true;
-  fields[10].hasIceDoor = true;
-  // fields[21].hasNeonBlueEnemy = true;
-  // fields[22].hasNeonBlueEnemy = true;
-  // fields[21 + 9].hasNeonBlueEnemy = true;
-  // fields[22 + 9].hasNeonRedEnemy = true;
-  // fields[23 + 9].hasDiamond = true;
-  // fields[24 + 9].hasDiamond = true;
+  fields[9].topWall = true;
+  fields[10].topWall = true;
+  fields[10].rightWall = true;
+  fields[12].leftWall = true;
+  fields[19].rightWall = true;
+  fields[21].leftWall = true;
+  fields[28].rightWall = true;
+  fields[30].topWall = true;
+  fields[31].topWall = true;
+  fields[32].topWall = true;
+  fields[34].topWall = true;
+  fields[35].topWall = true;
+  fields[37].rightWall = true;
+  fields[38].bottomWall = true;
+  fields[39].leftWall = true;
+  fields[39].topWall = true;
+  fields[40].topWall = true;
+  fields[40].rightWall = true;
+  fields[43].leftWall = true;
+  fields[43].topWall = true;
+  fields[49].rightWall = true;
+  fields[50].leftWall = true;
+  fields[51].rightWall = true;
+  fields[59].leftWall = true;
+  fields[60].rightWall = true;
+  fields[68].leftWall = true;
+  fields[69].rightWall = true;
+  fields[77].leftWall = true;
+  fields[78].rightWall = true;
+
+  fields[22].hasDiamond = true;
+  fields[25].hasDiamond = true;
+  fields[23].hasSapphire = true;
+  fields[61].hasSapphire = true;
+  fields[20].hasEmerald = true;
+
+  fields[29].hasEmerald = true;
+  fields[55].hasRuby = true;
+  fields[64].hasRuby = true;
+  fields[56].hasGold = true;
+  fields[73].hasIceDoor = true;
+  fields[16].hasNeonBlueEnemy = true;
+  fields[42].hasNeonGreenEnemy = true;
+  fields[74].hasNeonGreenEnemy = true;
+  fields[14].hasNeonGreenEnemy = true;
 
   return fields;
 };
@@ -261,7 +225,6 @@ const fieldsHardcoding1 = (fields: IField[]) => {
 const initializeLevel1 = () => {
   const level: ILevel = {
     fields: fieldsHardcoding1(initializeField()),
-    // fields: initializeField(),
     ballColor: BALL[0].ballColor,
     ballStartFieldId: 11,
     brick: Brick6,
