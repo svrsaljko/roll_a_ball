@@ -9,14 +9,24 @@ import {
   SET_BALL_START_FIELD_ID,
   SET_BOARD_BACKGROUND,
   SET_GAME_OVER_MENU_STATE,
+  SET_START_GAME_STATE,
+  SET_START_GAME_MENU_STATE,
 } from './types';
 
 import { IField } from '../interfaces/IField';
 
-export interface IActionSetAllFields {
-  type: string;
+interface IActionSetAllFields {
+  type: typeof SET_ALL_FIELDS;
   fields: IField[];
 }
+interface IActionRemoveDiamondFromField {
+  type: typeof REMOVE_DIAMOND_FROM_FIELD;
+  fields: IField[];
+}
+
+export type IActionFieldsStateReducer =
+  | IActionSetAllFields
+  | IActionRemoveDiamondFromField;
 
 export interface IActionSetCurrentLevel {
   type: typeof SET_CURRENT_LEVEL;
@@ -66,6 +76,22 @@ export interface IActionSetGameOverMenuState {
   type: string;
   isGameOverMenuActive: boolean;
 }
+
+interface IActionSetStartGameState {
+  type: typeof SET_START_GAME_STATE;
+  startGame: boolean;
+}
+
+interface IActionSetStartGameMenuState {
+  type: typeof SET_START_GAME_MENU_STATE;
+  startGameMenuState: string;
+}
+
+export type IActionStartGameState =
+  | IActionSetStartGameState
+  | IActionSetStartGameMenuState;
+
+//
 
 export const setAllFields = (fields: IField[]) => {
   return { type: SET_ALL_FIELDS, fields };
@@ -117,4 +143,12 @@ export const setBoardBackground = (
 
 export const setGameOverMenuState = (isGameOverMenuActive: boolean) => {
   return { type: SET_GAME_OVER_MENU_STATE, isGameOverMenuActive };
+};
+
+export const setStartGameState = (startGame: boolean) => {
+  return { type: SET_START_GAME_STATE, startGame };
+};
+
+export const setStartGameMenuState = (startGameMenuState: string) => {
+  return { type: SET_START_GAME_MENU_STATE, startGameMenuState };
 };

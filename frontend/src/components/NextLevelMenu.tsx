@@ -25,7 +25,7 @@ function NextLevelMenu(props: IProps) {
     setNextLevelMenuState,
     setCurrentLevel,
   } = props;
-
+  const level = currentLevel + 1;
   return (
     <div
       style={{
@@ -43,7 +43,7 @@ function NextLevelMenu(props: IProps) {
       <button
         onClick={() => {
           setNextLevelMenuState(false);
-          setCurrentLevel(currentLevel + 1);
+          setCurrentLevel(level);
         }}
       >
         NEXT LEVEL

@@ -13,6 +13,7 @@ import boardBackgroundReducer, {
 import gameOverMenuReducer, {
   IGameOverMenuReducerState,
 } from './gameOverMenuReducer';
+import startGameReducer, { IStartGameReducerState } from './startGameReducer';
 
 export interface IRootReducer {
   fieldsReducer: IFieldsReducerState;
@@ -23,6 +24,7 @@ export interface IRootReducer {
   timerReducer: ITimerReducerState;
   boardBackgroundReducer: IBoardBackgroundReducerState;
   gameOverMenuReducer: IGameOverMenuReducerState;
+  startGameReducer: IStartGameReducerState;
 }
 
 export default combineReducers({
@@ -34,4 +36,5 @@ export default combineReducers({
   timerReducer,
   boardBackgroundReducer,
   gameOverMenuReducer,
+  startGameReducer,
 });

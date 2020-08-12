@@ -1,6 +1,6 @@
 import { SET_ALL_FIELDS } from '../actions/types';
 import { REMOVE_DIAMOND_FROM_FIELD } from '../actions/types';
-import { IActionSetAllFields } from '../actions/actions';
+import { IActionFieldsStateReducer } from '../actions/actions';
 import { IField } from '../interfaces/IField';
 
 export interface IFieldsReducerState {
@@ -11,9 +11,10 @@ const initState: IFieldsReducerState = {
   fields: [],
 };
 
-//**** PROMIJENIT IME AKCIJI */
-
-const fieldsReducer = (state = initState, action: IActionSetAllFields) => {
+const fieldsReducer = (
+  state = initState,
+  action: IActionFieldsStateReducer
+) => {
   const { fields } = action;
   switch (action.type) {
     case SET_ALL_FIELDS:
@@ -21,7 +22,6 @@ const fieldsReducer = (state = initState, action: IActionSetAllFields) => {
         fields,
       };
     case REMOVE_DIAMOND_FROM_FIELD:
-      console.log('remove item');
       return {
         fields,
       };

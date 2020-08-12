@@ -4,7 +4,10 @@ import Ball from './Ball';
 import PauseMenu from './PauseMenu';
 import NextLevelMenu from './NextLevelMenu';
 import GameOverMenu from './GameOverMenu';
+import StartMenu from './StartMenu';
+import { levels } from '../hoc/Levels';
 import { IField } from '../interfaces/IField';
+import { ILevel } from '../interfaces/ILevel';
 import { isMobile } from 'react-device-detect';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
@@ -14,6 +17,7 @@ import {
   removeDiamondFromField,
   setNextLevelMenuState,
   setGameOverMenuState,
+  setStartGameState,
 } from '../actions/actions';
 import { IRootReducer } from '../reducers/index';
 import {
@@ -34,9 +38,8 @@ interface IState {
   positionX: number;
   positionY: number;
   currentFieldId: number;
-  start: boolean;
-  currentLevel: number;
   numberOfLevels: number;
+  setFieldFlag: boolean;
 }
 
 interface IProps {
@@ -49,17 +52,22 @@ interface IProps {
   boardBackground: string;
   frictionCoefficient: number;
   ballSpeedCoefficient: number;
+  nextLevelMenuState: string;
+  startGame: boolean;
+
   setCurrentLevel: (currentLevel: number) => void;
   removeDiamondFromField: (fields: IField[]) => void;
   setScore: (newScore: number) => void;
   setNextLevelMenuState: (isNextLevelMenuActive: boolean) => void;
   setGameOverMenuState: (isGameOverMenuActive: boolean) => void;
+  setStartGameState: (startGame: boolean) => void;
 }
 
 interface IPrevProps {
   fields: IField[];
   currentLevel: number;
   ballStartFieldId: number;
+  nextLevelMenuState: string;
 }
 
 class Board extends Component<IProps> {
@@ -69,9 +77,9 @@ class Board extends Component<IProps> {
     positionX: 0,
     positionY: 0,
     currentFieldId: 10,
-    start: false,
-    currentLevel: 1,
-    numberOfLevels: 3,
+    // maknit iz state
+    numberOfLevels: 2,
+    setFieldFlag: true,
   };
 
   FIELDS: IField[] = [];
@@ -620,27 +628,41 @@ class Board extends Component<IProps> {
   };
 
   componentDidUpdate(prevProps: IPrevProps) {
+    // const { currentLevel } = this.props;
+
+    if (
+      prevProps.nextLevelMenuState === 'none' &&
+      this.props.nextLevelMenuState === 'block'
+    ) {
+      this.FIELDS = levels[prevProps.currentLevel + 1].fields;
+      const { ballStartFieldId } = levels[prevProps.currentLevel + 1];
+      // this.FIELDS = this.props.levels[prevProps.currentLevel + 1].fields;
+      const positionY = this.FIELDS[ballStartFieldId].top + FIELD_HEIGHT / 2;
+      const positionX = this.FIELDS[ballStartFieldId].left + FIELD_WIDTH / 2;
+
+      this.setState({
+        positionY,
+        positionX,
+        currentFieldId: ballStartFieldId,
+        setFieldFlag: false,
+      });
+    }
+
     if (prevProps.fields.length > 0) {
-      if (!this.state.start) {
-        // const { currentFieldId } = this.state;
-        const currentFieldId = prevProps.ballStartFieldId;
+      if (this.state.setFieldFlag) {
+        console.log('set start');
+        const { ballStartFieldId } = levels[prevProps.currentLevel];
+
         this.FIELDS = prevProps.fields;
 
-        const positionY =
-          this.FIELDS[currentFieldId].top + HORIZONTAL_BRICK_HEIGHT + BALL_SIZE;
-        const positionX =
-          this.FIELDS[currentFieldId].left + FIELD_WIDTH / 2 + BALL_SIZE;
-        // console.log('prev props: ', prevProps.isGamePaused);
-        // const positionY =
-        //   this.FIELDS[currentFieldId].top + HORIZONTAL_BRICK_HEIGHT + BALL_SIZE;
-        // const positionX =
-        //   this.FIELDS[currentFieldId].left + FIELD_WIDTH / 2 + BALL_SIZE;
+        const positionY = this.FIELDS[ballStartFieldId].top + FIELD_HEIGHT / 2;
+        const positionX = this.FIELDS[ballStartFieldId].left + FIELD_WIDTH / 2;
+
         this.setState({
           positionY,
           positionX,
-          start: true,
-          currentLevel: prevProps.currentLevel,
-          // isGamePaused: prevProps.isGamePaused,
+          currentFieldId: ballStartFieldId,
+          setFieldFlag: false,
         });
       }
     }
@@ -658,15 +680,16 @@ class Board extends Component<IProps> {
       });
       accelerometer.start();
       setInterval(() => {
-        if (this.state.start) {
-          // IZBACIT FLAG ???
+        if (this.props.startGame) {
           if (!this.returnGamePauseState()) {
-            this.moveLeft();
-            this.moveRight();
-            this.moveDown();
-            this.moveUp();
-            this.fieldDetector();
-            this.itemsDetector();
+            if (this.props.nextLevelMenuState === 'none') {
+              this.moveLeft();
+              this.moveRight();
+              this.moveDown();
+              this.moveUp();
+              this.fieldDetector();
+              this.itemsDetector();
+            }
           }
         }
       }, 1000 / 60);
@@ -736,17 +759,17 @@ class Board extends Component<IProps> {
         ballY > topBorder &&
         ballY < bottomBorder
       ) {
-        let { currentLevel, numberOfLevels } = this.state;
-        if (currentLevel < numberOfLevels) {
-          currentLevel++;
-
-          this.FIELDS = this.props.fields;
+        // let { currentLevel, numberOfLevels } = this.state;
+        // if (currentLevel < numberOfLevels) {
+        //   currentLevel++;
+        // let { currentLevel } = this.props;
+        // currentLevel = currentLevel + 1;
+        // this.FIELDS = this.props.fields;
+        if (this.props.currentLevel <= 1) {
           this.props.setNextLevelMenuState(true);
-          this.setState({
-            currentLevel,
-            start: false,
-          });
         }
+        // this.setState({setFieldFlag:true})
+        // this.props.setCurrentLevel(currentLevel);
       }
     }
   }
@@ -898,8 +921,6 @@ class Board extends Component<IProps> {
     const { positionX, positionY } = this.state;
     const { ballColor, boardBackground } = this.props;
 
-    // console.log('paused: ', this.state.isGamePaused);
-
     return (
       <div
         style={{
@@ -912,6 +933,7 @@ class Board extends Component<IProps> {
       >
         <Fields />
         <Ball color={ballColor} positionX={positionX} positionY={positionY} />
+        <StartMenu />
         <PauseMenu />
         <NextLevelMenu />
         <GameOverMenu />
@@ -931,6 +953,8 @@ const mapStateToProps = (state: IRootReducer) => {
   const { currentScore } = state.scoreReducer;
   const { isGamePaused } = state.pauseMenuReducer;
   const { boardBackground, frictionCoefficient } = state.boardBackgroundReducer;
+  const { nextLevelMenuState } = state.nextLevelMenuReducer;
+  const { startGame } = state.startGameReducer;
 
   return {
     fields,
@@ -942,6 +966,8 @@ const mapStateToProps = (state: IRootReducer) => {
     boardBackground,
     frictionCoefficient,
     ballSpeedCoefficient,
+    nextLevelMenuState,
+    startGame,
   };
 };
 
@@ -956,6 +982,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
       dispatch(setNextLevelMenuState(isNextLevelMenuActive)),
     setGameOverMenuState: (isGameOverMenuActive: boolean) =>
       dispatch(setGameOverMenuState(isGameOverMenuActive)),
+    setStartGameState: (startGame: boolean) =>
+      dispatch(setStartGameState(startGame)),
   };
 };
 

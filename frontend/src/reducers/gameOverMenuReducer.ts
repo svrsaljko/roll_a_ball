@@ -20,7 +20,6 @@ const gameOverMenuReducer = (
       const { isGameOverMenuActive } = action;
       let gameOverMenuState;
       if (isGameOverMenuActive) {
-        console.log('da li se ista desava');
         gameOverMenuState = 'block';
       } else if (!isGameOverMenuActive) {
         gameOverMenuState = 'none';

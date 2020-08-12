@@ -12,6 +12,7 @@ interface IProps {
   currentLevel: number;
   setCurrentTime: (currentTime: number) => void;
   nextLevelMenuState: string;
+  startGame: boolean;
 }
 
 class Timer extends Component<IProps> {
@@ -41,12 +42,25 @@ class Timer extends Component<IProps> {
     timer = setInterval(doEachInterval, SECOND);
   };
 
-  componentDidMount() {
-    this.timerCall();
-  }
+  // componentDidMount() {
+  //   console.log('cdm');
+  //   if (this.props.startGame) {
+  //     this.timerCall();
+  //   }
+  // }
 
   componentDidUpdate(prevProps: IProps) {
-    const { isGamePaused, currentLevel, setCurrentTime } = this.props;
+    const {
+      isGamePaused,
+      currentLevel,
+      setCurrentTime,
+      startGame,
+    } = this.props;
+    console.log('this.props.startGame: ', startGame);
+    if (prevProps.startGame === false && startGame === true) {
+      console.log('timer call');
+      this.timerCall();
+    }
 
     if (prevProps.isGamePaused === true && isGamePaused === false) {
       this.timerCall();
@@ -70,11 +84,13 @@ const mapStateToProps = (state: IRootReducer) => {
   const { currentLevel } = state.levelReducer;
   const { isGamePaused } = state.pauseMenuReducer;
   const { nextLevelMenuState } = state.nextLevelMenuReducer;
+  const { startGame } = state.startGameReducer;
   return {
     currentTime,
     isGamePaused,
     currentLevel,
     nextLevelMenuState,
+    startGame,
   };
 };
 

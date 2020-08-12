@@ -37,11 +37,9 @@ import { ILevel } from '../interfaces/ILevel';
 
 const initializeLevels = () => {
   const level1 = initializeLevel1();
-  const level2 = initializeLevel1();
-  const level3 = initializeLevel1();
-  const level4 = initializeLevel1();
+  const level2 = initializeLevel2();
 
-  const levels = [level1, level1, level2, level3];
+  const levels = [level1, level2];
   return levels;
 };
 
@@ -176,6 +174,7 @@ const fieldsHardcoding1 = (fields: IField[]) => {
   fields[9].topWall = true;
   fields[10].topWall = true;
   fields[10].rightWall = true;
+  fields[11].hasGoldDoor = true;
   fields[12].leftWall = true;
   fields[19].rightWall = true;
   fields[21].leftWall = true;
@@ -221,12 +220,97 @@ const fieldsHardcoding1 = (fields: IField[]) => {
 
   return fields;
 };
+const fieldsHardcoding2 = (fields: IField[]) => {
+  fields[3].rightWall = true;
+  fields[12].hasNeonBlueEnemy = true;
+  // fields[13].hasGoldDoor = true;
+  fields[14].hasNeonBlueEnemy = true;
+  fields[15].hasSilver = true;
+  fields[16].hasSilver = true;
+  fields[19].leftWall = true;
+  fields[19].rightWall = true;
+  fields[20].leftWall = true;
+  fields[20].rightWall = true;
+  fields[21].leftWall = true;
+  fields[21].rightWall = true;
+  fields[22].leftWall = true;
+  fields[22].rightWall = true;
+  fields[23].leftWall = true;
+  fields[23].rightWall = true;
+  fields[24].leftWall = true;
+  fields[24].rightWall = true;
+  fields[25].leftWall = true;
+  fields[25].rightWall = true;
+  fields[27].bottomWall = true;
+  fields[28].topWall = true;
+  fields[28].bottomWall = true;
+  fields[29].hasEmerald = true;
+  fields[30].topWall = true;
+  fields[30].bottomWall = true;
+  fields[31].topWall = true;
+  fields[31].bottomWall = true;
+  fields[32].topWall = true;
+  fields[32].bottomWall = true;
+  fields[33].hasRuby = true;
+  fields[34].leftWall = true;
+  fields[34].rightWall = true;
+  fields[37].hasEmerald = true;
+  fields[38].leftWall = true;
+  fields[38].rightWall = true;
+  fields[39].leftWall = true;
+  fields[39].rightWall = true;
+  fields[41].leftWall = true;
+  fields[41].rightWall = true;
+  fields[42].rightWall = true;
+  fields[43].leftWall = true;
+  fields[43].rightWall = true;
+
+  fields[46].hasNeonBlueEnemy = true;
+  fields[47].leftWall = true;
+  fields[47].rightWall = true;
+  fields[48].leftWall = true;
+  fields[48].rightWall = true;
+  fields[49].leftWall = true;
+  fields[49].rightWall = true;
+  fields[50].leftWall = true;
+  fields[50].rightWall = true;
+
+  fields[51].rightWall = true;
+  fields[52].hasGold = true;
+
+  fields[56].topWall = true;
+  fields[56].bottomWall = true;
+  fields[57].hasDiamond = true;
+  fields[58].topWall = true;
+  fields[58].bottomWall = true;
+  fields[59].hasSapphire = true;
+  fields[60].rightWall = true;
+  fields[61].hasGold = true;
+
+  fields[65].leftWall = true;
+  fields[65].rightWall = true;
+  fields[66].leftWall = true;
+  fields[66].rightWall = true;
+  fields[67].leftWall = true;
+  fields[67].rightWall = true;
+  fields[68].leftWall = true;
+  fields[68].rightWall = true;
+  fields[69].leftWall = true;
+  fields[69].rightWall = true;
+
+  fields[76].hasNeonBlueEnemy = true;
+  fields[78].hasNeonBlueEnemy = true;
+  fields[79].hasNeonBlueEnemy = true;
+  // fields[77].hasGoldDoor = true;
+
+  return fields;
+};
 
 const initializeLevel1 = () => {
   const level: ILevel = {
     fields: fieldsHardcoding1(initializeField()),
     ballColor: BALL[0].ballColor,
-    ballStartFieldId: 11,
+    ballStartFieldId: 2,
     brick: Brick6,
     rotatedBrick: RotatedBrick6,
     boardBackground: BOARD_BACKGROUNDS[2].image,
@@ -235,20 +319,22 @@ const initializeLevel1 = () => {
   };
   return level;
 };
-// const initializeLevel2 = () => {
-//   const level: ILevel = {
-//     fields: initializeField(),
-//     ballColor: '#dcf3ff',
-//     ballStartFieldId: 20,
-//     brick: Brick4,
-//     rotatedBrick: RotatedBrick4,
-//     boardBackground: Background7,
-//   };
-//   return level;
-// };
-
+const initializeLevel2 = () => {
+  const level: ILevel = {
+    fields: fieldsHardcoding2(initializeField()),
+    ballColor: BALL[1].ballColor,
+    ballStartFieldId: 73,
+    ballSpeedCoefficient: BALL[1].ballSpeedCoefficient,
+    brick: BOARD_BACKGROUNDS[0].image,
+    rotatedBrick: BOARD_BACKGROUNDS[0].image,
+    boardBackground: BOARD_BACKGROUNDS[8].image,
+    frictionCoefficient: BOARD_BACKGROUNDS[8].frictionCoefficient,
+  };
+  return level;
+};
+export const levels = initializeLevels();
 function Levels(WrappedComponent: any) {
-  let levels = initializeLevels();
+  // let levels = initializeLevels();
 
   return (props: any) => {
     return (

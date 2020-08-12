@@ -35,7 +35,7 @@ function GameFooter(props: IProps) {
     >
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <div> Score: {currentScore} </div>{' '}
-        <div style={{ marginTop: '5px' }}> LV: {currentLevel} </div>
+        <div style={{ marginTop: '5px' }}> LV: {currentLevel + 1} </div>
       </div>
       <Timer />
       <div

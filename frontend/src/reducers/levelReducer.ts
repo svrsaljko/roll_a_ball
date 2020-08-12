@@ -9,7 +9,7 @@ export interface ILevelReducerState {
 }
 
 const initState: ILevelReducerState = {
-  currentLevel: 1,
+  currentLevel: 0,
   ballStartFieldId: 10,
   ballColor: '#1b03a3',
   ballSpeedCoefficient: 1,
