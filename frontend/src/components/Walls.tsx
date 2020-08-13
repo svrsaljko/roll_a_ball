@@ -469,7 +469,6 @@ const drawWalls = (props: IProps) => {
 };
 
 function Walls(props: IProps) {
-  console.log('walls draw');
   return <div>{drawWalls(props)}</div>;
 }
 

@@ -7,7 +7,6 @@ import {
   SET_NEXT_LEVEL_MENU_STATE,
   SET_CURRENT_TIME,
   SET_BALL_START_FIELD_ID,
-  SET_BOARD_BACKGROUND,
   SET_GAME_OVER_MENU_STATE,
   SET_START_GAME_STATE,
   SET_START_GAME_MENU_STATE,
@@ -68,11 +67,7 @@ export interface IActionSetCurrentTime {
   type: string;
   currentTime: number;
 }
-export interface IActionSetBoardBackground {
-  type: string;
-  boardBackground: string;
-  frictionCoefficient: number;
-}
+
 export interface IActionSetGameOverMenuState {
   type: string;
   isGameOverMenuActive: boolean;
@@ -138,13 +133,6 @@ export const setBallStartFieldId = (
     ballColor,
     ballSpeedCoefficient,
   };
-};
-
-export const setBoardBackground = (
-  boardBackground: string,
-  frictionCoefficient: number
-) => {
-  return { type: SET_BOARD_BACKGROUND, boardBackground, frictionCoefficient };
 };
 
 export const setGameOverMenuState = (isGameOverMenuActive: boolean) => {

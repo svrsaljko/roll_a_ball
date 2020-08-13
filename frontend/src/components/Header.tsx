@@ -20,19 +20,19 @@ const onMenuClick = () => {
   }
 };
 
-interface IProps {
-  color: string;
-}
+// interface IProps {
+//   color: string;
+// }
 
-function Header(props: IProps) {
-  const { color } = props;
+function Header() {
+  // const { color } = props;
   return (
     <div className="header-container">
       <div className="header-container-title-menu-button">
         <div className="header-container-title">
           R{' '}
           <div
-            style={{ backgroundColor: color }}
+            style={{ backgroundColor: 'darkRed' }}
             className="header-container-element-ball"
           >
             {' '}
@@ -79,11 +79,12 @@ function Header(props: IProps) {
   );
 }
 
-const mapStateToProps = (state: IRootReducer) => {
-  const color = state.levelReducer.ballColor;
-  return {
-    color,
-  };
-};
+// const mapStateToProps = (state: IRootReducer) => {
+//   const color = state.levelReducer.ballColor;
+//   return {
+//     color,
+//   };
+// };
 
-export default connect(mapStateToProps)(Header);
+// export default connect(mapStateToProps)(Header);
+export default Header;

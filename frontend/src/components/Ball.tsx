@@ -9,6 +9,7 @@ interface IProps {
 
 export default function Ball(props: IProps) {
   const { positionX, positionY, color } = props;
+
   return (
     <div style={{ position: 'absolute' }}>
       <div

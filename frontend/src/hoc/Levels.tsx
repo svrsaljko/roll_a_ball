@@ -38,8 +38,8 @@ import { ILevel } from '../interfaces/ILevel';
 const initializeLevels = () => {
   const level1 = initializeLevel1();
   const level2 = initializeLevel2();
-
-  const levels = [level1, level2];
+  const level3 = initializeLevel3();
+  const levels = [level1, level2, level3];
   return levels;
 };
 
@@ -332,6 +332,21 @@ const initializeLevel2 = () => {
   };
   return level;
 };
+
+const initializeLevel3 = () => {
+  const level: ILevel = {
+    fields: fieldsHardcoding1(initializeField()),
+    ballColor: BALL[2].ballColor,
+    ballStartFieldId: 2,
+    brick: Brick6,
+    rotatedBrick: RotatedBrick6,
+    boardBackground: BOARD_BACKGROUNDS[9].image,
+    frictionCoefficient: BOARD_BACKGROUNDS[9].frictionCoefficient,
+    ballSpeedCoefficient: BALL[2].ballSpeedCoefficient,
+  };
+  return level;
+};
+
 export const levels = initializeLevels();
 function Levels(WrappedComponent: any) {
   // let levels = initializeLevels();

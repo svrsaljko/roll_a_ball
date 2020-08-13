@@ -22,7 +22,7 @@ const gameEndMenuReducer = (
       if (isGameEndMenuActive) {
         gameEndMenuState = 'block';
       } else if (!isGameEndMenuActive) {
-        gameEndMenuState = 'nine';
+        gameEndMenuState = 'none';
       }
       return {
         ...state,
