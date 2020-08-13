@@ -1,7 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { setNextLevelMenuState, setCurrentLevel } from '../actions/actions';
+import {
+  setNextLevelMenuState,
+  setCurrentLevel,
+  setScore,
+} from '../actions/actions';
 import { IRootReducer } from '../reducers';
 
 import {
@@ -14,18 +18,25 @@ import {
 interface IProps {
   nextLevelMenuState: string;
   currentLevel: number;
+  currentTime: number;
+  currentScore: number;
   setNextLevelMenuState: (isNextLevelMenuActive: boolean) => void;
   setCurrentLevel: (currentLevel: number) => void;
+  setScore: (newScore: number) => void;
 }
 
 function NextLevelMenu(props: IProps) {
   const {
     nextLevelMenuState,
     currentLevel,
+    currentTime,
+    currentScore,
     setNextLevelMenuState,
     setCurrentLevel,
+    setScore,
   } = props;
   const level = currentLevel + 1;
+  const timerScore = currentTime * level * 2330;
   return (
     <div
       style={{
@@ -44,18 +55,26 @@ function NextLevelMenu(props: IProps) {
         onClick={() => {
           setNextLevelMenuState(false);
           setCurrentLevel(level);
+          setScore(currentScore + timerScore);
         }}
       >
         NEXT LEVEL
       </button>
+      <div> items score: {currentScore} </div>
+      <div>+</div>
+      <div>timer score: {timerScore}</div>
+      <div>=</div>
+      <div>{currentScore + timerScore}</div>
     </div>
   );
 }
 
 export const mapStateToProps = (state: IRootReducer) => {
   const { nextLevelMenuState } = state.nextLevelMenuReducer;
+  const { currentScore } = state.scoreReducer;
   const { currentLevel } = state.levelReducer;
-  return { nextLevelMenuState, currentLevel };
+  const { currentTime } = state.timerReducer;
+  return { nextLevelMenuState, currentLevel, currentTime, currentScore };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
@@ -64,6 +83,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
       dispatch(setNextLevelMenuState(isNextLevelMenuActive)),
     setCurrentLevel: (currentLevel: number) =>
       dispatch(setCurrentLevel(currentLevel)),
+    setScore: (newScore: number) => dispatch(setScore(newScore)),
   };
 };
 

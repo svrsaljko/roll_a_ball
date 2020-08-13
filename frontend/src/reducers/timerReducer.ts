@@ -6,7 +6,7 @@ export interface ITimerReducerState {
 }
 
 const initState: ITimerReducerState = {
-  currentTime: 10,
+  currentTime: 20,
 };
 
 const timerReducer = (state = initState, action: IActionSetCurrentTime) => {

@@ -29,25 +29,16 @@ class Timer extends Component<IProps> {
         clearInterval(timer);
       } else if (nextLevelMenuState === 'block') {
         clearInterval(timer);
-        // console.log('next level destroy timer');
       } else if (currentTime === 0) {
         clearInterval(timer);
       } else {
         setCurrentTime(currentTime - 1);
       }
     };
-    // console.log('timer created');
     let timer: any;
 
     timer = setInterval(doEachInterval, SECOND);
   };
-
-  // componentDidMount() {
-  //   console.log('cdm');
-  //   if (this.props.startGame) {
-  //     this.timerCall();
-  //   }
-  // }
 
   componentDidUpdate(prevProps: IProps) {
     const {
@@ -56,9 +47,8 @@ class Timer extends Component<IProps> {
       setCurrentTime,
       startGame,
     } = this.props;
-    console.log('this.props.startGame: ', startGame);
+
     if (prevProps.startGame === false && startGame === true) {
-      console.log('timer call');
       this.timerCall();
     }
 
@@ -75,7 +65,11 @@ class Timer extends Component<IProps> {
   render() {
     const { currentTime } = this.props;
 
-    return <div>{currentTime}</div>;
+    return (
+      <div style={{ color: `${currentTime > 10 ? 'white' : 'red'}` }}>
+        {currentTime}
+      </div>
+    );
   }
 }
 
