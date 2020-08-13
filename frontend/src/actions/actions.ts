@@ -11,6 +11,7 @@ import {
   SET_GAME_OVER_MENU_STATE,
   SET_START_GAME_STATE,
   SET_START_GAME_MENU_STATE,
+  SET_GAME_END_MENU_STATE,
 } from './types';
 
 import { IField } from '../interfaces/IField';
@@ -91,6 +92,11 @@ export type IActionStartGameState =
   | IActionSetStartGameState
   | IActionSetStartGameMenuState;
 
+export interface IActionSetGameEndMenuState {
+  type: string;
+  isGameEndMenuActive: boolean;
+}
+
 //
 
 export const setAllFields = (fields: IField[]) => {
@@ -151,4 +157,8 @@ export const setStartGameState = (startGame: boolean) => {
 
 export const setStartGameMenuState = (startGameMenuState: string) => {
   return { type: SET_START_GAME_MENU_STATE, startGameMenuState };
+};
+
+export const setGameEndMenuState = (isGameEndMenuActive: boolean) => {
+  return { type: SET_GAME_END_MENU_STATE, isGameEndMenuActive };
 };

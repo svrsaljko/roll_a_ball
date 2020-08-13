@@ -223,7 +223,7 @@ const fieldsHardcoding1 = (fields: IField[]) => {
 const fieldsHardcoding2 = (fields: IField[]) => {
   fields[3].rightWall = true;
   fields[12].hasNeonBlueEnemy = true;
-  // fields[13].hasGoldDoor = true;
+  fields[13].hasGoldDoor = true;
   fields[14].hasNeonBlueEnemy = true;
   fields[15].hasSilver = true;
   fields[16].hasSilver = true;
@@ -323,7 +323,7 @@ const initializeLevel2 = () => {
   const level: ILevel = {
     fields: fieldsHardcoding2(initializeField()),
     ballColor: BALL[1].ballColor,
-    ballStartFieldId: 73,
+    ballStartFieldId: 10,
     ballSpeedCoefficient: BALL[1].ballSpeedCoefficient,
     brick: BOARD_BACKGROUNDS[0].image,
     rotatedBrick: BOARD_BACKGROUNDS[0].image,

@@ -5,6 +5,7 @@ import PauseMenu from './PauseMenu';
 import NextLevelMenu from './NextLevelMenu';
 import GameOverMenu from './GameOverMenu';
 import StartMenu from './StartMenu';
+import GameEndMenu from './GameEndMenu';
 import { levels } from '../hoc/Levels';
 import { IField } from '../interfaces/IField';
 import { ILevel } from '../interfaces/ILevel';
@@ -18,6 +19,7 @@ import {
   setNextLevelMenuState,
   setGameOverMenuState,
   setStartGameState,
+  setGameEndMenuState,
 } from '../actions/actions';
 import { IRootReducer } from '../reducers/index';
 import {
@@ -54,7 +56,7 @@ interface IProps {
   ballSpeedCoefficient: number;
   nextLevelMenuState: string;
   startGame: boolean;
-
+  setGameEndMenuState: (isGameEndMenuActive: boolean) => void;
   setCurrentLevel: (currentLevel: number) => void;
   removeDiamondFromField: (fields: IField[]) => void;
   setScore: (newScore: number) => void;
@@ -765,8 +767,10 @@ class Board extends Component<IProps> {
         // let { currentLevel } = this.props;
         // currentLevel = currentLevel + 1;
         // this.FIELDS = this.props.fields;
-        if (this.props.currentLevel <= 1) {
+        if (this.props.currentLevel < 1) {
           this.props.setNextLevelMenuState(true);
+        } else {
+          this.props.setGameEndMenuState(true);
         }
         // this.setState({setFieldFlag:true})
         // this.props.setCurrentLevel(currentLevel);
@@ -937,6 +941,7 @@ class Board extends Component<IProps> {
         <PauseMenu />
         <NextLevelMenu />
         <GameOverMenu />
+        <GameEndMenu />
       </div>
     );
   }
@@ -984,6 +989,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
       dispatch(setGameOverMenuState(isGameOverMenuActive)),
     setStartGameState: (startGame: boolean) =>
       dispatch(setStartGameState(startGame)),
+    setGameEndMenuState: (isGameEndMenuActive: boolean) =>
+      dispatch(setGameEndMenuState(isGameEndMenuActive)),
   };
 };
 
