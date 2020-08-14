@@ -30,6 +30,7 @@ import {
   RotatedBrick7,
   RotatedBrick8,
   BOARD_BACKGROUNDS,
+  WALLS,
 } from '../images';
 import { BALL } from '../items/Items';
 import { IField } from '../interfaces/IField';
@@ -308,6 +309,9 @@ const fieldsHardcoding2 = (fields: IField[]) => {
 
 const initializeLevel1 = () => {
   const level: ILevel = {
+    levelName: 'ICY SPACE MAZE',
+    wallName: WALLS[6].title,
+    boardName: BOARD_BACKGROUNDS[2].title,
     fields: fieldsHardcoding1(initializeField()),
     ballColor: BALL[0].ballColor,
     ballStartFieldId: 2,
@@ -321,6 +325,9 @@ const initializeLevel1 = () => {
 };
 const initializeLevel2 = () => {
   const level: ILevel = {
+    levelName: 'SKULL ISLAND',
+    wallName: BOARD_BACKGROUNDS[0].title,
+    boardName: BOARD_BACKGROUNDS[8].title,
     fields: fieldsHardcoding2(initializeField()),
     ballColor: BALL[1].ballColor,
     ballStartFieldId: 10,
@@ -332,14 +339,16 @@ const initializeLevel2 = () => {
   };
   return level;
 };
-
 const initializeLevel3 = () => {
   const level: ILevel = {
+    levelName: 'UNDERWATER MAZE',
+    wallName: WALLS[3].title,
+    boardName: BOARD_BACKGROUNDS[9].title,
     fields: fieldsHardcoding1(initializeField()),
     ballColor: BALL[2].ballColor,
     ballStartFieldId: 2,
-    brick: Brick6,
-    rotatedBrick: RotatedBrick6,
+    brick: Brick4,
+    rotatedBrick: RotatedBrick4,
     boardBackground: BOARD_BACKGROUNDS[9].image,
     frictionCoefficient: BOARD_BACKGROUNDS[9].frictionCoefficient,
     ballSpeedCoefficient: BALL[2].ballSpeedCoefficient,

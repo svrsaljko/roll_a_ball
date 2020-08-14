@@ -89,10 +89,67 @@ export const BOARD_BACKGROUNDS = [
   },
   {
     frictionCoefficient: 0.5,
-    title: 'under water',
+    title: 'underwater',
     description: 'Slow for rolling',
     image: Background7,
     currentFieldColor: '#00b0ff',
+  },
+];
+
+export const WALLS = [
+  {
+    title: 'castle wall',
+    description: 'Castle wall deisgn',
+    wall: Brick1,
+    rotatedWall: RotatedBrick1,
+  },
+  {
+    title: 'brick wall',
+    description: 'classic orange brick wall',
+    wall: Brick2,
+    rotatedWall: RotatedBrick2,
+  },
+  {
+    title: 'dark castle wall',
+    description: 'classic orange brick wall',
+    wall: Brick3,
+    rotatedWall: RotatedBrick3,
+  },
+  {
+    title: 'grassy maze',
+    description: 'classic orange brick wall',
+    wall: Brick4,
+    rotatedWall: RotatedBrick4,
+  },
+  {
+    title: 'ice wall 1',
+    description: 'classic orange brick wall',
+    wall: Brick5,
+    rotatedWall: RotatedBrick5,
+  },
+  {
+    title: 'ice wall 2',
+    description: 'classic orange brick wall',
+    wall: Brick6,
+    rotatedWall: RotatedBrick6,
+  },
+  {
+    title: 'water maze',
+    description: 'classic orange brick wall',
+    wall: Brick7,
+    rotatedWall: RotatedBrick7,
+  },
+  {
+    title: 'wooden wall',
+    description: 'classic orange brick wall',
+    wall: Brick8,
+    rotatedWall: RotatedBrick8,
+  },
+  {
+    title: 'sand wall',
+    description: 'classic orange brick wall',
+    wall: Background1,
+    rotatedWall: Background1,
   },
 ];
 

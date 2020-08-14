@@ -636,7 +636,7 @@ class Board extends Component<IProps> {
 
     if (
       prevProps.nextLevelMenuState === 'none' &&
-      this.props.nextLevelMenuState === 'block'
+      this.props.nextLevelMenuState === 'flex'
     ) {
       this.FIELDS = levels[prevProps.currentLevel + 1].fields;
       const {

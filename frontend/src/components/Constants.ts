@@ -7,7 +7,7 @@ export const BOARD_HEIGHT = 530;
 export const SENSITIVITY = 0.0;
 export const FIELD_WIDTH = BOARD_WIDTH / NUMBER_OF_COLUMNS;
 export const FIELD_HEIGHT = BOARD_HEIGHT / NUMBER_OF_ROWS;
-
+export const START_TIME = 20;
 //KONSTANTE ZA OBRISATI
 // export const BRKICK_HEIGHT = 20;
 //export const BRICK_WIDTH = BOARD_WIDTH / NUMBER_OF_COLUMNS;

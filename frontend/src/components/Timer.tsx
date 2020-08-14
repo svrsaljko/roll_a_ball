@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { setCurrentTime } from '../actions/actions';
 import { IRootReducer } from '../reducers';
-
+import { START_TIME } from '../components/Constants';
 const SECOND = 1000;
 
 interface IProps {
@@ -27,7 +27,7 @@ class Timer extends Component<IProps> {
 
       if (isGamePaused) {
         clearInterval(timer);
-      } else if (nextLevelMenuState === 'block') {
+      } else if (nextLevelMenuState === 'flex') {
         clearInterval(timer);
       } else if (currentTime === 0) {
         clearInterval(timer);
@@ -57,7 +57,7 @@ class Timer extends Component<IProps> {
     }
 
     if (prevProps.currentLevel === currentLevel - 1) {
-      setCurrentTime(10);
+      setCurrentTime(START_TIME);
       this.timerCall();
     }
   }

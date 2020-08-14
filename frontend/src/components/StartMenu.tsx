@@ -28,6 +28,7 @@ function StartMenu(props: IProps) {
     <div
       style={{
         display: `${startGameMenuState}`,
+        // display: `none`,
         backgroundColor: 'white',
         position: 'absolute',
         marginTop: `${HORIZONTAL_BRICK_HEIGHT}px`,

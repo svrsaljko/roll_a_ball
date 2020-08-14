@@ -19,7 +19,7 @@ const nextLevelMenuReducer = (
     case SET_NEXT_LEVEL_MENU_STATE:
       let nextLevelMenuState;
       if (action.isNextLevelMenuActive) {
-        nextLevelMenuState = 'block';
+        nextLevelMenuState = 'flex';
       } else if (!action.isNextLevelMenuActive) {
         nextLevelMenuState = 'none';
       }

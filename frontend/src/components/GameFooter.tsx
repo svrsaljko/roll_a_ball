@@ -13,6 +13,7 @@ interface IProps {
   currentLevel: number;
   currentScore: number;
   isGamePaused: boolean;
+  nextLevelMenuState: string;
 }
 
 const onPauseClick = (setPauseMenuState: () => void) => {
@@ -20,7 +21,13 @@ const onPauseClick = (setPauseMenuState: () => void) => {
 };
 
 function GameFooter(props: IProps) {
-  const { currentLevel, currentScore, isGamePaused, setPauseMenuState } = props;
+  const {
+    currentLevel,
+    currentScore,
+    isGamePaused,
+    setPauseMenuState,
+    nextLevelMenuState,
+  } = props;
 
   return (
     <div
@@ -43,10 +50,14 @@ function GameFooter(props: IProps) {
           onPauseClick(setPauseMenuState);
         }}
       >
-        <FontAwesomeIcon
-          icon={isGamePaused ? faPlayCircle : faPauseCircle}
-          size="2x"
-        />
+        {nextLevelMenuState === 'none' ? (
+          <FontAwesomeIcon
+            icon={isGamePaused ? faPlayCircle : faPauseCircle}
+            size="2x"
+          />
+        ) : (
+          <div> </div>
+        )}
       </div>
     </div>
   );
@@ -56,10 +67,12 @@ const mapStateToProps = (state: IRootReducer) => {
   const { currentLevel } = state.levelReducer;
   const { currentScore } = state.scoreReducer;
   const { isGamePaused } = state.pauseMenuReducer;
+  const { nextLevelMenuState } = state.nextLevelMenuReducer;
   return {
     currentLevel,
     currentScore,
     isGamePaused,
+    nextLevelMenuState,
   };
 };
 

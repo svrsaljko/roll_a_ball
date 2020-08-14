@@ -1,6 +1,9 @@
 import { IField } from './IField';
 
 export interface ILevel {
+  levelName: string;
+  wallName: string;
+  boardName: string;
   ballColor: string;
   ballStartFieldId: number;
   brick: string;
