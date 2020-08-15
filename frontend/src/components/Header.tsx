@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux';
 import { IRootReducer } from '../reducers/index';
+import { isSignedIn, signOut } from '../service/authService';
 
 import '../css/Header.css';
 
@@ -20,12 +21,9 @@ const onMenuClick = () => {
   }
 };
 
-// interface IProps {
-//   color: string;
-// }
-
 function Header() {
-  // const { color } = props;
+  console.log('is signed in', isSignedIn());
+
   return (
     <div className="header-container">
       <div className="header-container-title-menu-button">
@@ -53,27 +51,57 @@ function Header() {
         <NavLink
           exact
           to="/"
-          activeClassName="header-container-element"
-          activeStyle={{
-            fontWeight: 'bold',
-            color: 'red',
-          }}
           className="header-container-element"
+          activeStyle={{
+            borderBottom: '2px solid darkRed',
+            color: 'darkRed',
+          }}
         >
           HOME
         </NavLink>
-        <NavLink exact to="/signin" className="header-container-element">
-          SIGN IN
-        </NavLink>
-        <NavLink
-          exact
-          to="/levelgenerator"
-          className="header-container-element"
-        >
-          LEVEL GENERATOR
-        </NavLink>
-        <div className="header-container-element">MENU</div>
-        <div className="header-container-element">MENU</div>
+        {isSignedIn() ? (
+          <NavLink
+            exact
+            to="/playerrank"
+            className="header-container-element"
+            activeStyle={{
+              borderBottom: '2px solid darkRed',
+              color: 'darkRed',
+            }}
+          >
+            PLAYER RANK
+          </NavLink>
+        ) : (
+          <div></div>
+        )}
+        {!isSignedIn() ? (
+          <NavLink
+            exact
+            to="/signin"
+            className="header-container-element"
+            activeStyle={{
+              borderBottom: '2px solid darkRed',
+              color: 'darkRed',
+            }}
+          >
+            SIGN IN
+          </NavLink>
+        ) : (
+          <NavLink
+            onClick={() => {
+              signOut();
+            }}
+            exact
+            to="signin/"
+            className="header-container-element"
+            activeStyle={{
+              borderBottom: '2px solid darkRed',
+              color: 'darkRed',
+            }}
+          >
+            SIGN OUT
+          </NavLink>
+        )}
       </div>
     </div>
   );

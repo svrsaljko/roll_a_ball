@@ -59,11 +59,13 @@ export const setUserNameAndTokenToLocalStorage = (
 export const getTokenFromLocalStorage = () => {
   return localStorage.getItem('token');
 };
+export const getUsernameFromLocalStorage = () => {
+  return localStorage.getItem('username');
+};
 
-// export const logOut = (history) => {
-//   localStorage.clear();
-//   history.push('/');
-// };
+export const signOut = () => {
+  localStorage.clear();
+};
 
 // export const getUsername = () => {
 //   let username = localStorage.getItem('username', username);
@@ -71,7 +73,14 @@ export const getTokenFromLocalStorage = () => {
 // };
 
 export const getUsernameFromToken = (token: string) => {
-  let decodedToken: any = decode(token);
+  let decodedToken: any;
+  try {
+    decodedToken = decode(token);
+  } catch (error) {
+    console.log('error while decoding token');
+    decodedToken = null;
+    return null;
+  }
 
   return decodedToken.sub;
 };
@@ -100,13 +109,17 @@ export const getUsername = () => {
 //   }
 // };
 
-// export const isLoggedIn = () => {
-//   if (localStorage.getItem('token')) {
-//     return true;
-//   } else {
-//     return false;
-//   }
-// };
+export const isSignedIn = () => {
+  const token = getTokenFromLocalStorage();
+  const username = getUsernameFromLocalStorage();
+  const usernameFromToken = getUsernameFromToken(token);
+  if (usernameFromToken === null) {
+    return false;
+  }
+  if (username === usernameFromToken) {
+    return true;
+  } else return false;
+};
 
 // export const redirectToError = (history) => {
 //   history.push('/404');

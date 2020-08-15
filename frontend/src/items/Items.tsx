@@ -1,7 +1,6 @@
 import React from 'react';
 import '../css/items.css';
 import { BALL_SIZE } from '../components/Constants';
-// const BALL_SIZE = 10;
 
 // DRAW FUNCTIONS
 

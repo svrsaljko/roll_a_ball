@@ -12,7 +12,13 @@ import '../css/SignIn.css';
 
 const SIGNIN_URL = 'http://localhost:8000/public/login';
 
-export default function SignIn() {
+interface IProps {
+  history: any;
+}
+
+export default function SignIn(props: IProps) {
+  const { history } = props;
+  console.log('history: ', history);
   const [values, handleChange] = useForm({ email: '', password: '' });
 
   const [message, setMessage] = useState(' ');
@@ -47,6 +53,7 @@ export default function SignIn() {
               return Promise.reject(err);
             }
           );
+          history.push('/');
         }
       })
       .catch((err) => {

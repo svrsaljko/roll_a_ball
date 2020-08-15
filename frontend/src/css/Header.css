@@ -22,6 +22,8 @@
 .header-container-element {
   padding: 1rem;
   font-size: 2rem;
+  text-decoration: none;
+  color: white;
 }
 
 .header-container-element-ball {

@@ -13,8 +13,6 @@ import {
   BOARD_WIDTH,
   HORIZONTAL_BRICK_HEIGHT,
   VERTICAL_BRICK_WIDTH,
-  FIELD_WIDTH,
-  FIELD_HEIGHT,
 } from '../components/Constants';
 
 import '../css/Header.css';
