@@ -95,10 +95,11 @@ export const BALL = [
 
 // DOOR
 
-const BlackDoor = createCircleShape('black', 'black-door');
+const BlackDoor = createCircleShape('green', 'black-door');
 const GoldDoor = createCircleShape('#ffd700', 'gold-door');
 const IceDoor = createCircleShape('#396d7c', 'ice-door');
 
+export const DOORS = [BlackDoor, GoldDoor, IceDoor];
 //
 
 // ITEMS
@@ -110,12 +111,47 @@ const Emerald = createDiamondCutShape('#50c878');
 const Ruby = createDiamondCutShape('#e0115f');
 const Sapphire = createDiamondCutShape('#0f52ba');
 
+export const ITEMS = [
+  {
+    title: 'Emerald',
+    item: Emerald,
+    points: 50000,
+  },
+  {
+    title: 'Sapphire',
+    item: Sapphire,
+    points: 40000,
+  },
+  {
+    title: 'Ruby',
+    item: Ruby,
+    points: 30000,
+  },
+  {
+    title: 'Diamond',
+    item: Diamond,
+    points: 20000,
+  },
+  {
+    title: 'Gold',
+    item: Gold,
+    points: 10000,
+  },
+  {
+    title: 'Silver',
+    item: Silver,
+    points: 2000,
+  },
+];
+
 //
 
 // ENEMY
 const NeonGreenEnemy = createEnemy('#39ff14');
 const NeonRedEnemy = createEnemy('#b92e34');
 const NeonBlueEnemy = createEnemy('#1b03a3');
+
+export const ENEMIES = [NeonRedEnemy, NeonGreenEnemy, NeonBlueEnemy];
 
 //
 export {

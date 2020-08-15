@@ -27,10 +27,10 @@
 }
 
 .black-door {
-  background-color: black;
+  background-color: green;
 }
 .black-door:hover {
-  background-color: black;
+  background-color: green;
 }
 .gold-door {
   background-color: #ffd700;

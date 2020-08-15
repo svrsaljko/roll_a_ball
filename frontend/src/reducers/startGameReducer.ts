@@ -11,7 +11,7 @@ export interface IStartGameReducerState {
 
 const initState: IStartGameReducerState = {
   startGame: false,
-  startGameMenuState: 'block',
+  startGameMenuState: 'flex',
 };
 
 const startGameReducer = (state = initState, action: IActionStartGameState) => {
