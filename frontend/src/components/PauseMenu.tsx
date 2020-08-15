@@ -10,33 +10,25 @@ import {
   VERTICAL_BRICK_WIDTH,
 } from '../components/Constants';
 
-const URL = 'http://localhost:8000/private/highscore';
-const URL_PATCH = 'http://localhost:8000/private/highscore';
-const URL_GET = `http://localhost:8000/private/highscore?userName=${getUsername()}`;
-const URL_GET_LIST = `http://localhost:8000/private/highscore/list?userName=${getUsername()}`;
-
 interface IProps {
   pauseMenuState: string;
   currentScore: number;
 }
 
 const onSubmitScore = (currentScore: number) => {
-  console.log('current score: ', currentScore);
-
-  let testUser: any = {
-    userName: 'stipe',
-    highscore: 7000,
-  };
-
-  axios
-    .get(URL_GET_LIST)
-    .then((res) => {
-      console.log('res: ', res);
-    })
-    .catch((err) => {
-      console.log('err: ', err);
-    });
-
+  // console.log('current score: ', currentScore);
+  // let testUser: any = {
+  //   userName: 'stipe',
+  //   highscore: 7000,
+  // };
+  // axios
+  //   .get(URL_GET_LIST)
+  //   .then((res) => {
+  //     console.log('res: ', res);
+  //   })
+  //   .catch((err) => {
+  //     console.log('err: ', err);
+  //   });
   // axios
   //   .patch(URL_PATCH, testUser)
   //   .then((res) => {

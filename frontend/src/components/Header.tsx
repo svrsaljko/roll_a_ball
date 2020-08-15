@@ -21,6 +21,11 @@ const onMenuClick = () => {
   }
 };
 
+const activeStyle = {
+  borderBottom: '3px solid darkRed',
+  color: 'darkRed',
+};
+
 function Header() {
   console.log('is signed in', isSignedIn());
 
@@ -52,10 +57,7 @@ function Header() {
           exact
           to="/"
           className="header-container-element"
-          activeStyle={{
-            borderBottom: '2px solid darkRed',
-            color: 'darkRed',
-          }}
+          activeStyle={activeStyle}
         >
           HOME
         </NavLink>
@@ -64,10 +66,7 @@ function Header() {
             exact
             to="/playerrank"
             className="header-container-element"
-            activeStyle={{
-              borderBottom: '2px solid darkRed',
-              color: 'darkRed',
-            }}
+            activeStyle={activeStyle}
           >
             PLAYER RANK
           </NavLink>
@@ -79,10 +78,7 @@ function Header() {
             exact
             to="/signin"
             className="header-container-element"
-            activeStyle={{
-              borderBottom: '2px solid darkRed',
-              color: 'darkRed',
-            }}
+            activeStyle={activeStyle}
           >
             SIGN IN
           </NavLink>
@@ -94,10 +90,7 @@ function Header() {
             exact
             to="signin/"
             className="header-container-element"
-            activeStyle={{
-              borderBottom: '2px solid darkRed',
-              color: 'darkRed',
-            }}
+            activeStyle={activeStyle}
           >
             SIGN OUT
           </NavLink>
