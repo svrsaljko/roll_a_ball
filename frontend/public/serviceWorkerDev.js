@@ -8,6 +8,7 @@ this.addEventListener('install', (event) => {
         '/static/js/bundle.js',
         '/static/js/1.chunk.js',
         '/main.b59f20f477360a4053af.hot-update.js',
+        '/main.d3acf596eb3f232d891c.hot-update.js',
         '/index.html',
         '/signin',
         '/signup',

@@ -7,6 +7,7 @@ import { Dispatch } from 'redux';
 import Timer from '../components/Timer';
 import { IRootReducer } from '../reducers/index';
 import { setPauseMenuState } from '../actions/actions';
+import { GAME_FOOTER_HEIGHT } from './Constants';
 
 interface IProps {
   setPauseMenuState(): void;
@@ -40,6 +41,7 @@ function GameFooter(props: IProps) {
         flexDirection: 'row',
         justifyContent: 'space-between',
         padding: '10px',
+        minHeight: `${GAME_FOOTER_HEIGHT}px`,
       }}
     >
       <div style={{ display: 'flex', flexDirection: 'column' }}>

@@ -9,12 +9,8 @@ import { PublicRoute, PrivateRoute } from './components/Routes';
 import { images } from '../src/images/images';
 
 function App() {
-  console.log('images.', images);
-  console.log('aaad');
-
   return (
-    // <Router forceRefresh>
-    <Router>
+    <Router forceRefresh>
       <PublicRoute exact path="/" component={Home} />
       <PublicRoute path="/signin" component={SignIn} />
       <PublicRoute path="/signup" component={SignUp} />

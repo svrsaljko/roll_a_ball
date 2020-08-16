@@ -10,8 +10,6 @@ import swProduction from './swProduction';
 
 const store = createStore(rootReducer);
 
-console.log('process', process.env.NODE_ENV);
-
 ReactDOM.render(
   <Provider store={store}>
     <App />
@@ -19,9 +17,7 @@ ReactDOM.render(
   document.getElementById('root')
 );
 if (process.env.NODE_ENV === 'production') {
-  console.log('INDEX service worker production');
   swProduction();
 } else if (process.env.NODE_ENV === 'development') {
-  console.log('INDEX service worker development');
   swDevelopment();
 }

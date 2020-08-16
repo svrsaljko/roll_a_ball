@@ -7,6 +7,6 @@ for (let i = 0; i < levels.length; i++) {
   images.push(levels[i].rotatedBrick);
   images.push(levels[i].brick);
 }
-console.log('images: ', images);
+// console.log('images: ', images);
 
 export { images };
