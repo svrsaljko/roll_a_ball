@@ -357,6 +357,7 @@ const initializeLevel3 = () => {
 };
 
 export const levels = initializeLevels();
+
 function Levels(WrappedComponent: any) {
   // let levels = initializeLevels();
 

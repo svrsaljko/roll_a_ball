@@ -27,7 +27,7 @@ const activeStyle = {
 };
 
 function Header() {
-  console.log('is signed in', isSignedIn());
+  // console.log('is signed in', isSignedIn());
 
   return (
     <div className="header-container">

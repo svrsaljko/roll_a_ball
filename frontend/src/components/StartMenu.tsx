@@ -128,6 +128,7 @@ function StartMenu(props: IProps) {
               {ENEMIES.map((enemy, i) => {
                 return (
                   <div
+                    key={uuid()}
                     style={{
                       position: 'absolute',
                       marginLeft: `${3.35 * i}rem`,

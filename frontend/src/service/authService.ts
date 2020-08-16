@@ -77,7 +77,7 @@ export const getUsernameFromToken = (token: string) => {
   try {
     decodedToken = decode(token);
   } catch (error) {
-    console.log('error while decoding token');
+    // console.log('error while decoding token');
     decodedToken = null;
     return null;
   }

@@ -52,7 +52,6 @@ interface IProps {
   currentScore: number;
   isGamePaused: boolean;
   fields: IField[];
-
   nextLevelMenuState: string;
   startGame: boolean;
   setGameEndMenuState: (isGameEndMenuActive: boolean) => void;
@@ -649,7 +648,7 @@ class Board extends Component<IProps> {
       // this.FIELDS = this.props.levels[prevProps.currentLevel + 1].fields;
       const positionY = this.FIELDS[ballStartFieldId].top + FIELD_HEIGHT / 2;
       const positionX = this.FIELDS[ballStartFieldId].left + FIELD_WIDTH / 2;
-
+      console.log('board background: ', boardBackground);
       this.setState({
         positionY,
         positionX,
@@ -676,6 +675,7 @@ class Board extends Component<IProps> {
 
         const positionY = this.FIELDS[ballStartFieldId].top + FIELD_HEIGHT / 2;
         const positionX = this.FIELDS[ballStartFieldId].left + FIELD_WIDTH / 2;
+        console.log('board background: ', boardBackground);
 
         this.setState({
           positionY,

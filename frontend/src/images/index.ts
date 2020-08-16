@@ -74,7 +74,7 @@ export const BOARD_BACKGROUNDS = [
     currentFieldColor: '#567d46',
   },
   {
-    frictionCoefficient: 1,
+    frictionCoefficient: 0.9,
     title: 'ice',
     description: 'Slow for rolling',
     image: Brick5,
