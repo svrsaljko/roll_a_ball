@@ -9,15 +9,14 @@ import swDevelopment from './swDevelopment';
 import swProduction from './swProduction';
 
 const store = createStore(rootReducer);
-
 ReactDOM.render(
   <Provider store={store}>
     <App />
   </Provider>,
   document.getElementById('root')
 );
-if (process.env.NODE_ENV === 'production') {
-  swProduction();
-} else if (process.env.NODE_ENV === 'development') {
-  swDevelopment();
-}
+// if (process.env.NODE_ENV === 'production') {
+//   swProduction();
+// } else if (process.env.NODE_ENV === 'development') {
+//   swDevelopment();
+// }

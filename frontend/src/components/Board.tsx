@@ -12,6 +12,7 @@ import { ILevel } from '../interfaces/ILevel';
 import { isMobile } from 'react-device-detect';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
+import axios from 'axios';
 import {
   setCurrentLevel,
   setScore,
@@ -20,6 +21,7 @@ import {
   setGameOverMenuState,
   setStartGameState,
   setGameEndMenuState,
+  setUserHighscore,
 } from '../actions/actions';
 import { IRootReducer } from '../reducers/index';
 import {
@@ -30,7 +32,10 @@ import {
   FIELD_WIDTH,
   FIELD_HEIGHT,
   HORIZONTAL_BRICK_HEIGHT,
+  URL_GET_USER_HIGHSCORE,
 } from './Constants';
+import { isSignedIn } from '../service/authService';
+import { faDivide } from '@fortawesome/free-solid-svg-icons';
 
 const SPEED_LIMIT = 2.5;
 
@@ -61,6 +66,7 @@ interface IProps {
   setNextLevelMenuState: (isNextLevelMenuActive: boolean) => void;
   setGameOverMenuState: (isGameOverMenuActive: boolean) => void;
   setStartGameState: (startGame: boolean) => void;
+  setUserHighscore: (userHighscore: number) => void;
 }
 
 interface IPrevProps {
@@ -630,6 +636,15 @@ class Board extends Component<IProps> {
     });
   };
 
+  getUserHighScore = () => {
+    axios
+      .get(URL_GET_USER_HIGHSCORE)
+      .then((res) => {
+        this.props.setUserHighscore(res.data);
+      })
+      .catch((err) => {});
+  };
+
   componentDidUpdate(prevProps: IPrevProps) {
     // const { currentLevel } = this.props;
 
@@ -692,8 +707,10 @@ class Board extends Component<IProps> {
 
   componentDidMount() {
     if (isMobile) {
+      if (isSignedIn() && navigator.onLine) {
+        this.getUserHighScore();
+      }
       let accelerometer = new window.Accelerometer({ frequency: 60 });
-
       accelerometer.addEventListener('reading', (e: Event) => {
         this.setState({
           x: accelerometer.x,
@@ -935,7 +952,7 @@ class Board extends Component<IProps> {
 
   render() {
     const { positionX, positionY, ballColor, boardBackground } = this.state;
-
+    const { nextLevelMenuState } = this.props;
     return (
       <div
         style={{
@@ -950,7 +967,7 @@ class Board extends Component<IProps> {
         <Ball color={ballColor} positionX={positionX} positionY={positionY} />
         <StartMenu />
         <PauseMenu />
-        <NextLevelMenu />
+        {nextLevelMenuState === 'flex' ? <NextLevelMenu /> : <div></div>}
         <GameOverMenu />
         {/* <GameEndMenu /> */}
       </div>
@@ -963,7 +980,6 @@ const mapStateToProps = (state: IRootReducer) => {
   const { currentLevel } = state.levelReducer;
   const { currentScore } = state.scoreReducer;
   const { isGamePaused } = state.pauseMenuReducer;
-  // const { boardBackground } = state.boardBackgroundReducer;
   const { nextLevelMenuState } = state.nextLevelMenuReducer;
   const { startGame } = state.startGameReducer;
 
@@ -972,7 +988,6 @@ const mapStateToProps = (state: IRootReducer) => {
     currentLevel,
     currentScore,
     isGamePaused,
-    // boardBackground,
     nextLevelMenuState,
     startGame,
   };
@@ -993,6 +1008,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
       dispatch(setStartGameState(startGame)),
     setGameEndMenuState: (isGameEndMenuActive: boolean) =>
       dispatch(setGameEndMenuState(isGameEndMenuActive)),
+    setUserHighscore: (userHighscore: number) =>
+      dispatch(setUserHighscore(userHighscore)),
   };
 };
 

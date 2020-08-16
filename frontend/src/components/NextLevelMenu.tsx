@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
 import { Dispatch } from 'redux';
 import {
   setNextLevelMenuState,
   setCurrentLevel,
   setScore,
+  setUserHighscore,
 } from '../actions/actions';
+import { isSignedIn, getUsername } from '../service/authService';
 import { IRootReducer } from '../reducers';
 import { levels } from '../hoc/Levels';
 import {
@@ -13,6 +16,8 @@ import {
   BOARD_WIDTH,
   HORIZONTAL_BRICK_HEIGHT,
   VERTICAL_BRICK_WIDTH,
+  URL_GET_USER_HIGHSCORE,
+  URL_PATCH_USER_HIGHSCORE,
 } from '../components/Constants';
 
 import '../css/Header.css';
@@ -22,10 +27,25 @@ interface IProps {
   currentLevel: number;
   currentTime: number;
   currentScore: number;
+  userHighscore: number;
   setNextLevelMenuState: (isNextLevelMenuActive: boolean) => void;
   setCurrentLevel: (currentLevel: number) => void;
   setScore: (newScore: number) => void;
+  setUserHighscore: (userHighscore: number) => void;
 }
+
+const patchUserHighscore = (newScore: number) => {
+  const user: any = {
+    userName: `${getUsername()}`,
+    highscore: newScore,
+  };
+
+  return axios.patch(URL_PATCH_USER_HIGHSCORE, user);
+};
+
+const getUserHighScore = () => {
+  return axios.get(URL_GET_USER_HIGHSCORE);
+};
 
 function NextLevelMenu(props: IProps) {
   const {
@@ -36,9 +56,27 @@ function NextLevelMenu(props: IProps) {
     setNextLevelMenuState,
     setCurrentLevel,
     setScore,
+    setUserHighscore,
+    userHighscore,
   } = props;
   const level = currentLevel + 1;
   const timerScore = currentTime * level * 2330;
+  const newScore = currentScore + timerScore;
+
+  if (
+    userHighscore < newScore &&
+    nextLevelMenuState === 'flex' &&
+    isSignedIn() &&
+    navigator.onLine
+  ) {
+    patchUserHighscore(newScore)
+      .then(getUserHighScore)
+      .then((res) => {
+        console.log('res: ', res);
+        setUserHighscore(res.data);
+      });
+  }
+
   const nextLevelIndex =
     currentLevel + 1 > levels.length - 1 ? levels.length - 1 : currentLevel + 1;
   return (
@@ -69,9 +107,7 @@ function NextLevelMenu(props: IProps) {
         >
           time score: {timerScore}
         </div>
-        <div style={{ color: 'darkRed' }}>
-          total score: {currentScore + timerScore}{' '}
-        </div>
+        <div style={{ color: 'darkRed' }}>total score: {newScore}</div>
       </div>
       <div
         style={{
@@ -137,7 +173,14 @@ export const mapStateToProps = (state: IRootReducer) => {
   const { currentScore } = state.scoreReducer;
   const { currentLevel } = state.levelReducer;
   const { currentTime } = state.timerReducer;
-  return { nextLevelMenuState, currentLevel, currentTime, currentScore };
+  const { userHighscore } = state.userHighscoreReducer;
+  return {
+    nextLevelMenuState,
+    currentLevel,
+    currentTime,
+    currentScore,
+    userHighscore,
+  };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
@@ -147,6 +190,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     setCurrentLevel: (currentLevel: number) =>
       dispatch(setCurrentLevel(currentLevel)),
     setScore: (newScore: number) => dispatch(setScore(newScore)),
+    setUserHighscore: (userHighscore: number) =>
+      dispatch(setUserHighscore(userHighscore)),
   };
 };
 

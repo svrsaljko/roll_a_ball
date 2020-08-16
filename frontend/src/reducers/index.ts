@@ -15,6 +15,9 @@ import startGameReducer, { IStartGameReducerState } from './startGameReducer';
 import gameEndMenuReducer, {
   IGameEndMenuReducerState,
 } from './gameEndMenuReducer';
+import userHighscoreReducer, {
+  IUserHighscoreReducerState,
+} from './userHighscoreReducer';
 
 export interface IRootReducer {
   fieldsReducer: IFieldsReducerState;
@@ -26,6 +29,7 @@ export interface IRootReducer {
   gameOverMenuReducer: IGameOverMenuReducerState;
   startGameReducer: IStartGameReducerState;
   gameEndMenuReducer: IGameEndMenuReducerState;
+  userHighscoreReducer: IUserHighscoreReducerState;
 }
 
 export default combineReducers({
@@ -38,4 +42,5 @@ export default combineReducers({
   gameOverMenuReducer,
   startGameReducer,
   gameEndMenuReducer,
+  userHighscoreReducer,
 });

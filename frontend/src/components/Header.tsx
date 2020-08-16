@@ -2,15 +2,12 @@ import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
-import { connect } from 'react-redux';
-import { IRootReducer } from '../reducers/index';
 import { isSignedIn, signOut } from '../service/authService';
+import { isMobile } from 'react-device-detect';
 
 import '../css/Header.css';
 
 const onMenuClick = () => {
-  console.log('menu is clicked');
-
   let menuBar = document.getElementById('menuBar');
 
   if (menuBar.style.display === 'none') {
@@ -27,8 +24,6 @@ const activeStyle = {
 };
 
 function Header() {
-  // console.log('is signed in', isSignedIn());
-
   return (
     <div className="header-container">
       <div className="header-container-title-menu-button">
@@ -52,7 +47,11 @@ function Header() {
         </div>
       </div>
 
-      <div id="menuBar" className="header-container-menu">
+      <div
+        id="menuBar"
+        className="header-container-menu"
+        style={{ display: ` ${isMobile ? 'none' : 'flex'}` }}
+      >
         <NavLink
           exact
           to="/"
@@ -100,12 +99,4 @@ function Header() {
   );
 }
 
-// const mapStateToProps = (state: IRootReducer) => {
-//   const color = state.levelReducer.ballColor;
-//   return {
-//     color,
-//   };
-// };
-
-// export default connect(mapStateToProps)(Header);
 export default Header;

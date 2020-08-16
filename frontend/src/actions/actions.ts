@@ -11,6 +11,7 @@ import {
   SET_START_GAME_STATE,
   SET_START_GAME_MENU_STATE,
   SET_GAME_END_MENU_STATE,
+  SET_USER_HIGHSCORE,
 } from './types';
 
 import { IField } from '../interfaces/IField';
@@ -91,6 +92,10 @@ export interface IActionSetGameEndMenuState {
   type: string;
   isGameEndMenuActive: boolean;
 }
+export interface IActionSetUserHighscore {
+  type: string;
+  userHighscore: number;
+}
 
 //
 
@@ -149,4 +154,7 @@ export const setStartGameMenuState = (startGameMenuState: string) => {
 
 export const setGameEndMenuState = (isGameEndMenuActive: boolean) => {
   return { type: SET_GAME_END_MENU_STATE, isGameEndMenuActive };
+};
+export const setUserHighscore = (userHighscore: number) => {
+  return { type: SET_USER_HIGHSCORE, userHighscore };
 };
