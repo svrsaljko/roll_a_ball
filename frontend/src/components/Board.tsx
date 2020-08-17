@@ -35,6 +35,7 @@ import {
   URL_GET_USER_HIGHSCORE,
 } from './Constants';
 import { isSignedIn } from '../service/authService';
+import { faDivide } from '@fortawesome/free-solid-svg-icons';
 
 const SPEED_LIMIT = 2.5;
 
@@ -59,6 +60,7 @@ interface IProps {
   nextLevelMenuState: string;
   startGame: boolean;
   gameOverMenuState: string;
+  gameEndMenuState: string;
   setGameEndMenuState: (isGameEndMenuActive: boolean) => void;
   setCurrentLevel: (currentLevel: number) => void;
   removeDiamondFromField: (fields: IField[]) => void;
@@ -722,7 +724,8 @@ class Board extends Component<IProps> {
           if (!this.returnGamePauseState()) {
             if (
               this.props.nextLevelMenuState === 'none' &&
-              this.props.gameOverMenuState === 'none'
+              this.props.gameOverMenuState === 'none' &&
+              this.props.gameEndMenuState === 'none'
             ) {
               this.moveLeft();
               this.moveRight();
@@ -953,7 +956,11 @@ class Board extends Component<IProps> {
 
   render() {
     const { positionX, positionY, ballColor, boardBackground } = this.state;
-    const { nextLevelMenuState, gameOverMenuState } = this.props;
+    const {
+      nextLevelMenuState,
+      gameOverMenuState,
+      gameEndMenuState,
+    } = this.props;
     return (
       <div
         style={{
@@ -970,7 +977,7 @@ class Board extends Component<IProps> {
         <PauseMenu />
         {nextLevelMenuState === 'flex' ? <NextLevelMenu /> : <div></div>}
         {gameOverMenuState === 'flex' ? <GameOverMenu /> : <div></div>}
-        {/* <GameEndMenu /> */}
+        {gameEndMenuState === 'flex' ? <GameEndMenu /> : <div></div>}
       </div>
     );
   }
@@ -984,6 +991,7 @@ const mapStateToProps = (state: IRootReducer) => {
   const { nextLevelMenuState } = state.nextLevelMenuReducer;
   const { startGame } = state.startGameReducer;
   const { gameOverMenuState } = state.gameOverMenuReducer;
+  const { gameEndMenuState } = state.gameEndMenuReducer;
   return {
     fields,
     currentLevel,
@@ -992,6 +1000,7 @@ const mapStateToProps = (state: IRootReducer) => {
     nextLevelMenuState,
     startGame,
     gameOverMenuState,
+    gameEndMenuState,
   };
 };
 

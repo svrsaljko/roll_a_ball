@@ -8,7 +8,6 @@ export interface IGameOverMenuReducerState {
 
 const initState: IGameOverMenuReducerState = {
   gameOverMenuState: 'none',
-  // gameOverMenuState: 'flex',
   isGameOverMenuActive: false,
 };
 

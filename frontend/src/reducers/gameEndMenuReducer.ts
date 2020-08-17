@@ -20,7 +20,7 @@ const gameEndMenuReducer = (
       const { isGameEndMenuActive } = action;
       let gameEndMenuState;
       if (isGameEndMenuActive) {
-        gameEndMenuState = 'block';
+        gameEndMenuState = 'flex';
       } else if (!isGameEndMenuActive) {
         gameEndMenuState = 'none';
       }

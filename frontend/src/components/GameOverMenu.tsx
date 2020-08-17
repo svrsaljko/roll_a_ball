@@ -21,7 +21,6 @@ interface IProps {
   currentScore: number;
   userHighscore: number;
   history: any;
-  setGameOverMenuState: (gameOverMenuState: boolean) => void;
   setUserHighscore: (userHighscore: number) => void;
 }
 
@@ -44,7 +43,6 @@ function GameOverMenu(props: IProps) {
     currentScore,
     userHighscore,
     history,
-    setGameOverMenuState,
     setUserHighscore,
   } = props;
 
@@ -190,7 +188,7 @@ function GameOverMenu(props: IProps) {
           padding: '1rem',
         }}
         onClick={() => {
-          setGameOverMenuState(false);
+          // setGameOverMenuState(false);
           history.push('/');
         }}
       >
@@ -209,8 +207,6 @@ export const mapStateToProps = (state: IRootReducer) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    setGameOverMenuState: (isGameOverMenuActive: boolean) =>
-      dispatch(setGameOverMenuState(isGameOverMenuActive)),
     setUserHighscore: (userHighscore: number) =>
       dispatch(setUserHighscore(userHighscore)),
   };
