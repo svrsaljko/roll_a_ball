@@ -48,12 +48,22 @@ function GameFooter(props: IProps) {
         minHeight: `${GAME_FOOTER_HEIGHT}px`,
       }}
     >
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <div> Score: {currentScore} </div>{' '}
+      <div
+        style={{
+          minWidth: '11rem',
+          fontSize: '1.1rem',
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
+        <div> Score:{currentScore}</div>
         <div style={{ marginTop: '5px' }}> LV: {currentLevel + 1} </div>
       </div>
-      <Timer />
+      <div style={{ marginLeft: '-8rem' }}>
+        <Timer />
+      </div>
       <div
+        style={{ minWidth: '30px' }}
         onClick={() => {
           onPauseClick(setPauseMenuState);
         }}

@@ -83,7 +83,7 @@ function NextLevelMenu(props: IProps) {
       style={{
         display: `${nextLevelMenuState}`,
         flexDirection: 'column',
-        justifyContent: 'space-around',
+        justifyContent: 'space-between',
         backgroundColor: 'black',
         color: 'white',
         position: 'absolute',
@@ -94,7 +94,7 @@ function NextLevelMenu(props: IProps) {
         fontSize: '1.5rem',
       }}
     >
-      <div style={{ marginLeft: '3rem' }}>
+      <div style={{ marginLeft: '3rem', marginTop: '3rem' }}>
         <div>current score: {currentScore}</div>
         <div>+</div>
         <div
@@ -158,7 +158,6 @@ function NextLevelMenu(props: IProps) {
           backgroundColor: 'black',
           color: 'white',
           padding: '1rem',
-          margin: '3rem',
         }}
       >
         NEXT LEVEL

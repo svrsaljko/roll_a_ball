@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { setCurrentTime } from '../actions/actions';
+import { setCurrentTime, setGameOverMenuState } from '../actions/actions';
 import { IRootReducer } from '../reducers';
 import { START_TIME } from '../components/Constants';
 const SECOND = 1000;
@@ -10,11 +10,12 @@ interface IProps {
   currentTime: number;
   isGamePaused: boolean;
   currentLevel: number;
-  setCurrentTime: (currentTime: number) => void;
   nextLevelMenuState: string;
   startGame: boolean;
   gameOverMenuState: string;
   gameEndMenuState: string;
+  setCurrentTime: (currentTime: number) => void;
+  setGameOverMenuState: (isGameOverMenuActive: boolean) => void;
 }
 
 class Timer extends Component<IProps> {
@@ -22,11 +23,12 @@ class Timer extends Component<IProps> {
     let doEachInterval = () => {
       const {
         currentTime,
-        setCurrentTime,
         isGamePaused,
         nextLevelMenuState,
         gameOverMenuState,
         gameEndMenuState,
+        setCurrentTime,
+        setGameOverMenuState,
       } = this.props;
 
       if (isGamePaused) {
@@ -39,6 +41,7 @@ class Timer extends Component<IProps> {
         clearInterval(timer);
       } else if (currentTime === 0) {
         clearInterval(timer);
+        setGameOverMenuState(true);
       } else {
         setCurrentTime(currentTime - 1);
       }
@@ -74,8 +77,18 @@ class Timer extends Component<IProps> {
     const { currentTime } = this.props;
 
     return (
-      <div style={{ color: `${currentTime > 10 ? 'white' : 'red'}` }}>
-        {currentTime}
+      <div
+        style={{
+          minWidth: '20px',
+          fontSize: '2rem',
+          color: `${currentTime > 10 ? 'white' : 'red'}`,
+        }}
+      >
+        {currentTime < 10 ? (
+          <div> &nbsp;&nbsp;{currentTime} </div>
+        ) : (
+          <div> {currentTime} </div>
+        )}
       </div>
     );
   }
@@ -104,6 +117,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     setCurrentTime: (currentTime: number) =>
       dispatch(setCurrentTime(currentTime)),
+    setGameOverMenuState: (isGameOverMenuActive: boolean) =>
+      dispatch(setGameOverMenuState(isGameOverMenuActive)),
   };
 };
 

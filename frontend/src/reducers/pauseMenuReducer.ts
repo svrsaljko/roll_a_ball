@@ -21,7 +21,7 @@ const pauseMenuReducer = (
       let pauseMenuState;
       let isGamePaused;
       if (state.pauseMenuState === 'none') {
-        pauseMenuState = 'block';
+        pauseMenuState = 'flex';
         isGamePaused = true;
       } else {
         pauseMenuState = 'none';

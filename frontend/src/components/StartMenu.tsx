@@ -12,6 +12,7 @@ import {
   BOARD_WIDTH,
   HORIZONTAL_BRICK_HEIGHT,
   VERTICAL_BRICK_WIDTH,
+  START_TIME,
 } from '../components/Constants';
 
 interface IProps {
@@ -47,9 +48,9 @@ function StartMenu(props: IProps) {
       <div
         style={{ marginLeft: '3rem', marginTop: '3rem', marginBottom: '1rem' }}
       >
-        {' '}
         TILT DEVICE IN ANY DIRECTION!!
       </div>
+      <div style={{ marginLeft: '3rem' }}> YOU HAVE {START_TIME} SECONDS! </div>
       <div
         style={{
           display: 'flex',

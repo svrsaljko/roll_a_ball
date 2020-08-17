@@ -61,6 +61,7 @@ interface IProps {
   startGame: boolean;
   gameOverMenuState: string;
   gameEndMenuState: string;
+  startGameMenuState: string;
   setGameEndMenuState: (isGameEndMenuActive: boolean) => void;
   setCurrentLevel: (currentLevel: number) => void;
   removeDiamondFromField: (fields: IField[]) => void;
@@ -957,6 +958,7 @@ class Board extends Component<IProps> {
   render() {
     const { positionX, positionY, ballColor, boardBackground } = this.state;
     const {
+      startGameMenuState,
       nextLevelMenuState,
       gameOverMenuState,
       gameEndMenuState,
@@ -973,8 +975,8 @@ class Board extends Component<IProps> {
       >
         <Fields />
         <Ball color={ballColor} positionX={positionX} positionY={positionY} />
-        <StartMenu />
-        <PauseMenu />
+        {startGameMenuState === 'flex' ? <StartMenu /> : <div></div>}
+        {this.returnGamePauseState() ? <PauseMenu /> : <div></div>}
         {nextLevelMenuState === 'flex' ? <NextLevelMenu /> : <div></div>}
         {gameOverMenuState === 'flex' ? <GameOverMenu /> : <div></div>}
         {gameEndMenuState === 'flex' ? <GameEndMenu /> : <div></div>}
@@ -989,7 +991,7 @@ const mapStateToProps = (state: IRootReducer) => {
   const { currentScore } = state.scoreReducer;
   const { isGamePaused } = state.pauseMenuReducer;
   const { nextLevelMenuState } = state.nextLevelMenuReducer;
-  const { startGame } = state.startGameReducer;
+  const { startGame, startGameMenuState } = state.startGameReducer;
   const { gameOverMenuState } = state.gameOverMenuReducer;
   const { gameEndMenuState } = state.gameEndMenuReducer;
   return {
@@ -997,6 +999,7 @@ const mapStateToProps = (state: IRootReducer) => {
     currentLevel,
     currentScore,
     isGamePaused,
+    startGameMenuState,
     nextLevelMenuState,
     startGame,
     gameOverMenuState,
