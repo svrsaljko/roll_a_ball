@@ -26,7 +26,7 @@ export default function SignIn(props: IProps) {
   const onSubmit = () => {
     let testUser: IUser = {
       userName: null,
-      email: 'stipe@aaka.com',
+      email: 'user25@test-user.com',
       password: '12345',
     };
 

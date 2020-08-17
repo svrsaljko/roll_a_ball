@@ -18,27 +18,27 @@ export default function SignUp() {
   const [message, setMessage] = useState(' ');
 
   const onSubmit = () => {
-    registerTestUsers();
+    // registerTestUsers();
     // console.log('on submit', values);
-    // axios({
-    //   method: 'post',
-    //   url: SIGNUP_URL,
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   //UBACI STVORENOG USERA, REDIRECT ITD.. public private routes
-    //   data: {
-    //     userName: 'testniKorisnik',
-    //     email: 'korisnik@test.com',
-    //     password: '12345',
-    //   },
-    // })
-    //   .then((res) => {
-    //     console.log('res: ', res);
-    //   })
-    //   .catch((err) =>
-    //     console.log('err: ', setMessage(err.response.data.message))
-    //   );
+    axios({
+      method: 'post',
+      url: SIGNUP_URL,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      //UBACI STVORENOG USERA, REDIRECT ITD.. public private routes
+      data: {
+        userName: 'user25',
+        email: 'user25@test-user.com',
+        password: '12345',
+      },
+    })
+      .then((res) => {
+        console.log('res: ', res);
+      })
+      .catch((err) =>
+        console.log('err: ', setMessage(err.response.data.message))
+      );
   };
   return (
     <div>

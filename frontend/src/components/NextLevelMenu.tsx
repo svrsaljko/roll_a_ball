@@ -72,7 +72,6 @@ function NextLevelMenu(props: IProps) {
     patchUserHighscore(newScore)
       .then(getUserHighScore)
       .then((res) => {
-        console.log('res: ', res);
         setUserHighscore(res.data);
       });
   }

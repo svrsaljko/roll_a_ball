@@ -16,6 +16,7 @@ interface IProps {
   isGamePaused: boolean;
   nextLevelMenuState: string;
   startGameMenuState: string;
+  gameOverMenuState: string;
 }
 
 const onPauseClick = (setPauseMenuState: () => void) => {
@@ -30,6 +31,7 @@ function GameFooter(props: IProps) {
     setPauseMenuState,
     nextLevelMenuState,
     startGameMenuState,
+    gameOverMenuState,
   } = props;
 
   return (
@@ -54,7 +56,9 @@ function GameFooter(props: IProps) {
           onPauseClick(setPauseMenuState);
         }}
       >
-        {nextLevelMenuState === 'none' && startGameMenuState === 'none' ? (
+        {nextLevelMenuState === 'none' &&
+        startGameMenuState === 'none' &&
+        gameOverMenuState === 'none' ? (
           <FontAwesomeIcon
             icon={isGamePaused ? faPlayCircle : faPauseCircle}
             size="2x"
@@ -73,12 +77,14 @@ const mapStateToProps = (state: IRootReducer) => {
   const { isGamePaused } = state.pauseMenuReducer;
   const { nextLevelMenuState } = state.nextLevelMenuReducer;
   const { startGameMenuState } = state.startGameReducer;
+  const { gameOverMenuState } = state.gameOverMenuReducer;
   return {
     currentLevel,
     currentScore,
     isGamePaused,
     nextLevelMenuState,
     startGameMenuState,
+    gameOverMenuState,
   };
 };
 

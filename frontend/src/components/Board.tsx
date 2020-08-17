@@ -35,7 +35,6 @@ import {
   URL_GET_USER_HIGHSCORE,
 } from './Constants';
 import { isSignedIn } from '../service/authService';
-import { faDivide } from '@fortawesome/free-solid-svg-icons';
 
 const SPEED_LIMIT = 2.5;
 
@@ -59,6 +58,7 @@ interface IProps {
   fields: IField[];
   nextLevelMenuState: string;
   startGame: boolean;
+  gameOverMenuState: string;
   setGameEndMenuState: (isGameEndMenuActive: boolean) => void;
   setCurrentLevel: (currentLevel: number) => void;
   removeDiamondFromField: (fields: IField[]) => void;
@@ -663,7 +663,6 @@ class Board extends Component<IProps> {
       // this.FIELDS = this.props.levels[prevProps.currentLevel + 1].fields;
       const positionY = this.FIELDS[ballStartFieldId].top + FIELD_HEIGHT / 2;
       const positionX = this.FIELDS[ballStartFieldId].left + FIELD_WIDTH / 2;
-      console.log('board background: ', boardBackground);
       this.setState({
         positionY,
         positionX,
@@ -721,7 +720,10 @@ class Board extends Component<IProps> {
       setInterval(() => {
         if (this.props.startGame) {
           if (!this.returnGamePauseState()) {
-            if (this.props.nextLevelMenuState === 'none') {
+            if (
+              this.props.nextLevelMenuState === 'none' &&
+              this.props.gameOverMenuState === 'none'
+            ) {
               this.moveLeft();
               this.moveRight();
               this.moveDown();
@@ -923,7 +925,6 @@ class Board extends Component<IProps> {
         ballY > topBorder &&
         ballY < bottomBorder
       ) {
-        console.log('emerald colission');
         let newScore;
         const newFileds = this.FIELDS.map((field: IField) => {
           if (field.fieldId === currentFieldId) {
@@ -952,7 +953,7 @@ class Board extends Component<IProps> {
 
   render() {
     const { positionX, positionY, ballColor, boardBackground } = this.state;
-    const { nextLevelMenuState } = this.props;
+    const { nextLevelMenuState, gameOverMenuState } = this.props;
     return (
       <div
         style={{
@@ -968,7 +969,7 @@ class Board extends Component<IProps> {
         <StartMenu />
         <PauseMenu />
         {nextLevelMenuState === 'flex' ? <NextLevelMenu /> : <div></div>}
-        <GameOverMenu />
+        {gameOverMenuState === 'flex' ? <GameOverMenu /> : <div></div>}
         {/* <GameEndMenu /> */}
       </div>
     );
@@ -982,7 +983,7 @@ const mapStateToProps = (state: IRootReducer) => {
   const { isGamePaused } = state.pauseMenuReducer;
   const { nextLevelMenuState } = state.nextLevelMenuReducer;
   const { startGame } = state.startGameReducer;
-
+  const { gameOverMenuState } = state.gameOverMenuReducer;
   return {
     fields,
     currentLevel,
@@ -990,6 +991,7 @@ const mapStateToProps = (state: IRootReducer) => {
     isGamePaused,
     nextLevelMenuState,
     startGame,
+    gameOverMenuState,
   };
 };
 

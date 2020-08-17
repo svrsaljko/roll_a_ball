@@ -1,44 +1,200 @@
 import React from 'react';
+import axios from 'axios';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { setGameOverMenuState } from '../actions/actions';
+import { withRouter, Link } from 'react-router-dom';
+import { setGameOverMenuState, setUserHighscore } from '../actions/actions';
 import { IRootReducer } from '../reducers';
-
+import { isSignedIn, getUsername } from '../service/authService';
 import {
   BOARD_HEIGHT,
   BOARD_WIDTH,
   HORIZONTAL_BRICK_HEIGHT,
   VERTICAL_BRICK_WIDTH,
+  URL_GET_USER_HIGHSCORE,
+  URL_PATCH_USER_HIGHSCORE,
 } from '../components/Constants';
+import { TRexNoConnection } from '../images';
 
 interface IProps {
   gameOverMenuState: string;
+  currentScore: number;
+  userHighscore: number;
+  history: any;
   setGameOverMenuState: (gameOverMenuState: boolean) => void;
+  setUserHighscore: (userHighscore: number) => void;
 }
 
+const patchUserHighscore = (newScore: number) => {
+  const user: any = {
+    userName: `${getUsername()}`,
+    highscore: newScore,
+  };
+
+  return axios.patch(URL_PATCH_USER_HIGHSCORE, user);
+};
+
+const getUserHighScore = () => {
+  return axios.get(URL_GET_USER_HIGHSCORE);
+};
+
 function GameOverMenu(props: IProps) {
-  const { gameOverMenuState, setGameOverMenuState } = props;
+  const {
+    gameOverMenuState,
+    currentScore,
+    userHighscore,
+    history,
+    setGameOverMenuState,
+    setUserHighscore,
+  } = props;
+
+  if (
+    userHighscore < currentScore &&
+    gameOverMenuState === 'flex' &&
+    isSignedIn() &&
+    navigator.onLine
+  ) {
+    patchUserHighscore(currentScore)
+      .then(getUserHighScore)
+      .then((res) => {
+        setUserHighscore(res.data);
+      });
+  }
+  const highscoreStatus = () => {
+    if (!navigator.onLine) {
+      return (
+        <div>
+          <div>
+            <div>No internet connection!</div>
+            <img
+              height="200rem"
+              width="150rem"
+              src={TRexNoConnection}
+              alt="t-rex"
+            />
+            <div>Play online to </div>
+            <div> beat the highscore! </div>
+          </div>
+        </div>
+      );
+    } else if (navigator.onLine && !isSignedIn()) {
+      return (
+        <div>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'center',
+            }}
+          >
+            <Link style={{ color: 'white', fontSize: '2rem' }} to="/signin">
+              SIGN IN
+            </Link>
+          </div>
+
+          <div> to beat the high score!</div>
+        </div>
+      );
+    } else if (navigator.onLine && isSignedIn()) {
+      if (currentScore === userHighscore) {
+        return (
+          <div
+            style={{
+              fontSize: '2.5rem',
+            }}
+          >
+            <span
+              style={{
+                color: 'red',
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'center',
+              }}
+            >
+              NEW HIGHSCORE
+            </span>
+            <span
+              style={{
+                fontWeight: 'bold',
+                color: 'white',
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'center',
+              }}
+            >
+              {userHighscore}
+            </span>
+          </div>
+        );
+      } else if (currentScore < userHighscore)
+        return (
+          <div style={{ fontSize: '2rem' }}>HIGHSCORE: {userHighscore}</div>
+        );
+    } else return <div></div>;
+  };
+
   return (
     <div
       style={{
-        // display: 'block',
         display: `${gameOverMenuState}`,
-        backgroundColor: 'white',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        color: 'white',
+        backgroundColor: 'black',
         position: 'absolute',
         marginTop: `${HORIZONTAL_BRICK_HEIGHT}px`,
         marginLeft: `${VERTICAL_BRICK_WIDTH}px`,
-
         height: `${BOARD_HEIGHT - 2 * HORIZONTAL_BRICK_HEIGHT}px`,
         width: `${BOARD_WIDTH - 2 * VERTICAL_BRICK_WIDTH}px`,
+        fontSize: '1.5rem',
       }}
     >
-      game over menu state
-      <button
-        onClick={() => {
-          setGameOverMenuState(false);
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'center',
+          fontSize: '2.5rem',
+          fontWeight: 'bold',
+          marginTop: '3rem',
+          color: 'darkRed',
         }}
       >
-        exit
+        GAME OVER
+      </div>
+      <div
+        style={{
+          fontSize: '2rem',
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'center',
+        }}
+      >
+        SCORE: {currentScore}
+      </div>
+
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'center',
+        }}
+      >
+        {highscoreStatus()}
+      </div>
+
+      <button
+        style={{
+          backgroundColor: 'black',
+          color: 'white',
+          padding: '1rem',
+        }}
+        onClick={() => {
+          setGameOverMenuState(false);
+          history.push('/');
+        }}
+      >
+        PLAY AGAIN
       </button>
     </div>
   );
@@ -46,15 +202,20 @@ function GameOverMenu(props: IProps) {
 
 export const mapStateToProps = (state: IRootReducer) => {
   const { gameOverMenuState } = state.gameOverMenuReducer;
-
-  return { gameOverMenuState };
+  const { currentScore } = state.scoreReducer;
+  const { userHighscore } = state.userHighscoreReducer;
+  return { gameOverMenuState, currentScore, userHighscore };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     setGameOverMenuState: (isGameOverMenuActive: boolean) =>
       dispatch(setGameOverMenuState(isGameOverMenuActive)),
+    setUserHighscore: (userHighscore: number) =>
+      dispatch(setUserHighscore(userHighscore)),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(GameOverMenu);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(GameOverMenu)
+);

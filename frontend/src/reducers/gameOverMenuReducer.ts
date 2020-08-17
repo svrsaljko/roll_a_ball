@@ -8,6 +8,7 @@ export interface IGameOverMenuReducerState {
 
 const initState: IGameOverMenuReducerState = {
   gameOverMenuState: 'none',
+  // gameOverMenuState: 'flex',
   isGameOverMenuActive: false,
 };
 
@@ -20,7 +21,7 @@ const gameOverMenuReducer = (
       const { isGameOverMenuActive } = action;
       let gameOverMenuState;
       if (isGameOverMenuActive) {
-        gameOverMenuState = 'block';
+        gameOverMenuState = 'flex';
       } else if (!isGameOverMenuActive) {
         gameOverMenuState = 'none';
       }

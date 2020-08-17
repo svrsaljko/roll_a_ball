@@ -13,6 +13,7 @@ interface IProps {
   setCurrentTime: (currentTime: number) => void;
   nextLevelMenuState: string;
   startGame: boolean;
+  gameOverMenuState: string;
 }
 
 class Timer extends Component<IProps> {
@@ -23,11 +24,15 @@ class Timer extends Component<IProps> {
         setCurrentTime,
         isGamePaused,
         nextLevelMenuState,
+        gameOverMenuState,
       } = this.props;
 
       if (isGamePaused) {
         clearInterval(timer);
-      } else if (nextLevelMenuState === 'flex') {
+      } else if (
+        nextLevelMenuState === 'flex' ||
+        gameOverMenuState === 'flex'
+      ) {
         clearInterval(timer);
       } else if (currentTime === 0) {
         clearInterval(timer);
@@ -79,12 +84,14 @@ const mapStateToProps = (state: IRootReducer) => {
   const { isGamePaused } = state.pauseMenuReducer;
   const { nextLevelMenuState } = state.nextLevelMenuReducer;
   const { startGame } = state.startGameReducer;
+  const { gameOverMenuState } = state.gameOverMenuReducer;
   return {
     currentTime,
     isGamePaused,
     currentLevel,
     nextLevelMenuState,
     startGame,
+    gameOverMenuState,
   };
 };
 

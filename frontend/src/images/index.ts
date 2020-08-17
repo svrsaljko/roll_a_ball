@@ -5,7 +5,6 @@ import Background4 from './background4.png';
 import Background5 from './background5.jpg';
 import Background6 from './background6.gif';
 import Background7 from './background7.jpg';
-
 import Brick1 from './brick1.png';
 import Brick2 from './brick2.png';
 import Brick3 from './brick3.png';
@@ -22,6 +21,8 @@ import RotatedBrick5 from './brick5.jpg';
 import RotatedBrick6 from './brick6.jpg';
 import RotatedBrick7 from './brick7.jpg';
 import RotatedBrick8 from './brick8.jpg';
+
+import TRexNoConnection from './no-connection-t-rex.png';
 
 export const BOARD_BACKGROUNDS = [
   {
@@ -177,4 +178,5 @@ export {
   RotatedBrick6,
   RotatedBrick7,
   RotatedBrick8,
+  TRexNoConnection,
 };
