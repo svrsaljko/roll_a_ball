@@ -1,4 +1,3 @@
-console.log('service worker production.js');
 let cacheData = 'appProduction';
 this.addEventListener('install', (event) => {
   event.waitUntil(
@@ -17,9 +16,9 @@ this.addEventListener('install', (event) => {
         '/static/js/main.067602cc.chunk.js',
         '/static/js/main.c3847dca.chunk.js',
         '/static/js/main.5f1293a9.chunk.js',
-
         '/static/css/main.55b056bd.chunk.css',
         '/static/js/runtime-main.c8a21426.js',
+
         '/static/media/brick6.32f94ee9.jpg',
         '/static/media/brick4.be428367.jpg',
         '/static/media/background3.c27a9155.png',

@@ -13,7 +13,7 @@ export function registerTestUsers() {
       data: {
         userName: `user${i}`,
         email: `user${i}@test-user.com`,
-        password: '12345',
+        password: 12345678,
         highscore: i * 1000,
       },
     })

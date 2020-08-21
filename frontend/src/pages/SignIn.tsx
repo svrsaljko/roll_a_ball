@@ -5,6 +5,7 @@ import { IUser } from '../interfaces/IUser';
 import Header from '../components/Header';
 import { useForm } from '../hooks/useForm';
 import {
+  isSignedIn,
   setUserNameAndTokenToLocalStorage,
   getUsernameFromToken,
 } from '../service/authService';
@@ -18,16 +19,19 @@ interface IProps {
 
 export default function SignIn(props: IProps) {
   const { history } = props;
-  console.log('history: ', history);
-  const [values, handleChange] = useForm({ email: '', password: '' });
+  if (isSignedIn()) {
+    history.push('/');
+  }
+
+  const [values, handleChange] = useForm({ usernameEmail: '', password: '' });
 
   const [message, setMessage] = useState(' ');
 
   const onSubmit = () => {
     let testUser: IUser = {
       userName: null,
-      email: 'user25@test-user.com',
-      password: '12345',
+      email: 'user1@test-user.com',
+      password: '12345678',
     };
 
     console.log('on submit', values);
@@ -64,35 +68,48 @@ export default function SignIn(props: IProps) {
   return (
     <div>
       <Header />
-      <div className="signin-container">
-        <div className="signin-form">
-          {message}
-          <input
-            name="email"
-            placeholder="Enter your email here... "
-            type="text"
-            value={values.email}
-            onChange={handleChange}
-          />
-          <input
-            name="password"
-            placeholder="Enter your password here... "
-            type="text"
-            value={values.password}
-            onChange={handleChange}
-          />
-          <button
-            onClick={() => {
-              onSubmit();
-            }}
+      {isSignedIn() ? (
+        <div></div>
+      ) : (
+        <div className="signin-container">
+          <div
+            className="signin-form"
+            style={{ minHeight: window.outerHeight }}
           >
-            SIGN IN
-          </button>
-          <Link to="/signup" className="signup-link">
-            Don't have an account yet!?
-          </Link>
+            {message}
+            <input
+              className="signin-input"
+              name="usernameEmail"
+              placeholder="username,email"
+              type="text"
+              value={values.email}
+              onChange={handleChange}
+            />
+            <input
+              className="signin-input"
+              name="password"
+              placeholder="password"
+              type="password"
+              value={values.password}
+              onChange={handleChange}
+            />
+            <button
+              className="signin-button"
+              onClick={() => {
+                onSubmit();
+              }}
+            >
+              SIGN IN
+            </button>
+            <div className="signup-link-container">
+              Don't have an account yet!?&nbsp;
+              <Link to="/signup" className="signup-link">
+                SIGN UP
+              </Link>
+            </div>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
