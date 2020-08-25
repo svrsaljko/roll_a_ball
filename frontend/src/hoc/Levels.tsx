@@ -40,7 +40,8 @@ const initializeLevels = () => {
   const level1 = initializeLevel1();
   const level2 = initializeLevel2();
   const level3 = initializeLevel3();
-  const levels = [level1, level2, level3];
+  const level4 = initializeLevel4();
+  const levels = [level4, level1, level2, level3];
   return levels;
 };
 
@@ -221,6 +222,116 @@ const fieldsHardcoding1 = (fields: IField[]) => {
 
   return fields;
 };
+const fieldsHardcoding4 = (fields: IField[]) => {
+  fields[0].topWall = true;
+  fields[0].leftWall = true;
+  fields[1].topWall = true;
+  fields[2].topWall = true;
+  fields[3].topWall = true;
+  fields[4].topWall = true;
+  fields[4].bottomWall = true;
+  fields[5].topWall = true;
+  fields[5].bottomWall = true;
+  fields[6].topWall = true;
+  fields[6].bottomWall = true;
+  fields[7].topWall = true;
+  fields[8].topWall = true;
+  fields[8].rightWall = true;
+  fields[9].leftWall = true;
+  fields[12].rightWall = true;
+  fields[13].bottomWall = true;
+  fields[13].leftWall = true;
+  fields[14].rightWall = true;
+  fields[14].leftWall = true;
+  fields[15].rightWall = true;
+  fields[15].leftWall = true;
+  fields[16].rightWall = true;
+  fields[16].leftWall = true;
+  fields[17].rightWall = true;
+  fields[18].leftWall = true;
+  fields[21].rightWall = true;
+  fields[22].rightWall = true;
+  fields[22].leftWall = true;
+  fields[23].rightWall = true;
+  fields[23].leftWall = true;
+  fields[24].bottomWall = true;
+  fields[25].hasEmerald = true;
+  fields[26].rightWall = true;
+  fields[27].leftWall = true;
+  fields[28].leftWall = true;
+  fields[29].hasEmerald = true;
+  fields[30].rightWall = true;
+  fields[31].rightWall = true;
+  fields[31].leftWall = true;
+  fields[32].leftWall = true;
+  fields[33].hasGoldDoor = true;
+  fields[35].rightWall = true;
+  fields[36].leftWall = true;
+  fields[37].rightWall = true;
+  fields[37].leftWall = true;
+  fields[38].bottomWall = true;
+  fields[39].topWall = true;
+  fields[40].topWall = true;
+  fields[40].rightWall = true;
+  fields[41].topWall = true;
+  fields[42].leftWall = true;
+  fields[43].hasRuby = true;
+  fields[44].rightWall = true;
+  fields[45].leftWall = true;
+  fields[46].rightWall = true;
+  fields[46].leftWall = true;
+  fields[47].rightWall = true;
+  fields[47].leftWall = true;
+  fields[48].hasNeonGreenEnemy = true;
+  fields[49].rightWall = true;
+  fields[50].leftWall = true;
+  fields[53].rightWall = true;
+  fields[54].leftWall = true;
+  fields[55].rightWall = true;
+  fields[56].rightWall = true;
+  fields[56].leftWall = true;
+  fields[57].rightWall = true;
+  fields[57].leftWall = true;
+  fields[58].rightWall = true;
+  fields[59].leftWall = true;
+  fields[60].hasGold = true;
+  fields[62].rightWall = true;
+  fields[63].topWall = true;
+  fields[63].leftWall = true;
+  fields[64].hasNeonBlueEnemy = true;
+  fields[65].topWall = true;
+  fields[65].rightWall = true;
+  fields[66].rightWall = true;
+  fields[66].leftWall = true;
+  fields[67].hasSapphire = true;
+  fields[68].topWall = true;
+  fields[68].leftWall = true;
+  fields[69].hasGold = true;
+  fields[70].topWall = true;
+  fields[71].rightWall = true;
+  fields[72].leftWall = true;
+  fields[73].hasGoldDoor = true;
+  fields[75].leftWall = true;
+  fields[76].hasSapphire = true;
+  fields[77].leftWall = true;
+  fields[79].hasGoldDoor = true;
+  fields[80].rightWall = true;
+  fields[81].bottomWall = true;
+  fields[81].leftWall = true;
+  fields[82].bottomWall = true;
+  fields[83].bottomWall = true;
+  fields[84].topWall = true;
+  fields[84].bottomWall = true;
+  fields[85].bottomWall = true;
+  fields[86].topWall = true;
+  fields[86].bottomWall = true;
+  fields[87].bottomWall = true;
+  fields[88].bottomWall = true;
+  fields[89].bottomWall = true;
+  fields[89].rightWall = true;
+
+  return fields;
+};
 const fieldsHardcoding2 = (fields: IField[]) => {
   fields[3].rightWall = true;
   fields[12].hasNeonBlueEnemy = true;
@@ -336,6 +447,23 @@ const initializeLevel2 = () => {
     rotatedBrick: BOARD_BACKGROUNDS[0].image,
     boardBackground: BOARD_BACKGROUNDS[8].image,
     frictionCoefficient: BOARD_BACKGROUNDS[8].frictionCoefficient,
+  };
+  return level;
+};
+const initializeLevel4 = () => {
+  console.log('ovaaa putanja: ', WALLS[2].wall);
+  const level: ILevel = {
+    levelName: 'RED SAND T-REX FOSSIL',
+    ballColor: BALL[1].ballColor,
+    ballStartFieldId: 2,
+    ballSpeedCoefficient: BALL[1].ballSpeedCoefficient,
+    fields: fieldsHardcoding4(initializeField()),
+    frictionCoefficient: BOARD_BACKGROUNDS[3].frictionCoefficient,
+    boardName: BOARD_BACKGROUNDS[3].title,
+    boardBackground: BOARD_BACKGROUNDS[3].image,
+    wallName: WALLS[2].title,
+    rotatedBrick: WALLS[2].rotatedWall,
+    brick: WALLS[2].wall,
   };
   return level;
 };

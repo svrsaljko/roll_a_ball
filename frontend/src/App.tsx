@@ -10,6 +10,7 @@ import { PublicRoute, PrivateRoute } from './components/Routes';
 import { images } from '../src/images/images';
 
 function App() {
+  console.log('images', images);
   return (
     <Router forceRefresh>
       <Switch>

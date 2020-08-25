@@ -7,7 +7,8 @@ import { FIELD_WIDTH, FIELD_HEIGHT } from './Constants';
 import { IField } from '../interfaces/IField';
 import { ILevel } from '../interfaces/ILevel';
 import Walls from './Walls';
-import { uuid } from 'uuidv4';
+import { v4 as uuid } from 'uuid';
+
 import Levels from '../hoc/Levels';
 
 interface IProps {

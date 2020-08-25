@@ -4,7 +4,7 @@ import axios from 'axios';
 // import { IScoreBoard } from '../interfaces/IScoreBoard';
 import Header from '../components/Header';
 import { useForm } from '../hooks/useForm';
-import { uuid } from 'uuidv4';
+import { v4 as uuid } from 'uuid';
 
 import { getUsername } from '../service/authService';
 import { URL_GET_SCOREBOARD } from '../components/Constants';
@@ -29,6 +29,12 @@ const showScoreBoard = (scoreBoard: any) => {
           <div
             key={uuid()}
             style={{
+              backgroundColor: `${i % 2 === 1 ? '#ffe6e6' : 'white'}  `,
+              paddingRight: '70rem',
+              paddingLeft: '70rem',
+              paddingBottom: '0.5rem',
+              paddingTop: '0.5rem',
+
               display: 'flex',
               flexDirection: 'row',
               color: `${
@@ -36,7 +42,11 @@ const showScoreBoard = (scoreBoard: any) => {
               }`,
             }}
           >
-            <div style={{ marginRight: '3rem' }}>
+            <div
+              style={{
+                marginRight: '3rem',
+              }}
+            >
               {i >= 9 ? (
                 <div> {userScore.rank} </div>
               ) : (

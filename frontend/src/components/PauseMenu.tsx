@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { IRootReducer } from '../reducers';
 import axios from 'axios';
 import { ENEMIES } from '../items/Items';
-import { uuid } from 'uuidv4';
+import { v4 as uuid } from 'uuid';
 import { getUsername } from '../service/authService';
 import {
   BOARD_HEIGHT,

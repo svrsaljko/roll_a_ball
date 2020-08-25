@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { IUser } from '../interfaces/IUser';
@@ -106,7 +105,7 @@ export default function SignUp(props: IProps) {
               className="signin-input"
               name="password"
               placeholder="password"
-              type="text"
+              type="password"
               value={values.password}
               onChange={handleChange}
             />

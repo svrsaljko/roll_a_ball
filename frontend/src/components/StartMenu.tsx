@@ -6,7 +6,7 @@ import { IRootReducer } from '../reducers';
 import { levels } from '../hoc/Levels';
 
 import { ITEMS, DOORS, ENEMIES } from '../items/Items';
-import { uuid } from 'uuidv4';
+import { v4 as uuid } from 'uuid';
 import {
   BOARD_HEIGHT,
   BOARD_WIDTH,

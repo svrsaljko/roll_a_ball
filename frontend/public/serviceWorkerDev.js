@@ -17,13 +17,14 @@ this.addEventListener('install', (event) => {
         '/logo192.png',
         '/favicon.ico',
         '/manifest.json',
+        '/main.c8f10c257337a58bd900.hot-update.js',
         '/static/media/brick6.32f94ee9.jpg',
         '/static/media/brick4.be428367.jpg',
         '/static/media/background3.c27a9155.png',
         '/static/media/background6.a28ea63b.gif',
         '/static/media/background1.dfcff9fc.png',
         '/static/media/background7.a5002b81.jpg',
-        '/main.c8f10c257337a58bd900.hot-update.js',
+        '/static/media/background4.a901a15b.png',
       ]);
     })
   );

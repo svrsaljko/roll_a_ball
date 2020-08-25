@@ -3,7 +3,6 @@ import Header from '../components/Header';
 import Game from '../components/Game';
 import { isMobile } from 'react-device-detect';
 import ReactMarkdown from 'react-markdown';
-// import homePage from '../../README.md';
 
 const playGame = () => {
   if (isMobile) {
@@ -12,7 +11,11 @@ const playGame = () => {
     // console.log('root element: ', rootElement);
     // rootElement.style.backgroundColor = 'black';
     return <Game />;
-  } else return <div>aaaa</div>;
+  } else return <div>{noPlayGame()}</div>;
+};
+
+const noPlayGame = () => {
+  return <div>HOME</div>;
 };
 
 export default function Home() {
