@@ -20,9 +20,17 @@ export const HORIZONTAL_BRICK_WIDTH = FIELD_WIDTH;
 export const HORIZONTAL_BRICK_HEIGHT = FIELD_HEIGHT * (1 / 3);
 export const BALL_SIZE = HORIZONTAL_BRICK_HEIGHT * 0.45;
 
+export const MAX_INPUT_CHAR = 40;
 // URLS
 
 const URL_HIGHSCORE = 'http://localhost:8000/private/highscore';
 export const URL_PATCH_USER_HIGHSCORE = `${URL_HIGHSCORE}`;
 export const URL_GET_USER_HIGHSCORE = `${URL_HIGHSCORE}?userName=${getUsername()}`;
 export const URL_GET_SCOREBOARD = `${URL_HIGHSCORE}/list?userName=${getUsername()}`;
+
+export const isEmail = (email: string) => {
+  const emailPattern = new RegExp(
+    /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
+  );
+  return emailPattern.test(email);
+};

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { IUser } from '../interfaces/IUser';
@@ -9,6 +9,7 @@ import {
   setUserNameAndTokenToLocalStorage,
   getUsernameFromToken,
 } from '../service/authService';
+import { MAX_INPUT_CHAR, isEmail } from '../components/Constants';
 import '../css/SignIn.css';
 
 const SIGNIN_URL = 'http://localhost:8000/public/login';
@@ -24,23 +25,48 @@ export default function SignIn(props: IProps) {
   }
 
   const [values, handleChange] = useForm({ usernameEmail: '', password: '' });
+  let errorMessage = '';
+  const [disabled, setDisabled] = useState(true);
+
+  useEffect(() => {
+    if (
+      values.usernameEmail.length >= 3 &&
+      values.password.length >= 8 &&
+      values.password.length <= MAX_INPUT_CHAR &&
+      values.usernameEmail.length <= MAX_INPUT_CHAR
+    ) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+    }
+  }, [values]);
 
   const [message, setMessage] = useState(' ');
 
   const onSubmit = () => {
-    let testUser: IUser = {
-      userName: null,
-      email: 'user1@test-user.com',
-      password: '12345678',
+    const { usernameEmail, password } = values;
+    let userName, email;
+    if (typeof usernameEmail !== 'undefined') {
+      if (!isEmail(usernameEmail)) {
+        userName = usernameEmail;
+        errorMessage = 'Incorrect username or password!';
+        email = null;
+      } else {
+        userName = null;
+        errorMessage = 'Incorrect email or password!';
+        email = usernameEmail;
+      }
+    }
+
+    const user: IUser = {
+      userName,
+      email,
+      password,
     };
 
-    console.log('on submit', values);
-
     axios
-      .post(SIGNIN_URL, testUser)
+      .post(SIGNIN_URL, user)
       .then((res) => {
-        console.log('res: ', res);
-        console.log('token: ', res.data);
         const token = res.data;
         if (token) {
           const username = getUsernameFromToken(token);
@@ -48,7 +74,6 @@ export default function SignIn(props: IProps) {
 
           axios.interceptors.request.use(
             function (config) {
-              console.log('configured AUTHORIZATION HEADER');
               config.headers['Authorization'] = 'Bearer ' + token;
 
               return config;
@@ -61,7 +86,7 @@ export default function SignIn(props: IProps) {
         }
       })
       .catch((err) => {
-        console.log('err: ', err);
+        setMessage(errorMessage);
       });
   };
 
@@ -76,13 +101,13 @@ export default function SignIn(props: IProps) {
             className="signin-form"
             style={{ minHeight: window.outerHeight }}
           >
-            {message}
+            <div className="message">{message}</div>
             <input
               className="signin-input"
               name="usernameEmail"
-              placeholder="username,email"
+              placeholder="username, email"
               type="text"
-              value={values.email}
+              value={values.usernameEmail}
               onChange={handleChange}
             />
             <input
@@ -95,6 +120,7 @@ export default function SignIn(props: IProps) {
             />
             <button
               className="signin-button"
+              disabled={disabled}
               onClick={() => {
                 onSubmit();
               }}

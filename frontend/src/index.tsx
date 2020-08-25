@@ -15,8 +15,8 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 );
-// if (process.env.NODE_ENV === 'production') {
-//   swProduction();
-// } else if (process.env.NODE_ENV === 'development') {
-//   swDevelopment();
-// }
+if (process.env.NODE_ENV === 'production') {
+  swProduction();
+} else if (process.env.NODE_ENV === 'development') {
+  swDevelopment();
+}
