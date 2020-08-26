@@ -176,7 +176,7 @@ const fieldsHardcoding1 = (fields: IField[]) => {
   fields[9].topWall = true;
   fields[10].topWall = true;
   fields[10].rightWall = true;
-  fields[11].hasGoldDoor = true;
+  // fields[11].hasGoldDoor = true;
   fields[12].leftWall = true;
   fields[19].rightWall = true;
   fields[21].leftWall = true;
@@ -453,7 +453,7 @@ const initializeLevel2 = () => {
 const initializeLevel4 = () => {
   console.log('ovaaa putanja: ', WALLS[2].wall);
   const level: ILevel = {
-    levelName: 'RED SAND T-REX FOSSIL',
+    levelName: 'T-REX RED SAND FOSSIL',
     ballColor: BALL[1].ballColor,
     ballStartFieldId: 2,
     ballSpeedCoefficient: BALL[1].ballSpeedCoefficient,

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { isMobile } from 'react-device-detect';
 import { IUser } from '../interfaces/IUser';
 import Header from '../components/Header';
 import { useForm } from '../hooks/useForm';
@@ -10,6 +11,7 @@ import {
   getUsernameFromToken,
 } from '../service/authService';
 import { MAX_INPUT_CHAR, isEmail } from '../components/Constants';
+import { Level1Screen, Level2Screen } from '../images';
 import '../css/SignIn.css';
 
 const SIGNIN_URL = 'http://localhost:8000/public/login';
@@ -97,6 +99,18 @@ export default function SignIn(props: IProps) {
         <div></div>
       ) : (
         <div className="signin-container">
+          {isMobile ? (
+            <div></div>
+          ) : (
+            <div className="image-container">
+              <img
+                height="500px"
+                width="260x"
+                src={Level1Screen}
+                alt="level1_screenshot"
+              />
+            </div>
+          )}
           <div
             className="signin-form"
             style={{ minHeight: window.outerHeight }}
@@ -134,6 +148,19 @@ export default function SignIn(props: IProps) {
               </Link>
             </div>
           </div>
+
+          {isMobile ? (
+            <div></div>
+          ) : (
+            <div className="image-container">
+              <img
+                height="500px"
+                width="260x"
+                src={Level2Screen}
+                alt="level2_screenshot"
+              />
+            </div>
+          )}
         </div>
       )}
     </div>

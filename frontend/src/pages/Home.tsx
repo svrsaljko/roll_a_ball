@@ -2,7 +2,7 @@ import React from 'react';
 import Header from '../components/Header';
 import Game from '../components/Game';
 import { isMobile } from 'react-device-detect';
-import ReactMarkdown from 'react-markdown';
+import DesktopDeviceHome from '../components/DesktopDeviceHome';
 
 const playGame = () => {
   if (isMobile) {
@@ -11,11 +11,7 @@ const playGame = () => {
     // console.log('root element: ', rootElement);
     // rootElement.style.backgroundColor = 'black';
     return <Game />;
-  } else return <div>{noPlayGame()}</div>;
-};
-
-const noPlayGame = () => {
-  return <div>HOME</div>;
+  } else return <DesktopDeviceHome />;
 };
 
 export default function Home() {

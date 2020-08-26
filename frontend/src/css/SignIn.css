@@ -1,7 +1,7 @@
 .signin-container {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-around;
 }
 
 .signin-form {
@@ -52,4 +52,8 @@
   min-height: 4rem;
   color: darkred;
   font-weight: bold;
+}
+
+.image-container {
+  margin-top: 7.5rem;
 }

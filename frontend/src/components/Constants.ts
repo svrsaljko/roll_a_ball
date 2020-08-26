@@ -4,9 +4,9 @@ export const NUMBER_OF_ROWS = 10;
 export const NUMBER_OF_COLUMNS = 9;
 //export const BOARD_WIDTH = 360;
 export const BOARD_WIDTH = window.outerWidth;
-export const BOARD_HEIGHT = 0.95 * window.outerHeight;
+export const BOARD_HEIGHT = 0.8545 * window.outerHeight;
 export const GAME_FOOTER_HEIGHT = 0.05 * window.outerHeight;
-
+console.log('HEIGHT:', window.outerHeight);
 // export const BOARD_HEIGHT = 530;
 export const SENSITIVITY = 0.0;
 export const FIELD_WIDTH = BOARD_WIDTH / NUMBER_OF_COLUMNS;

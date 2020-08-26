@@ -24,6 +24,11 @@ import RotatedBrick8 from './brick8.jpg';
 
 import TRexNoConnection from './no-connection-t-rex.png';
 
+import Level1Animation from './level1.gif';
+import Level3Animation from './level3.gif';
+import Level1Screen from './level1.png';
+import Level2Screen from './level2.png';
+
 export const BOARD_BACKGROUNDS = [
   {
     title: 'yellow sand',
@@ -179,4 +184,8 @@ export {
   RotatedBrick7,
   RotatedBrick8,
   TRexNoConnection,
+  Level1Animation,
+  Level3Animation,
+  Level1Screen,
+  Level2Screen,
 };
