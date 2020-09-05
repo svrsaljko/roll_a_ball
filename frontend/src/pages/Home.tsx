@@ -6,10 +6,6 @@ import DesktopDeviceHome from '../components/DesktopDeviceHome';
 
 const playGame = () => {
   if (isMobile) {
-    //promjena boje footera
-    // const rootElement = document.getElementById('root');
-    // console.log('root element: ', rootElement);
-    // rootElement.style.backgroundColor = 'black';
     return <Game />;
   } else return <DesktopDeviceHome />;
 };

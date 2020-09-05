@@ -64,7 +64,10 @@ export const getUsernameFromLocalStorage = () => {
 };
 
 export const signOut = () => {
-  localStorage.clear();
+  localStorage.setItem('token', null);
+  localStorage.setItem('username', null);
+  //vrati za produkciju
+  // localStorage.clear();
 };
 
 // export const getUsername = () => {

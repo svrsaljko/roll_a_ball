@@ -8,7 +8,6 @@ import { IField } from '../interfaces/IField';
 import { ILevel } from '../interfaces/ILevel';
 import Walls from './Walls';
 import { v4 as uuid } from 'uuid';
-
 import Levels from '../hoc/Levels';
 
 interface IProps {

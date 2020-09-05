@@ -29,9 +29,9 @@ const showScoreBoard = (scoreBoard: any) => {
           <div
             key={uuid()}
             style={{
-              backgroundColor: `${i % 2 === 1 ? '#ffe6e6' : 'white'}  `,
-              paddingRight: '70rem',
-              paddingLeft: '70rem',
+              backgroundColor: `${i % 2 === 1 ? '#f2f2f2' : 'white'}  `,
+              paddingRight: '40rem',
+              paddingLeft: '40rem',
               paddingBottom: '0.5rem',
               paddingTop: '0.5rem',
 
@@ -87,7 +87,7 @@ function PlayerRank() {
           }}
         >
           {scoreBoard === undefined || scoreBoard === null ? (
-            <div> SCORE BOARD LOADING</div>
+            <div> SCOREBOARD LOADING ...</div>
           ) : (
             <div> {showScoreBoard(scoreBoard)} </div>
           )}

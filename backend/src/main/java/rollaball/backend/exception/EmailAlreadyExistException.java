@@ -5,9 +5,7 @@ import org.springframework.http.HttpStatus;
 
 
 @ResponseStatus(code = HttpStatus.BAD_REQUEST, reason="Email already exist!")
-public class EmailAlreadyExistException extends RuntimeException {
-
-}
+public class EmailAlreadyExistException extends RuntimeException {}
 
 
 

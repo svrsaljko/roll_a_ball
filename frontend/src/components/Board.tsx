@@ -35,7 +35,6 @@ import {
   URL_GET_USER_HIGHSCORE,
 } from './Constants';
 import { isSignedIn } from '../service/authService';
-import { faDivide } from '@fortawesome/free-solid-svg-icons';
 
 const SPEED_LIMIT = 2.5;
 
@@ -648,6 +647,18 @@ class Board extends Component<IProps> {
       .catch((err) => {});
   };
 
+  isBallMoving() {
+    if (
+      this.props.startGame &&
+      !this.returnGamePauseState() &&
+      this.props.nextLevelMenuState === 'none' &&
+      this.props.gameOverMenuState === 'none' &&
+      this.props.gameEndMenuState === 'none'
+    ) {
+      return true;
+    } else return false;
+  }
+
   componentDidUpdate(prevProps: IPrevProps) {
     // const { currentLevel } = this.props;
 
@@ -721,21 +732,13 @@ class Board extends Component<IProps> {
       });
       accelerometer.start();
       setInterval(() => {
-        if (this.props.startGame) {
-          if (!this.returnGamePauseState()) {
-            if (
-              this.props.nextLevelMenuState === 'none' &&
-              this.props.gameOverMenuState === 'none' &&
-              this.props.gameEndMenuState === 'none'
-            ) {
-              this.moveLeft();
-              this.moveRight();
-              this.moveDown();
-              this.moveUp();
-              this.fieldDetector();
-              this.itemsDetector();
-            }
-          }
+        if (this.isBallMoving()) {
+          this.fieldDetector();
+          this.itemsDetector();
+          this.moveLeft();
+          this.moveRight();
+          this.moveDown();
+          this.moveUp();
         }
       }, 1000 / 60);
     }

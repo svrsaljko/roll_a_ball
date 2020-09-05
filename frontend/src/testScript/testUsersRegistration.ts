@@ -14,7 +14,7 @@ export function registerTestUsers() {
         userName: `user${i}`,
         email: `user${i}@test-user.com`,
         password: 12345678,
-        highscore: i * 1000,
+        highscore: i * 100330,
       },
     })
       .then((res) => {

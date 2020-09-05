@@ -18,7 +18,7 @@ function DesktopDeviceHome() {
       />
       <div>
         <p style={{ fontWeight: 'bold', fontSize: '2rem', color: 'darkred' }}>
-          PLAY ON MOBILE DEVICE WITH ACCELEROMETER!
+          PLAY ON A MOBILE DEVICE WITH THE ACCELEROMETER!
         </p>
         <p
           style={{
@@ -50,10 +50,10 @@ function DesktopDeviceHome() {
             fontWeight: 'bold',
           }}
         >
-          Don't forget to be on time
+          Dont forget to finish on time
         </p>
         <p style={{ fontWeight: 'bold', fontSize: '2rem', color: 'darkred' }}>
-          USE LOGIC TO SOLVE PUZZLE AND BE FIRST ON SCOREBOARD!!
+          USE LOGIC TO SOLVE PUZZLE AND BE FIRST ON THE SCOREBOARD!!
         </p>
       </div>
       <img

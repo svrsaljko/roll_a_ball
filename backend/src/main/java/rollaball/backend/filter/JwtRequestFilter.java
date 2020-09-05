@@ -1,20 +1,16 @@
 package rollaball.backend.filter;
 
 import java.io.IOException;
-
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-
 import rollaball.backend.model.MyUserDetails;
 import rollaball.backend.security.JwtUtil;
 import rollaball.backend.service.MyUserDetailsService;
@@ -22,18 +18,17 @@ import rollaball.backend.service.MyUserDetailsService;
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
-	@Autowired
-	private JwtUtil jwtUtil; 
+    @Autowired
+    private JwtUtil jwtUtil; 
 	
-	@Autowired
-	private MyUserDetailsService userDetailsService;
+    @Autowired
+    private MyUserDetailsService userDetailsService;
 	
-	@Override
-	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+	throws ServletException, IOException {
+		
 		final String authorizationHeader = request.getHeader("Authorization");
-		System.out.println("authorization header: " + authorizationHeader);													 
 		String username=null;
 		String jwt= null;
 		
@@ -42,24 +37,20 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 			username = jwtUtil.extractUsername(jwt);
 		}
 	
-		//
+		if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+		    MyUserDetails userDetails = (MyUserDetails) this.userDetailsService.loadUserByUsername(username);
 
-        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-
-            MyUserDetails userDetails = (MyUserDetails) this.userDetailsService.loadUserByUsername(username);
-
-            if (jwtUtil.validateToken(jwt, userDetails)) {
-
-                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
-                        userDetails, null, userDetails.getAuthorities());
-                usernamePasswordAuthenticationToken
-                        .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+		if (jwtUtil.validateToken(jwt, userDetails)) {
+		    UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
+                    userDetails, null, userDetails.getAuthorities());
+		    usernamePasswordAuthenticationToken
+                    .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+		    SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             }
         }
-        filterChain.doFilter(request, response);
-      //
-	}
+		filterChain.doFilter(request, response);
+      
+		}
 		
 		
 }

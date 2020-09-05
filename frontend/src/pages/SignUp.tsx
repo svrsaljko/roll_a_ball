@@ -7,7 +7,7 @@ import Header from '../components/Header';
 import { useForm } from '../hooks/useForm';
 import { isSignedIn } from '../service/authService';
 import '../css/SignIn.css';
-// import { registerTestUsers } from '../testScript/testUsersRegistration';
+import { registerTestUsers } from '../testScript/testUsersRegistration';
 import { MAX_INPUT_CHAR, isEmail } from '../components/Constants';
 import { Level1Screen, Level2Screen } from '../images';
 
@@ -131,6 +131,15 @@ export default function SignUp(props: IProps) {
               }}
             >
               SIGN UP
+            </button>
+            <button
+              className="signin-button"
+              style={{ marginTop: '3rem' }}
+              onClick={() => {
+                registerTestUsers();
+              }}
+            >
+              ADD TEST USERS
             </button>
             <div className="signup-link-container">
               Already have an account!?&nbsp;
