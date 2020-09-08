@@ -14,9 +14,11 @@ this.addEventListener('install', (event) => {
         '/signup',
         '/playerrank',
         '/',
-        '/logo192.png',
-        '/favicon.ico',
         '/manifest.json',
+        '/favicon.ico',
+        '/logo144.png',
+        '/logo192.png',
+        '/logo512.png',
         '/main.c8f10c257337a58bd900.hot-update.js',
         '/static/media/brick6.32f94ee9.jpg',
         '/static/media/brick4.be428367.jpg',
@@ -25,6 +27,8 @@ this.addEventListener('install', (event) => {
         '/static/media/background1.dfcff9fc.png',
         '/static/media/background7.a5002b81.jpg',
         '/static/media/background4.a901a15b.png',
+        '/static/media/level1.59165818.gif',
+        '/static/media/level3.705036d1.gif',
       ]);
     })
   );

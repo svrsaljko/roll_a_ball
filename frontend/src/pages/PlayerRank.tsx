@@ -65,7 +65,7 @@ const showScoreBoard = (scoreBoard: any) => {
 function PlayerRank() {
   const [scoreBoard, setScoreBoard] = useState(null);
   useEffect(() => {
-    console.log('score board', getScoreBoard(setScoreBoard));
+    getScoreBoard(setScoreBoard);
   }, []);
   console.log('score board: ', scoreBoard);
   return (
